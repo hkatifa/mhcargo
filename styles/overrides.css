@@ -1,0 +1,279 @@
+/* ============================================================
+   MH Cargo Brand Overrides
+   - Primary color: #F04A23 (orange)
+   - Dark background: #212C42 (navy)
+   ============================================================ */
+
+/* CSS variable overrides - Webflow uses these for theming */
+:root {
+  --color--primary-1: #F04A23;
+  --color--black: #212C42;
+}
+
+/* Primary buttons → orange */
+.button-primary,
+.button-primary-lg {
+  background-color: #F04A23 !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.button-primary:hover,
+.button-primary-lg:hover {
+  background-color: #c93c1c !important;
+}
+
+.button-primary-hover {
+  background-color: #c93c1c !important;
+}
+
+/* Dark section backgrounds → #212C42 */
+.request-form-section,
+.footer,
+.navbar.w--scrolled,
+.hero-dark-bg-decoration {
+  background-color: #212C42 !important;
+}
+
+/* Accent text color (counters "+", etc.) */
+.text-primary-1 {
+  color: #F04A23 !important;
+}
+
+/* Service section accent / underline decoration */
+.service-title-accent,
+.nav-link-underline {
+  background-color: #F04A23 !important;
+}
+
+/* Step numbers — plain large numbers, no background box */
+.step-number {
+  background-color: transparent !important;
+  color: #F04A23 !important;
+  font-size: 36px !important;
+  font-weight: 800 !important;
+  border: none !important;
+  padding: 0 !important;
+  width: auto !important;
+  height: auto !important;
+  min-width: unset !important;
+  line-height: 1 !important;
+  border-radius: 0 !important;
+  display: block !important;
+}
+
+/* Hide the rounded circle decoration next to step numbers */
+.step-number-rounded {
+  display: none !important;
+}
+
+/* Step number wrap — remove box styling */
+.step-number-wrap {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Footer button inherits primary */
+.footer .button-primary-lg {
+  background-color: #F04A23 !important;
+}
+
+/* Feature dot accent */
+.feature-dot {
+  background-color: #F04A23 !important;
+}
+
+/* Blog hover overlay — subtle grey tint */
+.blog-hover-overlay {
+  background-color: rgba(80, 80, 80, 0.12) !important;
+  opacity: 0 !important;
+  transition: opacity 0.3s ease, width 0.3s ease;
+}
+.blog-item:hover .blog-hover-overlay {
+  opacity: 1 !important;
+  width: 100% !important;
+}
+
+/* About section accent line */
+.about-title .text-primary-1,
+.about-hero-title .text-primary-1 {
+  color: #F04A23 !important;
+}
+
+/* Counter title accent */
+.counter-title .text-primary-1,
+.about-hero-counter-title .text-primary-1 {
+  color: #F04A23 !important;
+}
+
+/* Mission icon bg / our-value icon treatment */
+.mission-icon,
+.our-value-icon {
+  filter: none;
+}
+
+/* ============================================================
+   Hero section — animate elements in on page load.
+   CSS animations override Webflow's JS-set inline opacity:0.
+   animation-fill-mode:both keeps elements hidden during delay
+   (backwards) and visible after animation ends (forwards).
+   The truck (.decoration-one) is excluded so Webflow's scroll
+   animation handles it as originally configured.
+   ============================================================ */
+@keyframes mh-hero-fadein {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes mh-slide-in-right {
+  from { opacity: 0; transform: translateX(80px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes mh-slide-in-left {
+  from { opacity: 0; transform: translateX(-80px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes mh-drop-bounce {
+  0%   { opacity: 0; transform: translateY(-160px); }
+  55%  { opacity: 1; transform: translateY(18px); }
+  70%  { transform: translateY(-10px); }
+  83%  { transform: translateY(7px); }
+  92%  { transform: translateY(-4px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-section [data-w-id] {
+  animation-name: mh-hero-fadein;
+  animation-duration: 0.65s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+}
+
+/* Staggered delays per element */
+.hero-section [data-w-id="0b060154-62d9-422b-c874-69e1a7c20992"] { animation-delay: 0.05s; } /* hero-title */
+.hero-section [data-w-id="f831e8ad-c258-e23c-9412-7462f8016117"] { animation-delay: 0.15s; } /* hero-description */
+.hero-section [data-w-id="0da84b6e-f7f1-04ec-05f3-3225c0ec46d1"] { animation-delay: 0.25s; } /* contact button */
+.hero-section [data-w-id="e512f508-8677-bb15-8e3d-304159882078"] { animation-delay: 0.35s; } /* decoration-wrap */
+.hero-section [data-w-id="6b6a8acc-4e5f-a89d-04cf-96e059e2abef"] { animation-delay: 0.45s; } /* client-wrap */
+.hero-section [data-w-id="ebe1e6df-23c8-23c0-a806-c7342dce3d72"] { animation-delay: 0.10s; } /* feature-title */
+.hero-section [data-w-id="39a5f6f6-fc06-a8f2-ec05-2096bce91a76"] { animation-delay: 0.20s; } /* feature-list 1 */
+.hero-section [data-w-id="60f8cd3f-35b7-0e37-e3c3-5b6823910215"] { animation-delay: 0.30s; } /* feature-list 2 */
+.hero-section [data-w-id="81b2524b-8651-0c5f-e560-cf0ee6273a03"] { animation-delay: 0.40s; } /* feature-button-wrap */
+.hero-section [data-w-id="b87e0046-6539-fad6-1247-55c1b9ee01a9"] { animation-name: mh-slide-in-left; animation-duration: 0.8s; animation-timing-function: ease; animation-delay: 0.05s; } /* hero-image-wrap — slide in from left */
+.hero-section [data-w-id="47cb5fd3-f2ce-edc7-f633-f5440b7bb52c"] { animation-delay: 0.15s; } /* counter-title */
+.hero-section [data-w-id="4f50568c-3c8c-5c62-ab55-6aca66cf7010"] { animation-delay: 0.20s; } /* counter 1 */
+.hero-section [data-w-id="aebf088e-dfdf-c627-be9b-a7bb6573cf32"] { animation-delay: 0.25s; } /* counter 2 */
+.hero-section [data-w-id="ea71da65-b2b4-eb8c-23e8-33f85a4cb0a6"] { animation-delay: 0.30s; } /* counter 3 */
+.hero-section [data-w-id="4c41dc15-cb65-b036-0886-5c3c1b55a74c"] { animation-delay: 0.35s; } /* counter 4 */
+
+/* EXCEPTION: truck stays scroll-triggered — Webflow handles it */
+.decoration-one,
+[data-w-id="651365cf-d875-5df2-c9d7-fcce34ccd2e6"] {
+  animation: none !important;
+}
+
+/* ============================================================
+   Other pages — above-the-fold elements animate on page load.
+   Same keyframe as hero section; truck exception not needed here.
+   ============================================================ */
+.about-hero-section [data-w-id],
+.service-hero-section [data-w-id],
+.service-detail-section [data-w-id],
+.service-info-section [data-w-id],
+.split-service-section [data-w-id],
+.pricing-hero-section [data-w-id],
+.hero-inner [data-w-id],
+.contact-form-section [data-w-id],
+.request-quote-section [data-w-id] {
+  animation-name: mh-hero-fadein;
+  animation-duration: 0.65s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  animation-delay: 0.05s;
+}
+
+/* about-hero-section stagger */
+[data-w-id="a802fa52-5cc4-0f34-c956-62d9e7a6b781"] { animation-delay: 0.05s; }
+[data-w-id="502a0203-b0e3-cc2b-7958-07c3226875a6"] { animation-delay: 0.10s; }
+[data-w-id="fdd0fbec-ea9c-8bcb-665e-93f307a47142"] { animation-delay: 0.15s; }
+[data-w-id="59479764-46e4-396c-43fe-157b20c55667"] { animation-delay: 0.20s; }
+[data-w-id="59479764-46e4-396c-43fe-157b20c5566e"] { animation-delay: 0.25s; }
+[data-w-id="59479764-46e4-396c-43fe-157b20c55675"] { animation-delay: 0.30s; }
+[data-w-id="59479764-46e4-396c-43fe-157b20c5567c"] { animation-delay: 0.35s; }
+[data-w-id="0bcbee58-1b60-a3af-6cbe-e61b06f28e42"] { animation-delay: 0.40s; }
+
+/* service-hero-section stagger */
+[data-w-id="d864f65b-f9ea-ec3f-343b-b73d185b55c3"] { animation-delay: 0.05s; }
+[data-w-id="6e23ddf2-190f-3e66-87a6-05dbfbb15527"] { animation-delay: 0.10s; }
+[data-w-id="ef674c8a-2fc1-d20f-f01b-a4aa025affa6"] { animation-delay: 0.15s; }
+[data-w-id="21618275-47b8-66ce-e38b-630a2de5d185"] { animation-delay: 0.20s; }
+
+/* service-detail-section stagger */
+[data-w-id="f50eba78-75c9-ab47-4869-fd427a409e12"] { animation-delay: 0.05s; }
+[data-w-id="bcad01a5-ab09-5b58-0c42-99cf5fe8db5c"] { animation-delay: 0.10s; }
+[data-w-id="407d0a5f-2cba-e22a-be98-b0e96a15cd33"] { animation-delay: 0.15s; }
+
+/* pricing-hero-section stagger */
+[data-w-id="af00ccb6-883a-45b8-023b-a69e87f6b7b9"] { animation-delay: 0.05s; }
+[data-w-id="edb63942-5bb2-44df-e56d-dc5f4ef32988"] { animation-delay: 0.10s; }
+[data-w-id="1b911e81-6685-a7f8-55f4-f88cdd07cd3e"] { animation-delay: 0.15s; }
+
+/* contact / request-a-quote stagger (.hero-inner) */
+[data-w-id="735e61b1-33b8-f27b-ace3-40189e156e16"] { animation-delay: 0.05s; }
+[data-w-id="fcc49c5e-4037-87b8-4a69-556d5a37531a"] { animation-delay: 0.10s; }
+[data-w-id="9e30f066-9cd3-f283-b232-2c625fe99301"] { animation-delay: 0.05s; }
+[data-w-id="34aaf31f-6b52-906e-21ba-7f55bf1a3b61"] { animation-delay: 0.10s; }
+
+/* Hide the "Made with Webflow" floating badge */
+.w-webflow-badge {
+  display: none !important;
+}
+
+/* Trade Corridors image — hide the slow Webflow wipe overlay, use JS slide-in instead */
+.image-scroll-overlay {
+  display: none !important;
+}
+.about-image {
+  opacity: 0;
+  transform: translateX(-40px);
+}
+
+/* Lower container image position in request form section */
+.decoration-two {
+  top: 60px !important;
+  left: 0px !important;
+}
+
+/* Remove Next.js default globals interference */
+html, body {
+  max-width: unset;
+  overflow-x: unset;
+  background: unset;
+  color: unset;
+  font-family: 'DM Sans', sans-serif;
+}
+
+body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, select, button, textarea {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+* {
+  box-sizing: unset;
+  padding: unset;
+  margin: unset;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}

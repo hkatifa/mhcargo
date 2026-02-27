@@ -1,0 +1,206 @@
+/* ============================================================
+   MH Cargo — Custom Styles
+   Add your own CSS rules here.
+   This file is separate from overrides.css (Webflow brand fixes).
+   ============================================================ */
+
+/* Global: replace all white backgrounds with brand off-white #F3F0EC */
+:root {
+  --color--white: #F3F0EC;
+}
+
+body {
+  background-color: #F3F0EC !important;
+}
+
+/* Keep form inputs pure white for contrast against the off-white background */
+.w-input,
+.w-select,
+.form-input {
+  background-color: #fff !important;
+}
+
+/* Exception: inputs inside dark sections stay transparent/dark */
+.request-form-section .form-input,
+.request-form-section .w-input,
+.request-quote-form .form-input,
+.request-quote-form .w-input {
+  background-color: transparent !important;
+  color: var(--color--white);
+}
+
+.request-form-section .w-select,
+.request-form-section .form-select,
+.request-quote-form .w-select,
+.request-quote-form .form-select {
+  background-color: var(--color--black) !important;
+  color: var(--color--white);
+}
+
+/* Footer logo */
+.footer-logo-link {
+  width: 200px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+/* Footer tagline */
+.footer-text {
+  margin-bottom: 30px;
+  color: #F3F0EC
+}
+
+/* Footer link grid — 25% | 25% | 50% */
+.grid-footer-link {
+  grid-template-columns: 1fr 1fr 2fr !important;
+  grid-column-gap: 80px;
+}
+
+/* Services page — truck hero image: slide in from right on load */
+.service-hero-image {
+  animation-name: mh-slide-in-right;
+  animation-duration: 0.8s;
+  animation-timing-function: ease;
+  animation-fill-mode: both;
+  animation-delay: 0.15s;
+}
+
+
+/* ===== Service section hover — all pages (CSS replaces Webflow IX2) ===== */
+/* Initial state: rows dimmed, image hidden */
+.service-section .grid-service-item {
+  opacity: 0.5;
+  transition: opacity 0.15s ease !important;
+}
+.service-section .grid-service-item .service-image {
+  opacity: 0;
+  transform: translate(0, 0);
+  transition: opacity 0.3s ease, transform 0.4s ease !important;
+}
+/* Hover state: row brightens, image slides in */
+.service-section .grid-service-item:hover {
+  opacity: 1;
+}
+.service-section .grid-service-item:hover .service-image {
+  opacity: 1;
+  transform: translate(50px, 20px);
+}
+
+/* ===== Button primary hover fill (CSS replaces Webflow IX2) ===== */
+.button-primary-hover {
+  transition: width 0.35s ease;
+}
+.button-primary:hover .button-primary-hover,
+.button-primary-lg:hover .button-primary-hover {
+  width: 100% !important;
+}
+
+/* ===== Action box button hover expand (CSS replaces Webflow IX2) ===== */
+.action-box-button-hover {
+  transition: transform 0.35s ease;
+}
+.action-box-button:hover .action-box-button-hover {
+  transform: scale3d(1, 1, 1) !important;
+}
+
+/* Hide Webflow "Made with Webflow" badge */
+.w-webflow-badge {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.feature-left-side {
+    padding-right: 20px;
+}
+
+/* Contact form: remove grey background */
+.contact-form-wrap {
+  background-color: transparent !important;
+}
+
+/* ===== How it works — service process boxes ===== */
+.service-process-item {
+  background-color: #212C42 !important;
+}
+.service-process-wrap {
+  background-color: #fff !important;
+}
+.service-process-wrap > div {
+  color: #212C42 !important;
+}
+.service-process-item h3,
+.service-process-item p {
+  color: #F3F0EC !important;
+}
+
+.light-service-process-item {
+  background-color: #F04A23 !important;
+}
+.light-service-process-wrap {
+  background-color: #fff !important;
+}
+.light-service-process-wrap > div {
+  color: #212C42 !important;
+}
+.light-service-process-item h3,
+.light-service-process-item p {
+  color: #fff !important;
+}
+
+/* Fix submit button box-sizing — prevents padding overflow beyond input width */
+input[type="submit"].w-button {
+  box-sizing: border-box;
+  display: block;
+}
+
+/* ===== Services dropdown — icon card style ===== */
+.dropdown-services-list {
+  background-color: #fff !important;
+  border-radius: 16px !important;
+  padding: 12px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  min-width: 230px !important;
+}
+
+/* Use high specificity to override Webflow's w-dropdown-link block display */
+.dropdown-services-list a.dropdown-service-item,
+.dropdown-services-list a.dropdown-service-item.w-dropdown-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  padding: 8px 10px !important;
+  margin: 0 !important;
+  border-radius: 10px !important;
+  text-decoration: none !important;
+  color: #212C42 !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  line-height: 1.2 !important;
+  transition: background-color 0.15s ease !important;
+}
+
+.dropdown-services-list a.dropdown-service-item:hover {
+  background-color: #F3F0EC !important;
+  color: #212C42 !important;
+}
+
+.dropdown-service-icon-wrap {
+  width: 52px !important;
+  height: 52px !important;
+  min-width: 52px !important;
+  background-color: #F3F0EC !important;
+  border-radius: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+}
+
+.dropdown-service-icon {
+  width: 40px !important;
+  height: 40px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
