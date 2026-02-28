@@ -473,11 +473,11 @@ input[type="submit"].w-button {
   }
 }
 
-/* 3. Hero feature (blue) section — add right margin so it doesn't touch the edge */
+/* 3. Hero feature (blue) section — no extra margin, container padding (10px) is enough */
 @media screen and (max-width: 991px) {
   .feature-left-side {
-    margin-right: 10px !important;
-    margin-left: 10px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
   }
 }
 
@@ -485,5 +485,14 @@ input[type="submit"].w-button {
 @media screen and (max-width: 991px) {
   .input-group.no-margin {
     margin-top: 12px !important;
+  }
+}
+
+/* ===== Mobile: Dropdown border + spacing fixes ===== */
+@media screen and (max-width: 991px) {
+  .dropdown-services-list {
+    border: none !important;
+    padding-top: 16px !important;
+    padding-bottom: 0 !important;
   }
 }
