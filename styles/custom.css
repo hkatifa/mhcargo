@@ -444,3 +444,46 @@ input[type="submit"].w-button {
     margin-bottom: 30px !important;
   }
 }
+
+/* ===== Mobile: Fix 4 remaining issues (batch 2) ===== */
+
+/* 1. Hero title — reduce font size on mobile */
+@media screen and (max-width: 991px) {
+  .hero-title {
+    font-size: 38px !important;
+  }
+}
+
+/* 2. Footer — add horizontal padding, restructure grid-footer-link */
+@media screen and (max-width: 991px) {
+  .footer .w-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Pages + Services side by side, Contact Info on its own row below */
+  .grid-footer-link {
+    grid-template-columns: 1fr 1fr !important;
+    grid-column-gap: 20px !important;
+  }
+
+  .grid-footer-link > div:last-child {
+    grid-column: 1 / -1 !important;
+    margin-top: 16px !important;
+  }
+}
+
+/* 3. Hero feature (blue) section — add right margin so it doesn't touch the edge */
+@media screen and (max-width: 991px) {
+  .feature-left-side {
+    margin-right: 10px !important;
+    margin-left: 10px !important;
+  }
+}
+
+/* 4. Get My Quote submit button — add top spacing */
+@media screen and (max-width: 991px) {
+  .input-group.no-margin {
+    margin-top: 12px !important;
+  }
+}
