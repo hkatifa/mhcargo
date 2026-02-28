@@ -85,9 +85,7 @@ export default function Footer() {
                 </div>
               </div>
             </div>
-            <p className="copyright-content">
-              Copyright &copy; MH CARGO | Designed by Leadyfai
-            </p>
+            
           </div>
           <div id="w-node-fbd7bb69-3220-e6a2-2761-71c20a58d184-0a58d133">
             <div
@@ -108,6 +106,9 @@ export default function Footer() {
             />
           </div>
         </div>
+          <p className="copyright-content">
+            Copyright &copy; MH CARGO | Designed by Leadyfai
+          </p>
       </div>
     </footer>
   )

@@ -62,7 +62,7 @@ export default function Home() {
             </div>
             <div id="w-node-_20c15b7f-0f41-1b39-ea82-72856d949171-c3f0a02c">
               <div data-w-id="b87e0046-6539-fad6-1247-55c1b9ee01a9" className="hero-image-wrap">
-                <img src="/brand/Container.png" loading="lazy" alt="Container Image" className="hero-image" />
+                <img src="/brand/container.png" loading="lazy" alt="Container Image" className="hero-image" />
               </div>
             </div>
           </div>
@@ -251,7 +251,7 @@ export default function Home() {
         <div className="request-white-decoration"></div>
       </section>
 
-      {/*<section className="blog-section section-spacing">
+      <section className="blog-section section-spacing">
         <div className="w-layout-blockcontainer container-full w-container">
           <div data-w-id="c8df2449-9489-3018-4636-130eacea45ad" className="section-title section-title-center">
             <h2>Our latest blog</h2>
@@ -297,9 +297,9 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>*/}
+      </section>
       
-      <section className="action-box-section section-spacing-bottom" style={{paddingTop: "120px"}}>
+      {/*<section className="action-box-section section-spacing-bottom" style={{paddingTop: "120px"}}>
         <div className="w-layout-blockcontainer container w-container">
           <div data-w-id="f04c381c-a085-c13b-3786-f5925b3ce476" style={{opacity: 0}} className="w-layout-grid grid-action-box">
             <div id="w-node-_4f1c7dee-3812-14a9-30fb-67322b2f42b5-dfc71ef1" data-w-id="4f1c7dee-3812-14a9-30fb-67322b2f42b5" style={{opacity: 0}}>
@@ -311,7 +311,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-      </section>
+      </section>*/}
     </Layout>
   )
 }
