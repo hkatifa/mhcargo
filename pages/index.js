@@ -141,7 +141,7 @@ export default function Home() {
             </div>
             <div id="w-node-_507e27fb-a5b0-fd1c-c8bd-2589e7f4736a-c3f0a02c" className="about-content">
               <h2 data-w-id="d8206fca-f836-0a0f-ce18-add80a4edd76" className="about-title">Trade Corridors</h2>
-              <div style={{display:'flex', flexDirection:'column', gap:'40px', marginTop:'60px', marginBottom:'60px'}}>
+              <div className="corridor-list" style={{display:'flex', flexDirection:'column', gap:'40px', marginTop:'60px', marginBottom:'60px'}}>
                 <div data-reveal style={{padding:'22px 28px', background:'#f7f7f7', borderRadius:'8px', opacity:0, transition:'opacity 0.5s ease 0s, transform 0.5s ease 0s'}}>
                   <h3 className="heading-h6" style={{marginBottom:'10px'}}>Europe → Morocco</h3>
                   <p style={{margin:0}}>Mastering the Morocco-Europe corridor. Daily reliable connections leveraging our deep expertise in cross-Mediterranean logistics.</p>

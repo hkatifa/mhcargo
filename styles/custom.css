@@ -387,3 +387,60 @@ input[type="submit"].w-button {
     order: -1;
   }
 }
+
+/* ===== Mobile: Fix 4 remaining issues ===== */
+
+/* 1. Navbar dropdown — padding top, no borders */
+@media screen and (max-width: 991px) {
+  .dropdown-services-list {
+    padding-top: 12px !important;
+  }
+
+  .dropdown-services-list a.dropdown-service-item,
+  .dropdown-services-list a.dropdown-service-item.w-dropdown-link {
+    border-bottom: none !important;
+  }
+}
+
+/* 2. Request form section + About Mission — remove border-radius, add 20px inner padding */
+@media screen and (max-width: 991px) {
+  .request-form-section {
+    border-radius: 0 !important;
+  }
+
+  .request-form-section .w-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  .mh-mission-section {
+    border-radius: 0 !important;
+  }
+
+  .mh-mission-section .w-container {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+}
+
+/* 3. Request-a-quote page — service-scroll-item fixed 450px width causes overflow */
+@media screen and (max-width: 991px) {
+  .service-scroll-item {
+    width: 100% !important;
+    flex: 1 1 auto !important;
+    padding: 30px 20px !important;
+    box-sizing: border-box !important;
+  }
+
+  .service-scroll-section .w-container {
+    overflow: hidden !important;
+  }
+}
+
+/* 4. Trade Corridors — reduce title-to-content gap on mobile */
+@media screen and (max-width: 991px) {
+  .corridor-list {
+    margin-top: 24px !important;
+    margin-bottom: 30px !important;
+  }
+}
