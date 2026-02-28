@@ -154,11 +154,26 @@ input[type="submit"].w-button {
   display: block;
 }
 
+/* ===== Hero container image — drop from top with bounce ===== */
+@keyframes mh-drop-bounce {
+  0%   { opacity: 0; transform: translateY(-80px); }
+  60%  { opacity: 1; transform: translateY(12px); }
+  78%  { transform: translateY(-6px); }
+  90%  { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+
+.hero-image {
+  animation: mh-drop-bounce 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.15s;
+}
+
 /* ===== Services dropdown — icon card style ===== */
 .dropdown-services-list {
   background-color: #fff !important;
   border-radius: 16px !important;
   padding: 12px !important;
+  margin-top: 8px !important;
   box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
   min-width: 230px !important;
 }

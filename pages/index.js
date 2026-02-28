@@ -61,8 +61,8 @@ export default function Home() {
               </div>
             </div>
             <div id="w-node-_20c15b7f-0f41-1b39-ea82-72856d949171-c3f0a02c">
-              <div data-w-id="b87e0046-6539-fad6-1247-55c1b9ee01a9" className="hero-image-wrap">
-                <img src="/brand/container.png" loading="lazy" alt="Container Image" className="hero-image" />
+              <div className="hero-image-wrap">
+                <img src="/brand/container.png" loading="eager" alt="Container Image" className="hero-image" />
               </div>
             </div>
           </div>
