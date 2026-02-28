@@ -250,7 +250,7 @@ input[type="submit"].w-button {
   .feature-left-side {
     background-color: #212C42;
     padding: 30px 20px;
-    border-radius: 12px;
+    border-radius: 0;
     position: relative;
     z-index: 1;
   }
@@ -271,4 +271,119 @@ input[type="submit"].w-button {
     background-color: rgba(255,255,255,0.15) !important;
   }
 }
+
+/* ===== Mobile: Navbar dropdown — flat text links, no icon boxes ===== */
+@media screen and (max-width: 991px) {
+  .dropdown-services-list {
+    background-color: transparent !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 4px 0 4px 16px !important;
+    margin-top: 0 !important;
+    min-width: unset !important;
+    width: 100% !important;
+  }
+
+  .dropdown-service-icon-wrap {
+    display: none !important;
+  }
+
+  .dropdown-services-list a.dropdown-service-item,
+  .dropdown-services-list a.dropdown-service-item.w-dropdown-link {
+    border-radius: 0 !important;
+    padding: 10px 0 !important;
+    color: inherit !important;
+    font-size: 15px !important;
+    font-weight: 400 !important;
+    border-bottom: 1px solid rgba(0,0,0,0.07) !important;
+    background-color: transparent !important;
+  }
+
+  .dropdown-services-list a.dropdown-service-item:last-child {
+    border-bottom: none !important;
+  }
+}
+
+/* ===== Mobile: Services — show hover state (image + full opacity) as default ===== */
+@media screen and (max-width: 991px) {
+  .service-section .grid-service-item {
+    opacity: 1 !important;
+  }
+  .service-section .grid-service-item .service-image {
+    opacity: 1 !important;
+    transform: translate(50px, 20px) !important;
+  }
+}
+
+/* ===== Mobile: Box "How it works" + "Request a quote" dark section ===== */
+@media screen and (max-width: 991px) {
+  .request-form-section {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide the decoration image that causes layout issues on mobile */
+  .request-form-section .decoration-two {
+    display: none !important;
+  }
+
+  /* Remove the white decoration that causes the blue/white gap */
+  .request-white-decoration {
+    display: none !important;
+  }
+}
+
+/* ===== Mobile: Footer — more top spacing ===== */
+@media screen and (max-width: 991px) {
+  .footer {
+    padding-top: 50px !important;
+  }
+}
+
+/* ===== Mobile: Fix form inputs + contact form right edge ===== */
+@media screen and (max-width: 991px) {
+  .w-form,
+  .contact-form-wrap,
+  .request-form-wrap {
+    max-width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  .form-input,
+  .contact-input,
+  .w-input,
+  .w-select,
+  .form-select {
+    box-sizing: border-box !important;
+    max-width: 100% !important;
+  }
+
+  .input-group-wrap {
+    flex-direction: column !important;
+  }
+
+  .contact-form-section .grid-contact-form {
+    padding-right: 0 !important;
+  }
+}
+
+/* ===== Mobile: About Mission section — stack image above text, box section ===== */
+@media screen and (max-width: 991px) {
+  .mh-mission-section {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
+
+  .mh-mission-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .mh-mission-grid > div:first-child {
+    order: -1;
+  }
 }

@@ -94,9 +94,9 @@ Global Marketplace.</h1>
         </div>
       </section>
       
-      <section className="section-spacing" style={{backgroundColor:'#212C42'}}>
+      <section className="section-spacing mh-mission-section" style={{backgroundColor:'#212C42'}}>
         <div className="w-layout-blockcontainer container-full w-container">
-          <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'80px', alignItems:'center'}}>
+          <div className="mh-mission-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'80px', alignItems:'center'}}>
             <div data-reveal style={{opacity:0, borderRadius:'12px', overflow:'hidden'}}>
               <img
                 src="/brand/about-mission.png"
