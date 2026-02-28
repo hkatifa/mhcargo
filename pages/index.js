@@ -1,6 +1,23 @@
 import Layout from '@/components/Layout'
+import { client, urlFor } from '@/lib/sanity'
 
-export default function Home() {
+const LATEST_POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) [0..2] {
+  title,
+  "slug": slug.current,
+  publishedAt,
+  mainImage
+}`
+
+function formatDate(dateString) {
+  if (!dateString) return ''
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  })
+}
+
+export default function Home({ latestPosts }) {
   return (
     <Layout
       title="Home | MH Cargo - Logistics &amp; Transportation"
@@ -257,44 +274,43 @@ export default function Home() {
             <h2>Our latest blog</h2>
           </div>
           <div data-w-id="965759bf-3184-cebf-1152-958c0f0dedae" className="w-dyn-list">
-            <div role="list" className="grid-blog-list w-dyn-items">
-              <div role="listitem" className="w-dyn-item">
-                <a aria-label="link" data-w-id="766a3a2c-3b2c-dd63-5a82-fce6724cc60d" href="/blog/the-evolution-of-logistics-in-a-connected-world" className="blog-item w-inline-block">
-                  <div className="blog-image-wrap">
-                    <img alt="Blog Image" loading="eager" src="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e976251435afe4b1d6922_blog-01.jpg" sizes="(max-width: 767px) 100vw, (max-width: 991px) 727px, 939px" srcSet="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e976251435afe4b1d6922_blog-01-p-500.jpg 500w, https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e976251435afe4b1d6922_blog-01.jpg 550w" className="blog-image" />
-                    <div style={{opacity:0,width:'0%',height:'100%'}} className="blog-hover-overlay"></div>
+            {latestPosts.length > 0 ? (
+              <div role="list" className="grid-blog-list w-dyn-items">
+                {latestPosts.map((post) => (
+                  <div key={post.slug} role="listitem" className="w-dyn-item">
+                    <a
+                      aria-label="link"
+                      data-w-id="766a3a2c-3b2c-dd63-5a82-fce6724cc60d"
+                      href={`/blog/${post.slug}`}
+                      className="blog-item w-inline-block"
+                    >
+                      <div className="blog-image-wrap">
+                        {post.mainImage ? (
+                          <img
+                            alt={post.title}
+                            loading="eager"
+                            src={urlFor(post.mainImage).width(550).height(370).url()}
+                            className="blog-image"
+                          />
+                        ) : (
+                          <img
+                            alt={post.title}
+                            loading="eager"
+                            src="https://placehold.co/550x370"
+                            className="blog-image"
+                          />
+                        )}
+                        <div style={{opacity:0,width:'0%',height:'100%'}} className="blog-hover-overlay"></div>
+                      </div>
+                      <div>
+                        <div className="blog-date">{formatDate(post.publishedAt)}</div>
+                        <h3 className="blog-title">{post.title}</h3>
+                      </div>
+                    </a>
                   </div>
-                  <div>
-                    <div className="blog-date">February 17, 2026</div>
-                    <h3 className="blog-title">The evolution of logistics in a connected world</h3>
-                  </div>
-                </a>
+                ))}
               </div>
-              <div role="listitem" className="w-dyn-item">
-                <a aria-label="link" data-w-id="766a3a2c-3b2c-dd63-5a82-fce6724cc60d" href="/blog/paving-the-way-for-eco-friendly-supply-chains" className="blog-item w-inline-block">
-                  <div className="blog-image-wrap">
-                    <img alt="Blog Image" loading="eager" src="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e986dc4c1c4b70cc664eb_blog-02.jpg" sizes="(max-width: 767px) 100vw, (max-width: 991px) 727px, 939px" srcSet="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e986dc4c1c4b70cc664eb_blog-02-p-500.jpg 500w, https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e986dc4c1c4b70cc664eb_blog-02.jpg 550w" className="blog-image" />
-                    <div style={{opacity:0,width:'0%',height:'100%'}} className="blog-hover-overlay"></div>
-                  </div>
-                  <div>
-                    <div className="blog-date">February 17, 2026</div>
-                    <h3 className="blog-title">Paving the Way for Eco-Friendly Supply Chains</h3>
-                  </div>
-                </a>
-              </div>
-              <div role="listitem" className="w-dyn-item">
-                <a aria-label="link" data-w-id="766a3a2c-3b2c-dd63-5a82-fce6724cc60d" href="/blog/innovations-shaping-the-future-of-delivery" className="blog-item w-inline-block">
-                  <div className="blog-image-wrap">
-                    <img alt="Blog Image" loading="eager" src="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e98a6ebf04cbc8c99de70_blog-03.jpg" sizes="(max-width: 767px) 100vw, (max-width: 991px) 727px, 939px" srcSet="https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e98a6ebf04cbc8c99de70_blog-03-p-500.jpg 500w, https://cdn.prod.website-files.com/658e8cefbddb427e128abc75/658e98a6ebf04cbc8c99de70_blog-03.jpg 550w" className="blog-image" />
-                    <div style={{opacity:0,width:'0%',height:'100%'}} className="blog-hover-overlay"></div>
-                  </div>
-                  <div>
-                    <div className="blog-date">February 17, 2026</div>
-                    <h3 className="blog-title">Innovations shaping the future of delivery</h3>
-                  </div>
-                </a>
-              </div>
-            </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -314,4 +330,12 @@ export default function Home() {
       </section>*/}
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  const latestPosts = await client.fetch(LATEST_POSTS_QUERY)
+  return {
+    props: { latestPosts },
+    revalidate: 60,
+  }
 }
