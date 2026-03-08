@@ -23,49 +23,45 @@ export default function Home({ latestPosts }) {
     // The index pageId causes Webflow IX2 to hide service images and animate
     // them on hover — but inconsistently across all 4 items (item 4 misses it).
     // Run after IX2 has initialized, then take over all 4 items uniformly.
-    const tid = setTimeout(() => {
-      const items = document.querySelectorAll('.service-list .grid-service-item')
-      if (!items.length) return
+    const items = document.querySelectorAll('.service-list .grid-service-item')
+    if (!items.length) return
 
-      const cleanups = []
-      items.forEach((item) => {
-        const img = item.querySelector('.service-image')
-        if (!img) return
+    const cleanups = []
+    items.forEach((item) => {
+      const img = item.querySelector('.service-image')
+      if (!img) return
 
-        // Reset to consistent initial state (override whatever IX2 set)
+      // Reset to consistent initial state (override whatever IX2 set)
+      item.style.opacity = '0.5'
+      item.style.transition = ''
+      img.style.opacity = '0'
+      img.style.transform = 'translate(0px, 0px)'
+      img.style.transition = ''
+
+      const onEnter = () => {
+        item.style.transition = 'opacity 0.3s ease'
+        img.style.transition = 'opacity 0.5s ease, transform 0.6s ease'
+        item.style.opacity = '1'
+        img.style.opacity = '1'
+        img.style.transform = 'translate(50px, 20px)'
+      }
+      const onLeave = () => {
+        item.style.transition = 'opacity 0.5s ease'
+        img.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
         item.style.opacity = '0.5'
-        item.style.transition = ''
         img.style.opacity = '0'
         img.style.transform = 'translate(0px, 0px)'
-        img.style.transition = ''
+      }
 
-        const onEnter = () => {
-          item.style.transition = 'opacity 0.3s ease'
-          img.style.transition = 'opacity 0.5s ease, transform 0.6s ease'
-          item.style.opacity = '1'
-          img.style.opacity = '1'
-          img.style.transform = 'translate(50px, 20px)'
-        }
-        const onLeave = () => {
-          item.style.transition = 'opacity 0.5s ease'
-          img.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
-          item.style.opacity = '0.5'
-          img.style.opacity = '0'
-          img.style.transform = 'translate(0px, 0px)'
-        }
-
-        item.addEventListener('mouseenter', onEnter)
-        item.addEventListener('mouseleave', onLeave)
-        cleanups.push(() => {
-          item.removeEventListener('mouseenter', onEnter)
-          item.removeEventListener('mouseleave', onLeave)
-        })
+      item.addEventListener('mouseenter', onEnter)
+      item.addEventListener('mouseleave', onLeave)
+      cleanups.push(() => {
+        item.removeEventListener('mouseenter', onEnter)
+        item.removeEventListener('mouseleave', onLeave)
       })
+    })
 
-      return () => cleanups.forEach((fn) => fn())
-    }, 400)
-
-    return () => clearTimeout(tid)
+    return () => cleanups.forEach((fn) => fn())
   }, [])
 
   return (
@@ -168,7 +164,7 @@ export default function Home({ latestPosts }) {
             <h2>Shipping and Logistic services</h2>
           </div>
           <div data-w-id="1850ee1d-112c-9c94-95db-178150dee8a9" className="service-list">
-            <a data-w-id="52b43a66-918b-d8e9-9ed9-f4dfa30f6b79" href="/services/air-freight" className="grid-service-item w-inline-block">
+            <a href="/services/air-freight" className="grid-service-item w-inline-block">
               <div id="w-node-f6f9e720-20c7-32d8-2136-0ec48c8c26b4-c3f0a02c"><h3 className="service-number">01</h3><p>Express air solutions when speed is non-negotiable: priority-skip package available for urgent imports and critical export deadlines worldwide.</p></div>
               <div id="w-node-_998cc494-49d7-9dca-543c-8f867cf83729-c3f0a02c" className="text-center"><h3 className="service-title">Time-Critical Air Cargo.</h3></div>
               <div id="w-node-f9b5dbff-44fc-0ded-4673-01903ac337ac-c3f0a02c" className="service-image-wrap">
@@ -177,7 +173,7 @@ export default function Home({ latestPosts }) {
               <div id="w-node-b331480c-3e5f-fd69-13b0-77edd42e4260-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-c1d6a8ab-cf27-c697-1005-e02b7c1b102d-c3f0a02c" className="service-divider"></div>
             </a>
-            <a data-w-id="c0d2b5a8-ea50-aa8f-fe89-a1a8acd819d2" href="/services/road-freight" className="grid-service-item w-inline-block">
+            <a href="/services/road-freight" className="grid-service-item w-inline-block">
               <div id="w-node-c0d2b5a8-ea50-aa8f-fe89-a1a8acd819d3-c3f0a02c"><h3 className="service-number">02</h3><p>Daily departures connecting Morocco and Europe. Port clearance, last-mile delivery to multiple EU and outsourced products.</p></div>
               <div id="w-node-c0d2b5a8-ea50-aa8f-fe89-a1a8acd819d8-c3f0a02c" className="text-center"><h3 className="service-title">International Road Transport.</h3></div>
               <div id="w-node-c0d2b5a8-ea50-aa8f-fe89-a1a8acd819db-c3f0a02c" className="service-image-wrap">
@@ -186,7 +182,7 @@ export default function Home({ latestPosts }) {
               <div id="w-node-c0d2b5a8-ea50-aa8f-fe89-a1a8acd819dd-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-c0d2b5a8-ea50-aa8f-fe89-a1a8acd819df-c3f0a02c" className="service-divider"></div>
             </a>
-            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/sea-freight" className="grid-service-item w-inline-block">
+            <a href="/services/sea-freight" className="grid-service-item w-inline-block">
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">03</h3><p>Cost effective shipping to Casablanca and Tangier Med. Comprehensive FCL and LCL management for high-volume trade.</p></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Global Ocean Solutions.</h3></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
@@ -195,7 +191,7 @@ export default function Home({ latestPosts }) {
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
             </a>
-            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/storage" className="grid-service-item w-inline-block">
+            <a href="/services/storage" className="grid-service-item w-inline-block">
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">04</h3><p>Secure, flexible warehousing solutions in strategic Moroccan locations. Short-term and long-term storage fully integrated with our freight services.</p></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Secure Storage & Warehousing.</h3></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
