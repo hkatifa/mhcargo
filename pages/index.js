@@ -20,39 +20,52 @@ function formatDate(dateString) {
 
 export default function Home({ latestPosts }) {
   useEffect(() => {
-    // IX2 misses the 4th service item (duplicate data-w-id with item 3).
-    // Replicate the same Service Hover [In/Out] animation manually.
-    const items = document.querySelectorAll('.service-list .grid-service-item')
-    const item = items[items.length - 1]
-    if (!item) return
-    const img = item.querySelector('.service-image')
-    if (!img) return
+    // The index pageId causes Webflow IX2 to hide service images and animate
+    // them on hover — but inconsistently across all 4 items (item 4 misses it).
+    // Run after IX2 has initialized, then take over all 4 items uniformly.
+    const tid = setTimeout(() => {
+      const items = document.querySelectorAll('.service-list .grid-service-item')
+      if (!items.length) return
 
-    // Apply IX2 initial state (same as items 1-3)
-    img.style.opacity = '0'
-    img.style.transform = 'translate(0px, 0px)'
+      const cleanups = []
+      items.forEach((item) => {
+        const img = item.querySelector('.service-image')
+        if (!img) return
 
-    const onEnter = () => {
-      item.style.transition = 'opacity 0.3s ease'
-      img.style.transition = 'opacity 0.5s ease, transform 0.6s ease'
-      item.style.opacity = '1'
-      img.style.opacity = '1'
-      img.style.transform = 'translate(50px, 20px)'
-    }
-    const onLeave = () => {
-      item.style.transition = 'opacity 0.5s ease'
-      img.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
-      item.style.opacity = '0.5'
-      img.style.opacity = '0'
-      img.style.transform = 'translate(0px, 0px)'
-    }
+        // Reset to consistent initial state (override whatever IX2 set)
+        item.style.opacity = '0.5'
+        item.style.transition = ''
+        img.style.opacity = '0'
+        img.style.transform = 'translate(0px, 0px)'
+        img.style.transition = ''
 
-    item.addEventListener('mouseenter', onEnter)
-    item.addEventListener('mouseleave', onLeave)
-    return () => {
-      item.removeEventListener('mouseenter', onEnter)
-      item.removeEventListener('mouseleave', onLeave)
-    }
+        const onEnter = () => {
+          item.style.transition = 'opacity 0.3s ease'
+          img.style.transition = 'opacity 0.5s ease, transform 0.6s ease'
+          item.style.opacity = '1'
+          img.style.opacity = '1'
+          img.style.transform = 'translate(50px, 20px)'
+        }
+        const onLeave = () => {
+          item.style.transition = 'opacity 0.5s ease'
+          img.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
+          item.style.opacity = '0.5'
+          img.style.opacity = '0'
+          img.style.transform = 'translate(0px, 0px)'
+        }
+
+        item.addEventListener('mouseenter', onEnter)
+        item.addEventListener('mouseleave', onLeave)
+        cleanups.push(() => {
+          item.removeEventListener('mouseenter', onEnter)
+          item.removeEventListener('mouseleave', onLeave)
+        })
+      })
+
+      return () => cleanups.forEach((fn) => fn())
+    }, 400)
+
+    return () => clearTimeout(tid)
   }, [])
 
   return (
