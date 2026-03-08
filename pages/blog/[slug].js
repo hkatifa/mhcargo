@@ -131,24 +131,12 @@ export default function BlogPost({ post, recentPosts }) {
     >
       <section className="blog-detail-section">
         <div className="w-layout-blockcontainer container-medium w-container">
-          <div
-            data-w-id="76534caa-0da2-f589-9b40-52b0d0626739"
-            style={{ opacity: 0 }}
-            className="blog-detail-item"
-          >
+          <div className="blog-detail-item">
             <div className="blog-detail-title-wrap">
-              <div
-                data-w-id="771e6e1a-58c1-e2a8-a31a-dfd453fb4221"
-                style={{ opacity: 0 }}
-                className="text-primary-1"
-              >
+              <div className="text-primary-1">
                 {formatDate(post.publishedAt)}
               </div>
-              <h1
-                data-w-id="4fee3df2-33b6-d994-63c5-d48aae595bfc"
-                style={{ opacity: 0 }}
-                className="heading-h3"
-              >
+              <h1 className="heading-h3">
                 {post.title}
               </h1>
             </div>
@@ -157,29 +145,19 @@ export default function BlogPost({ post, recentPosts }) {
               <img
                 alt={post.title}
                 loading="eager"
-                style={{ opacity: 0 }}
-                data-w-id="aea1a612-cdcd-cba1-e3e2-1e3874c18bb6"
                 src={urlFor(post.mainImage).width(1200).height(675).url()}
                 className="blog-detail-image"
               />
             )}
 
             {post.excerpt && (
-              <p
-                data-w-id="5927e8bd-de3b-e544-9dea-31b14867b7a7"
-                style={{ opacity: 0 }}
-                className="blog-detail-description"
-              >
+              <p className="blog-detail-description">
                 {post.excerpt}
               </p>
             )}
 
             {post.body && (
-              <div
-                data-w-id="21418464-fbf7-ed92-f710-44c0c04b29b9"
-                style={{ opacity: 0 }}
-                className="rich-text w-richtext"
-              >
+              <div className="rich-text w-richtext">
                 <PortableText value={post.body} components={portableTextComponents} />
               </div>
             )}
@@ -190,17 +168,9 @@ export default function BlogPost({ post, recentPosts }) {
       {recentPosts && recentPosts.length > 0 && (
         <section className="section-spacing">
           <div className="w-layout-blockcontainer container-full w-container">
-            <div
-              data-w-id="9108e2ba-e28a-d5d6-6322-dd814b95a4a2"
-              style={{ opacity: 0 }}
-              className="recent-blog-title"
-            >
+            <div className="recent-blog-title">
               <h2 className="no-margin">Recent Blog</h2>
-              <a
-                data-w-id="76b9d60b-908b-e4cb-3d08-90280817f780"
-                href="/blog"
-                className="button-primary w-inline-block"
-              >
+              <a href="/blog" className="button-primary w-inline-block">
                 <div className="button-primary-text">View all blog</div>
                 <div style={{ width: '0%', height: '100%' }} className="button-primary-hover"></div>
               </a>
@@ -210,15 +180,10 @@ export default function BlogPost({ post, recentPosts }) {
                 {recentPosts.map((recent) => (
                   <div key={recent.slug} role="listitem" className="w-dyn-item">
                     <a
-                      data-w-id="a893e7f5-83dd-e395-dc46-2f47873b6734"
                       href={`/blog/${recent.slug}`}
                       className="blog-item w-inline-block"
                     >
-                      <div
-                        data-w-id="a893e7f5-83dd-e395-dc46-2f47873b6735"
-                        style={{ opacity: 0 }}
-                        className="blog-image-wrap"
-                      >
+                      <div className="blog-image-wrap">
                         {recent.mainImage ? (
                           <img
                             alt={recent.title}
@@ -239,10 +204,7 @@ export default function BlogPost({ post, recentPosts }) {
                           className="blog-hover-overlay"
                         ></div>
                       </div>
-                      <div
-                        data-w-id="a893e7f5-83dd-e395-dc46-2f47873b6738"
-                        style={{ opacity: 0 }}
-                      >
+                      <div>
                         <div className="blog-date">{formatDate(recent.publishedAt)}</div>
                         <h2 className="blog-title">{recent.title}</h2>
                       </div>
