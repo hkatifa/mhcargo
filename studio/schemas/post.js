@@ -74,6 +74,47 @@ export default {
         },
         {
           type: 'object',
+          name: 'ctaBox',
+          title: 'CTA Box',
+          fields: [
+            {
+              name: 'heading',
+              type: 'string',
+              title: 'Heading',
+            },
+            {
+              name: 'description',
+              type: 'text',
+              title: 'Description',
+              rows: 2,
+            },
+            {
+              name: 'buttonLabel',
+              type: 'string',
+              title: 'Button Label',
+            },
+            {
+              name: 'buttonUrl',
+              type: 'url',
+              title: 'Button URL',
+              description: 'e.g. https://mhcargo.com/contact or /contact',
+            },
+          ],
+          preview: {
+            select: {
+              heading: 'heading',
+              buttonLabel: 'buttonLabel',
+            },
+            prepare({ heading, buttonLabel }) {
+              return {
+                title: `CTA: ${heading || 'Untitled'}`,
+                subtitle: buttonLabel || 'No button label',
+              };
+            },
+          },
+        },
+        {
+          type: 'object',
           name: 'youtube',
           title: 'YouTube Video',
           fields: [

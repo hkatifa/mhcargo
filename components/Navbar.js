@@ -67,6 +67,12 @@ export default function Navbar({ currentPage }) {
                   </div>
                   <span>Road Transport</span>
                 </a>
+                <a href="/services/road-freight" aria-current={ariaCurrent('/services/road-freight')} className={`dropdown-service-item w-dropdown-link ${isCurrentPage('/services/road-freight')}`}>
+                  <div className="dropdown-service-icon-wrap">
+                    <img src="/brand/service-04.png" alt="Road Freight" className="dropdown-service-icon" />
+                  </div>
+                  <span>Storage</span>
+                </a>
               </nav>
             </div>
             <div data-w-id="676be7f9-dd44-5120-e296-de49d3466877" className="nav-link-wrap">

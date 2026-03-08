@@ -16,7 +16,7 @@ export default function Services() {
             <div id="w-node-_4bbf207f-652d-1d86-67f2-88c9685d9ee9-dfc71ef1" className="service-hero-content">
               <div>
                 <h1 data-w-id="d864f65b-f9ea-ec3f-343b-b73d185b55c3" style={{opacity: 0}}>Shipping & Logistics <span className="text-primary-1">Excellence</span></h1>
-                <p data-w-id="6e23ddf2-190f-3e66-87a6-05dbfbb15527" style={{opacity: 0}}>From urgent air shipments to large-scale ocean freight — HM Cargo provides reliable, end-to-end international transport solutions for Moroccan businesses.</p>
+                <p data-w-id="6e23ddf2-190f-3e66-87a6-05dbfbb15527" style={{opacity: 0}}>From urgent air shipments to large-scale ocean freight — MH Cargo provides reliable, end-to-end international transport solutions for Moroccan businesses.</p>
               </div>
               <a data-w-id="ef674c8a-2fc1-d20f-f01b-a4aa025affa6" style={{opacity: 0}} href="/contact" className="button-primary w-inline-block">
                 <div className="button-primary-text">Contact Us</div>
@@ -65,7 +65,7 @@ export default function Services() {
                       <div className="step-number-rounded"></div>
                     </div>
                     <h3 className="heading-h6 text-white">Relax While We Move</h3>
-                    <p className="text-gray-3">Sit back while HM Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
+                    <p className="text-gray-3">Sit back while MH Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
                   </div>
                 </div>
               </div>
@@ -103,6 +103,15 @@ export default function Services() {
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Global Ocean Solutions.</h3></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
                 <img src="/brand/service-03.svg" loading="eager" alt="Service Image" className="service-image" />
+              </div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
+            </a>
+            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/storage" className="grid-service-item w-inline-block">
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">04</h3><p>Secure, flexible warehousing solutions in strategic Moroccan locations. Short-term and long-term storage fully integrated with our freight services.</p></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Secure Storage & Warehousing.</h3></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
+                <img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" />
               </div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>

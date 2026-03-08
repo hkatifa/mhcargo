@@ -164,6 +164,15 @@ Global Marketplace.</h1>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
             </a>
+            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/storage" className="grid-service-item w-inline-block">
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">04</h3><p>Secure, flexible warehousing solutions in strategic Moroccan locations. Short-term and long-term storage fully integrated with our freight services.</p></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Secure Storage & Warehousing.</h3></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
+                <img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" />
+              </div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
+            </a>
           </div>
         </div>
       </section>

@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import Layout from '@/components/Layout'
 import { client, urlFor } from '@/lib/sanity'
 
@@ -18,6 +19,42 @@ function formatDate(dateString) {
 }
 
 export default function Home({ latestPosts }) {
+  useEffect(() => {
+    // IX2 misses the 4th service item (duplicate data-w-id with item 3).
+    // Replicate the same Service Hover [In/Out] animation manually.
+    const items = document.querySelectorAll('.service-list .grid-service-item')
+    const item = items[items.length - 1]
+    if (!item) return
+    const img = item.querySelector('.service-image')
+    if (!img) return
+
+    // Apply IX2 initial state (same as items 1-3)
+    img.style.opacity = '0'
+    img.style.transform = 'translate(0px, 0px)'
+
+    const onEnter = () => {
+      item.style.transition = 'opacity 0.3s ease'
+      img.style.transition = 'opacity 0.5s ease, transform 0.6s ease'
+      item.style.opacity = '1'
+      img.style.opacity = '1'
+      img.style.transform = 'translate(50px, 20px)'
+    }
+    const onLeave = () => {
+      item.style.transition = 'opacity 0.5s ease'
+      img.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
+      item.style.opacity = '0.5'
+      img.style.opacity = '0'
+      img.style.transform = 'translate(0px, 0px)'
+    }
+
+    item.addEventListener('mouseenter', onEnter)
+    item.addEventListener('mouseleave', onLeave)
+    return () => {
+      item.removeEventListener('mouseenter', onEnter)
+      item.removeEventListener('mouseleave', onLeave)
+    }
+  }, [])
+
   return (
     <Layout
       title="Home | MH Cargo - Logistics &amp; Transportation"
@@ -145,6 +182,15 @@ export default function Home({ latestPosts }) {
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
             </a>
+            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/storage" className="grid-service-item w-inline-block">
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">04</h3><p>Secure, flexible warehousing solutions in strategic Moroccan locations. Short-term and long-term storage fully integrated with our freight services.</p></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Secure Storage & Warehousing.</h3></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
+                <img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" />
+              </div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
+            </a>
           </div>
         </div>
       </section>
@@ -203,7 +249,7 @@ export default function Home({ latestPosts }) {
                 <div id="w-node-_9fcc0c8c-37fd-2765-83c5-4f9e12e31ee7-c3f0a02c" data-w-id="9fcc0c8c-37fd-2765-83c5-4f9e12e31ee7" className="step-item">
                   <div className="step-number-wrap"><div className="step-number">03</div></div>
                   <h3 className="heading-h6 text-white">Relax While We Move</h3>
-                  <p className="text-gray-3">Sit back while HM Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
+                  <p className="text-gray-3">Sit back while MH Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
                 </div>
               </div>
             </div>

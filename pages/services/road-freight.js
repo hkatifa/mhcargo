@@ -24,7 +24,7 @@ export default function RoadFreight() {
             <div id="w-node-_81d7f483-d870-be31-a398-cab606ea51c2-ad09b4e5">
               <div>
                 <h2 data-w-id="5a582872-4b96-4b79-4811-0d2dcd269d52" style={{opacity: 0}} className="heading-h5">Road Freight Excellence: Connecting Morocco and Europe</h2>
-                <p data-w-id="be9e43a5-4fce-0a9f-b8c6-a4986c61be56" style={{opacity: 0}}>Reliable daily road transport solutions across the Strait of Gibraltar. HM Cargo specializes in the Morocco-Europe corridor, offering FTL and LTL services for both inbound supplies and outbound Moroccan products.</p>
+                <p data-w-id="be9e43a5-4fce-0a9f-b8c6-a4986c61be56" style={{opacity: 0}}>Reliable daily road transport solutions across the Strait of Algeciras. MH Cargo specializes in the Morocco-Europe corridor, offering FTL and LTL services for both inbound supplies and outbound Moroccan products.</p>
                 <img className="service-info-image" src="/brand/service-road-info-01.jpg" alt="Service Info Image" style={{opacity: 0}} data-w-id="c263b62d-2212-4c42-de5e-7ac8c5e9d39a" loading="eager" />
                 <h2 data-w-id="931a641f-a55c-b361-60fb-6edd2a6ad601" style={{opacity: 0}} className="heading-h5">What is included in this service</h2>
                 <p data-w-id="ca642dbd-33fc-4133-7abc-6e0e785619b4" style={{opacity: 0}}>We provide consistent, professionally managed road freight solutions between Morocco and Europe. With guaranteed departure dates and real-time communication, your cargo is always on schedule.</p>
@@ -49,7 +49,7 @@ export default function RoadFreight() {
                 </div>
                 <div id="w-node-e68b6a9f-55c2-9351-2506-62b164b07f25-ad09b4e5">
                   <h2 data-w-id="96fecc7f-1fe9-db1c-f759-48e1fc50e623" style={{opacity: 0}} className="heading-h5">Why Choose Road Freight?</h2>
-                  <p data-w-id="96fecc7f-1fe9-db1c-f759-48e1fc50e625" style={{opacity: 0}}>HM Cargo is the Morocco-Europe road freight specialist. Our deep expertise in Strait of Gibraltar logistics means your cargo crosses borders smoothly, every time.</p>
+                  <p data-w-id="96fecc7f-1fe9-db1c-f759-48e1fc50e625" style={{opacity: 0}}>MH Cargo is the Morocco-Europe road freight specialist. Our deep expertise in Strait of Algeciras logistics means your cargo crosses borders smoothly, every time.</p>
                   <div data-w-id="68ae620d-8387-df3c-8913-8517c8c062cb" style={{opacity: 0}} className="why-choose-us-list">
                     <div className="why-choose-us-list-item">
                       <img src="/brand/dark-list-icon.svg" loading="eager" alt="" className="why-choose-us-icon" />
@@ -57,7 +57,7 @@ export default function RoadFreight() {
                     </div>
                     <div className="why-choose-us-list-item">
                       <img src="/brand/dark-list-icon.svg" loading="eager" alt="" className="why-choose-us-icon" />
-                      <div>Deep expertise in Strait of Gibraltar logistics</div>
+                      <div>Deep expertise in Strait of Algeciras logistics</div>
                     </div>
                     <div className="why-choose-us-list-item">
                       <img src="/brand/dark-list-icon.svg" loading="eager" alt="" className="why-choose-us-icon" />
@@ -113,7 +113,7 @@ export default function RoadFreight() {
           </div>
           <div data-w-id="1850ee1d-112c-9c94-95db-178150dee8a9" className="service-list">
             <a data-w-id="52b43a66-918b-d8e9-9ed9-f4dfa30f6b79" href="/services/air-freight" className="grid-service-item w-inline-block">
-              <div id="w-node-f6f9e720-20c7-32d8-2136-0ec48c8c26b4-c3f0a02c"><h3 className="service-number">01</h3><p>Express air solutions when speed is non-negotiable. Same-day pickup available for urgent imports and critical export deadlines worldwide.</p></div>
+              <div id="w-node-f6f9e720-20c7-32d8-2136-0ec48c8c26b4-c3f0a02c"><h3 className="service-number">01</h3><p>Express air solutions when speed is non-negotiable: priority-skip package available for urgent imports and critical export deadlines worldwide.</p></div>
               <div id="w-node-_998cc494-49d7-9dca-543c-8f867cf83729-c3f0a02c" className="text-center"><h3 className="service-title">Time-Critical Air Cargo.</h3></div>
               <div id="w-node-f9b5dbff-44fc-0ded-4673-01903ac337ac-c3f0a02c" className="service-image-wrap">
                 <img src="/brand/service-01.svg" loading="eager" alt="Service Image" className="service-image" />
@@ -122,10 +122,19 @@ export default function RoadFreight() {
               <div id="w-node-c1d6a8ab-cf27-c697-1005-e02b7c1b102d-c3f0a02c" className="service-divider"></div>
             </a>
             <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/sea-freight" className="grid-service-item w-inline-block">
-              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">03</h3><p>Cost-effective shipping to Casablanca and Tanger Med. Comprehensive FCL and LCL management for high-volume trade.</p></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">02</h3><p>Cost effective shipping to Casablanca and Tangier Med. Comprehensive FCL and LCL management for high-volume trade.</p></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Global Ocean Solutions.</h3></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
                 <img src="/brand/service-03.svg" loading="eager" alt="Service Image" className="service-image" />
+              </div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>
+            </a>
+            <a data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80" href="/services/storage" className="grid-service-item w-inline-block">
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c"><h3 className="service-number">03</h3><p>Secure, flexible warehousing solutions in strategic Moroccan locations. Short-term and long-term storage fully integrated with our freight services.</p></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c" className="text-center"><h3 className="service-title">Secure Storage & Warehousing.</h3></div>
+              <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c" className="service-image-wrap">
+                <img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" />
               </div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c" className="service-divider"></div>

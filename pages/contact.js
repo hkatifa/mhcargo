@@ -29,8 +29,8 @@ export default function ContactPage() {
               <div className="contact-meta-wrap">
                 <div data-w-id="bb283def-ce75-a7fc-74d8-2b1597e3ba96" style={{opacity:0}} className="contact-meta-item">
                   <h3 className="heading-h6">Opening Hours</h3>
-                  <div>Monday to Friday: 08:30 – 18:00</div>
-                  <div>Saturday: 08:30 – 12:00<br /></div>
+                  <div>Monday to Friday: 08:30 – 17:30</div>
+                  <div>Saturday: 09:00 – 12:30<br /></div>
                   <div>Sunday: Close<br /></div>
                 </div>
                 <div data-w-id="72252cd7-3604-8a08-59f0-7755eccae54c" style={{opacity:0}} className="contact-meta-item">
@@ -38,9 +38,9 @@ export default function ContactPage() {
                   <div>Place Paquet, Angle Rue Mohamed Smiha et Rue Pierre Parent Espace Paquet Bureau 302 - Casablanca</div>
                 </div>
                 <div data-w-id="35990eb5-5a31-423d-fe29-86a3cd6f9fea" style={{opacity:0}} className="contact-meta-item">
-                  <h3 className="heading-h6">Address</h3>
+                  <h3 className="heading-h6">Phone</h3>
                   <div className="contact-support-wrap">
-                    <a href="tel:+91123456789">+212 522 31 45 67</a>
+                    <a href="tel:+212522314567">+212 522 31 45 67</a>
                   
                   </div>
                 </div>

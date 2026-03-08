@@ -74,6 +74,32 @@ const portableTextComponents = {
         style={{ maxWidth: '100%', margin: '1rem 0' }}
       />
     ),
+    ctaBox: ({ value }) => (
+      <div style={{
+        margin: '2rem 0',
+        padding: '2rem 2.5rem',
+        background: '#f7f7f7',
+        borderLeft: '4px solid #c9a84c',
+        borderRadius: '8px',
+      }}>
+        {value.heading && (
+          <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>{value.heading}</h3>
+        )}
+        {value.description && (
+          <p style={{ margin: '0 0 1.25rem', color: '#444' }}>{value.description}</p>
+        )}
+        {value.buttonLabel && value.buttonUrl && (
+          <a
+            href={value.buttonUrl}
+            className="button-primary w-inline-block"
+            style={{ display: 'inline-flex' }}
+          >
+            <div className="button-primary-text">{value.buttonLabel}</div>
+            <div style={{ width: '0%', height: '100%' }} className="button-primary-hover"></div>
+          </a>
+        )}
+      </div>
+    ),
     youtube: ({ value }) => (
       <figure
         style={{ paddingBottom: '56.206088992974244%' }}

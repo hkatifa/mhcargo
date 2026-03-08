@@ -45,6 +45,7 @@ export default function Footer() {
                   <a href="/services/air-freight" className="footer-link">Air Cargo</a>
                   <a href="/services/road-freight" className="footer-link">Road Transport</a>
                   <a href="/services/sea-freight" className="footer-link">Ocean Solutions</a>
+                  <a href="/services/storage" className="footer-link">Storage</a>
                 </div>
               </div>
               <div

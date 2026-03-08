@@ -1,6 +1,45 @@
 import Layout from '@/components/Layout'
+import { useEffect } from 'react'
 
 export default function RequestAQuote() {
+  useEffect(() => {
+    const section = document.querySelector('.service-scroll-section')
+    const list = document.querySelector('.service-scroll-list')
+    if (!section || !list) return
+
+    const sticky = document.querySelector('.service-scroll-sticky')
+    if (!sticky) return
+
+    function recalc() {
+      // Reset transform to measure the list's true left offset (= container padding)
+      list.style.transform = 'translateX(0)'
+      const listLeft = list.getBoundingClientRect().left
+      // extra scroll = overflow + right padding matching left padding
+      const extra = Math.max(0, list.scrollWidth - window.innerWidth + listLeft * 2)
+      section.style.height = (sticky.offsetHeight + extra) + 'px'
+      return extra
+    }
+
+    let max = recalc()
+
+    function onScroll() {
+      const top = section.getBoundingClientRect().top
+      const progress = Math.max(0, Math.min(1, -top / max))
+      list.style.transform = `translateX(-${(progress * max).toFixed(2)}px)`
+    }
+
+    function onResize() { max = recalc(); onScroll() }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
+    onScroll()
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
+    }
+  }, [])
+
   return (
     <Layout
       title="Request a Quote | MH Cargo"
@@ -143,13 +182,14 @@ export default function RequestAQuote() {
                 <div>03</div>
               </div>
               <h3 className="heading-h6 text-white">Relax While We Move</h3>
-              <p className="text-gray-3">Sit back while HM Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
+              <p className="text-gray-3">Sit back while MH Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
             </div>
           </div>
         </div>
       </section>
 
       <section className="service-scroll-section section-spacing-bottom">
+        <div className="service-scroll-sticky">
         <div className="w-layout-blockcontainer container-full w-container">
           <div data-w-id="da79e972-0b14-c317-d304-cbc9a972a09a" style={{opacity: 0}} className="service-title-wrap">
             <div className="section-title-wrap">
@@ -160,9 +200,9 @@ export default function RequestAQuote() {
               <div style={{width: '0%', height: '100%'}} className="button-primary-hover"></div>
             </a>
           </div>
-          <div data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a2" style={{opacity: 0}} className="service-scroll-wrap">
+          <div className="service-scroll-wrap">
             <div className="service-scroll-list">
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0a4-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a4" href="#" className="service-scroll-item w-inline-block">
+              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0a4-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a4" href="/services/air-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
                   <img
                     src="/brand/big-service-01.svg"
@@ -186,7 +226,7 @@ export default function RequestAQuote() {
                   />
                 </div>
               </a>
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0ae-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ae" href="#" className="service-scroll-item w-inline-block">
+              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0ae-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ae" href="/services/road-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
                   <img
                     src="/brand/big-service-02.svg"
@@ -210,7 +250,7 @@ export default function RequestAQuote() {
                   />
                 </div>
               </a>
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0b8-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b8" href="#" className="service-scroll-item w-inline-block">
+              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0b8-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b8" href="/services/sea-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
                   <img
                     src="/brand/big-service-03.svg"
@@ -234,10 +274,35 @@ export default function RequestAQuote() {
                   />
                 </div>
               </a>
+              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0c2-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c2" href="/services/storage" className="service-scroll-item w-inline-block">
+                <div className="service-scroll-image-wrap">
+                  <img
+                    src="/brand/big-service-04.png"
+                    loading="eager"
+                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c3"
+                    alt="Service Image"
+                    className="service-scroll-image"
+                  />
+                </div>
+                <div>
+                  <h3 className="heading-h4">Storage</h3>
+                  <div>Secure, flexible warehousing solutions</div>
+                </div>
+                <div className="service-arrow-link">
+                  <img
+                    src="/brand/dark-arrow.svg"
+                    loading="eager"
+                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c4"
+                    alt=""
+                    className="service-arrow-link-icon"
+                  />
+                </div>
+              </a>
               
             </div>
           </div>
         </div>
+        </div>{/* service-scroll-sticky */}
       </section>
 
       <section className="action-box-section section-spacing-bottom">
