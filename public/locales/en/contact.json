@@ -1,0 +1,25 @@
+{
+  "hero.title-pre": "Get in Touch for",
+  "hero.title-highlight": "Logistics",
+  "hero.title-post": "Needs",
+  "hero.desc": "Have an inquiry about our transport solutions? Our dedicated team is ready to provide swift and tailored assistance for all your import and export needs.",
+
+  "sidebar.title": "Need any help?",
+  "sidebar.desc": "Contact us today and our dedicated team will provide swift, tailored assistance to meet your international transport needs.",
+  "sidebar.hours.title": "Opening Hours",
+  "sidebar.hours.weekdays": "Monday to Friday: 08:30 – 17:30",
+  "sidebar.hours.saturday": "Saturday: 09:00 – 12:30",
+  "sidebar.hours.sunday": "Sunday: Close",
+  "sidebar.address.title": "Address",
+  "sidebar.phone.title": "Phone",
+
+  "form.name-label": "Name",
+  "form.name-placeholder": "Enter name",
+  "form.email-label": "Email",
+  "form.email-placeholder": "Enter email",
+  "form.phone-label": "Phone No",
+  "form.phone-placeholder": "Enter phone no",
+  "form.message-label": "Message",
+  "form.message-placeholder": "Please type your message here...",
+  "form.submit": "Submit"
+}

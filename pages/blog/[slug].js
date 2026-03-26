@@ -1,129 +1,74 @@
-import Layout from '../../components/Layout';
-import { client, urlFor } from '../../lib/sanity';
-import { PortableText } from '@portabletext/react';
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Layout from '../../components/Layout'
+import { MDXRemote } from 'next-mdx-remote'
+import { serialize } from 'next-mdx-remote/serialize'
+import { getPostBySlug, getAllSlugs, getAllPosts } from '../../lib/posts'
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0] {
-  title,
-  "slug": slug.current,
-  publishedAt,
-  mainImage,
-  excerpt,
-  body
-}`;
-
-const RECENT_POSTS_QUERY = `*[_type == "post" && slug.current != $slug] | order(publishedAt desc) [0..2] {
-  title,
-  "slug": slug.current,
-  publishedAt,
-  mainImage
-}`;
-
-const ALL_SLUGS_QUERY = `*[_type == "post"] { "slug": slug.current }`;
-
-function formatDate(dateString) {
-  if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-US', {
+function formatDate(dateString, locale) {
+  if (!dateString) return ''
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  })
 }
 
-// YouTube URL → embed URL
 function toEmbedUrl(url) {
-  if (!url) return '';
-  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/);
-  return match ? `https://www.youtube.com/embed/${match[1]}` : url;
+  if (!url) return ''
+  const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([a-zA-Z0-9_-]{11})/)
+  return match ? `https://www.youtube.com/embed/${match[1]}` : url
 }
 
-// Portable Text component map — matches existing Webflow HTML structure
-const portableTextComponents = {
-  block: {
-    normal: ({ children }) => <p>{children}</p>,
-    h1: ({ children }) => <h1>{children}</h1>,
-    h2: ({ children }) => <h2>{children}</h2>,
-    h3: ({ children }) => <h3>{children}</h3>,
-    h4: ({ children }) => <h4>{children}</h4>,
-    h5: ({ children }) => <h5>{children}</h5>,
-    h6: ({ children }) => <h6>{children}</h6>,
-    blockquote: ({ children }) => <blockquote>{children}</blockquote>,
-  },
-  list: {
-    bullet: ({ children }) => <ul role="list">{children}</ul>,
-    number: ({ children }) => <ol>{children}</ol>,
-  },
-  listItem: {
-    bullet: ({ children }) => <li>{children}</li>,
-    number: ({ children }) => <li>{children}</li>,
-  },
-  marks: {
-    strong: ({ children }) => <strong>{children}</strong>,
-    em: ({ children }) => <em>{children}</em>,
-    underline: ({ children }) => <u>{children}</u>,
-    link: ({ value, children }) => (
-      <a href={value.href} target="_blank" rel="noopener noreferrer">
-        {children}
-      </a>
-    ),
-  },
-  types: {
-    image: ({ value }) => (
-      <img
-        src={urlFor(value).width(800).url()}
-        alt={value.alt || ''}
-        style={{ maxWidth: '100%', margin: '1rem 0' }}
-      />
-    ),
-    ctaBox: ({ value }) => (
-      <div style={{
-        margin: '2rem 0',
-        padding: '2rem 2.5rem',
-        background: '#f7f7f7',
-        borderLeft: '4px solid #c9a84c',
-        borderRadius: '8px',
-      }}>
-        {value.heading && (
-          <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>{value.heading}</h3>
-        )}
-        {value.description && (
-          <p style={{ margin: '0 0 1.25rem', color: '#444' }}>{value.description}</p>
-        )}
-        {value.buttonLabel && value.buttonUrl && (
-          <a
-            href={value.buttonUrl}
-            className="button-primary w-inline-block"
-            style={{ display: 'inline-flex' }}
-          >
-            <div className="button-primary-text">{value.buttonLabel}</div>
-            <div style={{ width: '0%', height: '100%' }} className="button-primary-hover"></div>
-          </a>
-        )}
+const mdxComponents = {
+  CTABox: ({ heading, description, buttonLabel, buttonUrl }) => (
+    <div style={{
+      margin: '2rem 0',
+      padding: '2rem 2.5rem',
+      background: '#f7f7f7',
+      borderLeft: '4px solid #c9a84c',
+      borderRadius: '8px',
+    }}>
+      {heading && <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>{heading}</h3>}
+      {description && <p style={{ margin: '0 0 1.25rem', color: '#444' }}>{description}</p>}
+      {buttonLabel && buttonUrl && (
+        <a href={buttonUrl} className="button-primary w-inline-block" style={{ display: 'inline-flex' }}>
+          <div className="button-primary-text">{buttonLabel}</div>
+          <div style={{ width: '0%', height: '100%' }} className="button-primary-hover"></div>
+        </a>
+      )}
+    </div>
+  ),
+  YouTube: ({ url }) => (
+    <figure
+      style={{ paddingBottom: '56.206088992974244%' }}
+      className="w-richtext-align-fullwidth w-richtext-figure-type-video"
+    >
+      <div>
+        <iframe allowFullScreen frameBorder="0" scrolling="no" src={toEmbedUrl(url)} />
       </div>
-    ),
-    youtube: ({ value }) => (
-      <figure
-        style={{ paddingBottom: '56.206088992974244%' }}
-        className="w-richtext-align-fullwidth w-richtext-figure-type-video"
-      >
-        <div>
-          <iframe
-            allowFullScreen={true}
-            frameBorder="0"
-            scrolling="no"
-            src={toEmbedUrl(value.url)}
-          />
-        </div>
-      </figure>
-    ),
-  },
-};
+    </figure>
+  ),
+  img: ({ src, alt }) => (
+    <img src={src} alt={alt || ''} style={{ maxWidth: '100%', margin: '1rem 0' }} />
+  ),
+}
 
-export default function BlogPost({ post, recentPosts }) {
-  if (!post) return null;
+export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) {
+  const { t } = useTranslation(['common', 'blog'])
+  const { locale } = useRouter()
+
+  if (!post) return null
+
+  const displayTitle = locale === 'fr' && post.title_fr ? post.title_fr : post.title
+  const displayExcerpt = locale === 'fr' && post.excerpt_fr ? post.excerpt_fr : post.excerpt
+  const displayMdx = locale === 'fr' && mdxSourceFr ? mdxSourceFr : mdxSource
 
   return (
     <Layout
-      title={`${post.title} | MH Cargo`}
+      title={`${displayTitle} | MH Cargo`}
       currentPage={`/blog/${post.slug}`}
       pageId="658e8ceffc69948c62c49e92"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"
@@ -134,31 +79,31 @@ export default function BlogPost({ post, recentPosts }) {
           <div className="blog-detail-item">
             <div className="blog-detail-title-wrap">
               <div className="text-primary-1">
-                {formatDate(post.publishedAt)}
+                {formatDate(post.publishedAt, locale)}
               </div>
               <h1 className="heading-h3">
-                {post.title}
+                {displayTitle}
               </h1>
             </div>
 
             {post.mainImage && (
               <img
-                alt={post.title}
+                alt={displayTitle}
                 loading="eager"
-                src={urlFor(post.mainImage).width(1200).height(675).url()}
+                src={post.mainImage}
                 className="blog-detail-image"
               />
             )}
 
-            {post.excerpt && (
+            {displayExcerpt && (
               <p className="blog-detail-description">
-                {post.excerpt}
+                {displayExcerpt}
               </p>
             )}
 
-            {post.body && (
+            {displayMdx && (
               <div className="rich-text w-richtext">
-                <PortableText value={post.body} components={portableTextComponents} />
+                <MDXRemote {...displayMdx} components={mdxComponents} />
               </div>
             )}
           </div>
@@ -169,46 +114,40 @@ export default function BlogPost({ post, recentPosts }) {
         <section className="section-spacing">
           <div className="w-layout-blockcontainer container-full w-container">
             <div className="recent-blog-title">
-              <h2 className="no-margin">Recent Blog</h2>
-              <a href="/blog" className="button-primary w-inline-block">
-                <div className="button-primary-text">View all blog</div>
+              <h2 className="no-margin">{t('blog:recent-blog')}</h2>
+              <Link href="/blog" className="button-primary w-inline-block">
+                <div className="button-primary-text">{t('blog:view-all')}</div>
                 <div style={{ width: '0%', height: '100%' }} className="button-primary-hover"></div>
-              </a>
+              </Link>
             </div>
             <div className="w-dyn-list">
               <div role="list" className="grid-blog-list w-dyn-items">
                 {recentPosts.map((recent) => (
                   <div key={recent.slug} role="listitem" className="w-dyn-item">
-                    <a
-                      href={`/blog/${recent.slug}`}
-                      className="blog-item w-inline-block"
-                    >
+                    <Link href={`/blog/${recent.slug}`} className="blog-item w-inline-block">
                       <div className="blog-image-wrap">
                         {recent.mainImage ? (
                           <img
-                            alt={recent.title}
+                            alt={locale === 'fr' && recent.title_fr ? recent.title_fr : recent.title}
                             loading="eager"
-                            src={urlFor(recent.mainImage).width(550).height(370).url()}
+                            src={recent.mainImage}
                             className="blog-image"
                           />
                         ) : (
                           <img
-                            alt={recent.title}
+                            alt={locale === 'fr' && recent.title_fr ? recent.title_fr : recent.title}
                             loading="eager"
                             src="https://placehold.co/550x370"
                             className="blog-image"
                           />
                         )}
-                        <div
-                          style={{ opacity: 0, width: '0%', height: '100%' }}
-                          className="blog-hover-overlay"
-                        ></div>
+                        <div style={{ opacity: 0, width: '0%', height: '100%' }} className="blog-hover-overlay"></div>
                       </div>
                       <div>
-                        <div className="blog-date">{formatDate(recent.publishedAt)}</div>
-                        <h2 className="blog-title">{recent.title}</h2>
+                        <div className="blog-date">{formatDate(recent.publishedAt, locale)}</div>
+                        <h2 className="blog-title">{locale === 'fr' && recent.title_fr ? recent.title_fr : recent.title}</h2>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -217,29 +156,45 @@ export default function BlogPost({ post, recentPosts }) {
         </section>
       )}
     </Layout>
-  );
+  )
 }
 
 export async function getStaticPaths() {
-  const slugs = await client.fetch(ALL_SLUGS_QUERY);
-  const paths = slugs
-    .filter((s) => s.slug)
-    .map((s) => ({ params: { slug: s.slug } }));
-  return { paths, fallback: 'blocking' };
+  const slugs = getAllSlugs()
+  const paths = slugs.flatMap(slug => [
+    { params: { slug }, locale: 'en' },
+    { params: { slug }, locale: 'fr' },
+  ])
+  return { paths, fallback: false }
 }
 
-export async function getStaticProps({ params }) {
-  const [post, recentPosts] = await Promise.all([
-    client.fetch(POST_QUERY, { slug: params.slug }),
-    client.fetch(RECENT_POSTS_QUERY, { slug: params.slug }),
-  ]);
+export async function getStaticProps({ params, locale }) {
+  const post = getPostBySlug(params.slug)
+  if (!post) return { notFound: true }
 
-  if (!post) {
-    return { notFound: true };
-  }
+  const [mdxSource, mdxSourceFr] = await Promise.all([
+    serialize(post.body || ''),
+    post.body_fr ? serialize(post.body_fr) : Promise.resolve(null),
+  ])
+
+  const allPosts = getAllPosts()
+  const recentPosts = allPosts.filter(p => p.slug !== params.slug).slice(0, 3)
 
   return {
-    props: { post, recentPosts },
-    revalidate: 60,
-  };
+    props: {
+      post: {
+        title: post.title || null,
+        title_fr: post.title_fr || null,
+        slug: post.slug,
+        publishedAt: post.publishedAt || null,
+        excerpt: post.excerpt || null,
+        excerpt_fr: post.excerpt_fr || null,
+        mainImage: post.mainImage || null,
+      },
+      mdxSource,
+      mdxSourceFr,
+      recentPosts,
+      ...(await serverSideTranslations(locale, ['common', 'blog'])),
+    },
+  }
 }

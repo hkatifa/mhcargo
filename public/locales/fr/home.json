@@ -1,0 +1,33 @@
+{
+  "hero.pretitle": "Votre partenaire mondial pour le commerce.",
+  "hero.title-pre": "Connecter",
+  "hero.title-post": "le Maroc au Monde.",
+  "hero.description": "Spécialiste du fret international Aérien, Maritime et Routier. Nous simplifions l'import et l'export pour les entreprises marocaines avec des solutions de transport fiables de bout en bout.",
+  "hero.cta": "Nous contacter",
+
+  "features.title": "Alimenter la logistique des entreprises",
+  "features.safe-packing": "Emballage sécurisé",
+  "features.ship-everywhere": "Livraison partout",
+  "features.zero-risk": "Zéro risque",
+  "features.in-time-delivery": "Livraison à temps",
+  "features.cost-saving": "Économies de coûts",
+  "features.fastest-shipping": "Expédition rapide",
+  "features.read-more": "En savoir plus",
+
+  "counter.company": "Entreprise de Transport",
+  "counter.years": "Années d'expérience",
+  "counter.partners": "Partenaires internationaux",
+  "counter.ontime": "Taux de livraison à temps",
+  "counter.countries": "Pays desservis",
+
+  "corridors.title": "Corridors commerciaux",
+  "corridors.europe.title": "Europe → Maroc",
+  "corridors.europe.desc": "Maîtrise du corridor Maroc-Europe. Connexions quotidiennes fiables s'appuyant sur notre expertise approfondie en logistique trans-méditerranéenne.",
+  "corridors.asia.title": "Asie → Maroc",
+  "corridors.asia.desc": "Connexions directes depuis la Chine, l'Asie du Sud-Est et l'Inde. Logistique d'entrée fiable soutenant le secteur industriel marocain en pleine croissance.",
+  "corridors.middle-east.title": "Moyen-Orient & Amériques",
+  "corridors.middle-east.desc": "Ouverture sur des marchés émergents et établis. Solutions de fret spécialisées pour les partenariats commerciaux méditerranéens et orientaux.",
+  "corridors.cta": "En savoir plus sur nous",
+
+  "blog.title": "Nos articles"
+}

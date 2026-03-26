@@ -1,0 +1,33 @@
+{
+  "hero.title-highlight": "Lien",
+  "hero.title-post": "vers le Marché Mondial.",
+  "hero.desc": "Un partenaire marocain spécialisé, dédié à l'excellence dans le transport international.",
+  "hero.years": "Années d'expérience",
+  "hero.partners": "Partenaires internationaux",
+  "hero.ontime": "Taux de livraison à temps",
+  "hero.countries": "Pays desservis",
+  "hero.view-services": "Voir les services",
+
+  "values.title": "Les valeurs qui guident chaque décision",
+  "values.desc": "Ces valeurs guident nos actions, décisions et interactions quotidiennes, en veillant à ce que chaque étape soit alignée avec nos principes fondamentaux. Ce sont plus que des lignes directrices — elles représentent l'essence de qui nous sommes et la force motrice de tout ce que nous faisons.",
+  "values.global-reach.title": "Portée mondiale",
+  "values.global-reach.desc": "Nous combinons une connaissance approfondie du marché marocain avec un vaste réseau international.",
+  "values.reliability.title": "Fiabilité",
+  "values.reliability.desc": "Traitement professionnel de chaque expédition, quelle que soit sa taille ou sa destination.",
+  "values.integrity.title": "Intégrité",
+  "values.integrity.desc": "Communication transparente à chaque étape du parcours.",
+  "values.commitment.title": "Engagement",
+  "values.commitment.desc": "Suivi continu pour s'assurer que vos délais sont toujours respectés.",
+  "values.expertise.title": "Expertise",
+  "values.expertise.desc": "Gestion experte des flux import/export sur tous les continents.",
+  "values.partnership.title": "Partenariat",
+  "values.partnership.desc": "Construction de relations à long terme fondées sur la confiance et l'excellence opérationnelle.",
+
+  "mission.title-highlight": "Mission",
+  "mission.intro": "Tout ce que nous faisons repose sur un seul objectif : rendre le commerce international simple, fiable et accessible pour les entreprises marocaines.",
+  "mission.point1": "Permettre aux entreprises marocaines d'accéder facilement aux routes commerciales internationales par voie aérienne, maritime et routière.",
+  "mission.point2": "Fournir des solutions de transport fiables, rentables et rapides qui maintiennent votre chaîne d'approvisionnement en mouvement — en permanence.",
+  "mission.point3": "Bâtir des partenariats à long terme fondés sur la confiance, la transparence et l'excellence opérationnelle.",
+
+  "cta.text": "N'hésitez pas à nous contacter pour toute question !"
+}

@@ -2,37 +2,30 @@ import '@/styles/overrides.css'
 import '@/styles/custom.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { appWithTranslation } from 'next-i18next/pages'
 
 function initScrollReveal() {
-  const webflowActive = typeof window !== 'undefined' && window.Webflow && window.Webflow.require
   const candidates = document.querySelectorAll('[data-w-id]')
-  const pageId = document.documentElement.getAttribute('data-wf-page')
   const toReveal = []
 
   candidates.forEach(el => {
-    const animName = getComputedStyle(el).animationName
-    if (animName && animName !== 'none') return
+    // Use computed opacity — CSS animations with fill-mode:both keep computed
+    // opacity at 1 after completion even if the inline attr still says 0.
+    // This prevents rescans from overriding finished CSS animations.
+    const computed = getComputedStyle(el)
+    if (parseFloat(computed.opacity) > 0) return
 
-    if (webflowActive && pageId) {
-      const shortPageId = pageId.slice(-8)
-      const matchingWNode = el.closest(`[id$="-${shortPageId}"]`)
-      if (matchingWNode) return
-    }
-
-    if (el.style.opacity === '0') {
-      el.style.transform = 'translateY(20px)'
-      el.style.transition = 'opacity 0.65s ease, transform 0.65s ease'
-      toReveal.push(el)
-    }
+    el.style.transform = 'translateY(20px)'
+    el.style.transition = 'opacity 0.65s ease, transform 0.65s ease'
+    toReveal.push(el)
   })
 
   // Also handle [data-reveal] elements (custom scroll-reveal, e.g. corridor boxes)
   document.querySelectorAll('[data-reveal]').forEach(el => {
-    if (el.style.opacity === '0') {
-      if (!el.style.transform) el.style.transform = 'translateY(20px)'
-      if (!el.style.transition) el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
-      toReveal.push(el)
-    }
+    if (parseFloat(getComputedStyle(el).opacity) > 0) return
+    if (!el.style.transform) el.style.transform = 'translateY(20px)'
+    if (!el.style.transition) el.style.transition = 'opacity 0.5s ease, transform 0.5s ease'
+    toReveal.push(el)
   })
 
   const observer = new IntersectionObserver((entries) => {
@@ -72,12 +65,32 @@ function initImageOverlays() {
   return observer
 }
 
-export default function App({ Component, pageProps }) {
+function App({ Component, pageProps }) {
   const router = useRouter()
 
   useEffect(() => {
+    // Load Webflow's webpack runtime after React hydration.
+    if (!document.querySelector('script[src="/lib/webflow-page.js"]')) {
+      const s = document.createElement('script')
+      s.src = '/lib/webflow-page.js'
+      s.type = 'text/javascript'
+      document.body.appendChild(s)
+    }
+
     let observer = initScrollReveal()
     let imageObserver = initImageOverlays()
+
+    // On first visit, the CDN page script (Webflow IX2) isn't cached yet.
+    // It loads after our initial scan and sets opacity:0 on elements we missed.
+    // Re-scan at 1s and 3s to catch those late-hidden elements.
+    const rescan = () => {
+      observer.disconnect()
+      if (imageObserver) imageObserver.disconnect()
+      observer = initScrollReveal()
+      imageObserver = initImageOverlays()
+    }
+    const t1 = setTimeout(rescan, 1000)
+    const t2 = setTimeout(rescan, 3000)
 
     const handleRouteChange = () => {
       observer.disconnect()
@@ -85,12 +98,19 @@ export default function App({ Component, pageProps }) {
       setTimeout(() => {
         observer = initScrollReveal()
         imageObserver = initImageOverlays()
-      }, 50)
+        // Re-initialize Webflow interactions after client-side navigation
+        if (typeof window !== 'undefined' && window.Webflow) {
+          window.Webflow.destroy()
+          window.Webflow.ready()
+        }
+      }, 100)
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
+      clearTimeout(t1)
+      clearTimeout(t2)
       observer.disconnect()
       if (imageObserver) imageObserver.disconnect()
       router.events.off('routeChangeComplete', handleRouteChange)
@@ -99,3 +119,5 @@ export default function App({ Component, pageProps }) {
 
   return <Component {...pageProps} />
 }
+
+export default appWithTranslation(App)

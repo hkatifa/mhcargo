@@ -1,7 +1,12 @@
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+import Link from 'next/link'
 import Layout from '@/components/Layout'
 import { useEffect } from 'react'
 
 export default function RequestAQuote() {
+  const { t } = useTranslation(['common', 'quote'])
+
   useEffect(() => {
     const section = document.querySelector('.service-scroll-section')
     const list = document.querySelector('.service-scroll-list')
@@ -51,8 +56,8 @@ export default function RequestAQuote() {
       <section className="hero-inner text-center">
         <div className="w-layout-blockcontainer container-medium w-container">
           <div className="request-hero-wrap">
-            <h1 data-w-id="9e30f066-9cd3-f283-b232-2c625fe99301" style={{opacity: 0}}>Get a Quote for Your Next Shipment.</h1>
-            <p data-w-id="34aaf31f-6b52-906e-21ba-7f55bf1a3b61" style={{opacity: 0}}>Contact our experts for a tailored international transport solution. Fill in the form below and our team will get back to you within 24 hours.</p>
+            <h1 data-w-id="9e30f066-9cd3-f283-b232-2c625fe99301" style={{opacity: 0}}>{t('quote:hero.title')}</h1>
+            <p data-w-id="34aaf31f-6b52-906e-21ba-7f55bf1a3b61" style={{opacity: 0}}>{t('quote:hero.desc')}</p>
           </div>
         </div>
       </section>
@@ -71,7 +76,7 @@ export default function RequestAQuote() {
               />
             </div>
             <div data-w-id="e6d8b316-7a2a-6188-dbb1-05034adfcbe6" style={{opacity: 0}} className="request-quote-form">
-              <h2 className="request-form-title heading-h3">Request a quote</h2>
+              <h2 className="request-form-title heading-h3">{t('quote:hero.title')}</h2>
               <div className="w-form">
                 <form
                   id="wf-form-Request-Form"
@@ -83,57 +88,57 @@ export default function RequestAQuote() {
                 >
                   <div className="input-group-wrap">
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Full-Name" data-name="Full Name" placeholder="Full Name" type="text" id="full-name" required />
+                      <input className="form-input request-input w-input" maxLength="256" name="Full-Name" data-name="Full Name" placeholder={t('form.full-name')} type="text" id="full-name" required />
                     </div>
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Email" data-name="Email" placeholder="Email Address" type="email" id="email" required />
+                      <input className="form-input request-input w-input" maxLength="256" name="Email" data-name="Email" placeholder={t('form.email')} type="email" id="email" required />
                     </div>
                   </div>
                   <div className="input-group-wrap">
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Phone" data-name="Phone" placeholder="Phone Number" type="tel" id="phone" />
+                      <input className="form-input request-input w-input" maxLength="256" name="Phone" data-name="Phone" placeholder={t('form.phone')} type="tel" id="phone" />
                     </div>
                     <div className="input-group">
                       <select id="direction" name="Direction" data-name="Direction" className="form-select request-input w-select">
-                        <option value="">Direction</option>
-                        <option value="Import">Import to Morocco</option>
-                        <option value="Export">Export from Morocco</option>
+                        <option value="">{t('form.direction')}</option>
+                        <option value="Import">{t('form.direction.import')}</option>
+                        <option value="Export">{t('form.direction.export')}</option>
                       </select>
                     </div>
                   </div>
                   <div className="input-group-wrap">
                     <div className="input-group">
                       <select id="transport-mode" name="Transport-Mode" data-name="Transport Mode" className="form-select request-input w-select">
-                        <option value="">Transport Mode</option>
-                        <option value="Air">Air</option>
-                        <option value="Sea">Sea</option>
-                        <option value="Road">Road</option>
+                        <option value="">{t('form.transport-mode')}</option>
+                        <option value="Air">{t('form.transport-mode.air')}</option>
+                        <option value="Sea">{t('form.transport-mode.sea')}</option>
+                        <option value="Road">{t('form.transport-mode.road')}</option>
                       </select>
                     </div>
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Departure" data-name="Departure" placeholder="Departure City / Country" type="text" id="departure" />
+                      <input className="form-input request-input w-input" maxLength="256" name="Departure" data-name="Departure" placeholder={t('form.departure')} type="text" id="departure" />
                     </div>
                   </div>
                   <div className="input-group-wrap">
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Delivery" data-name="Delivery" placeholder="Delivery City / Country" type="text" id="delivery" />
+                      <input className="form-input request-input w-input" maxLength="256" name="Delivery" data-name="Delivery" placeholder={t('form.delivery')} type="text" id="delivery" />
                     </div>
                     <div className="input-group">
-                      <input className="form-input request-input w-input" maxLength="256" name="Goods-Type" data-name="Type of Goods" placeholder="Type of Goods" type="text" id="goods-type" />
+                      <input className="form-input request-input w-input" maxLength="256" name="Goods-Type" data-name="Type of Goods" placeholder={t('form.goods-type')} type="text" id="goods-type" />
                     </div>
                   </div>
                   <div className="input-group-wrap">
                     <div className="input-group">
-                      <input className="form-input request-input w-input" name="Weight" data-name="Weight" placeholder="Weight (kg)" type="number" id="weight" min="0" step="0.01" />
+                      <input className="form-input request-input w-input" name="Weight" data-name="Weight" placeholder={t('form.weight')} type="number" id="weight" min="0" step="0.01" />
                     </div>
                     <div className="input-group">
-                      <input className="form-input request-input w-input" name="Volume" data-name="Volume" placeholder="Volume (m³)" type="number" id="volume" min="0" step="0.01" />
+                      <input className="form-input request-input w-input" name="Volume" data-name="Volume" placeholder={t('form.volume')} type="number" id="volume" min="0" step="0.01" />
                     </div>
                   </div>
                   <div className="input-group-wrap" style={{alignItems:'flex-end'}}>
                     <div className="input-group no-margin">
                       <select id="incoterms" name="Incoterms" data-name="Incoterms" className="form-select request-input w-select">
-                        <option value="">Incoterms (Optional)</option>
+                        <option value="">{t('form.incoterms')}</option>
                         <option value="EXW">EXW</option>
                         <option value="FOB">FOB</option>
                         <option value="CIF">CIF</option>
@@ -141,15 +146,15 @@ export default function RequestAQuote() {
                       </select>
                     </div>
                     <div className="input-group no-margin" style={{marginLeft:'auto'}}>
-                      <input type="submit" data-wait="Please wait..." className="button-primary-lg w-button" value="Get My Quote" style={{height:'56px'}} />
+                      <input type="submit" data-wait={t('form.please-wait')} className="button-primary-lg w-button" value={t('form.submit-quote')} style={{height:'56px'}} />
                     </div>
                   </div>
                 </form>
                 <div className="success-message w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
+                  <div>{t('form.success')}</div>
                 </div>
                 <div className="error-message w-form-fail">
-                  <div>Oops! Something went wrong while submitting the form.</div>
+                  <div>{t('form.error')}</div>
                 </div>
               </div>
             </div>
@@ -160,29 +165,29 @@ export default function RequestAQuote() {
       <section className="service-process-section section-spacing-bottom">
         <div className="w-layout-blockcontainer container-medium w-container">
           <div className="section-title section-title-center">
-            <h2 data-w-id="f611a05a-15b3-6fb1-7773-46cf02f47e95" style={{opacity: 0}}>How it work</h2>
+            <h2 data-w-id="f611a05a-15b3-6fb1-7773-46cf02f47e95" style={{opacity: 0}}>{t('steps.title')}</h2>
           </div>
           <div className="w-layout-grid grid-service-process">
             <div id="w-node-dbe4e874-3658-49d0-4bf7-1da4ecf0f872-3f4293aa" data-w-id="dbe4e874-3658-49d0-4bf7-1da4ecf0f872" style={{opacity: 0}} className="service-process-item">
               <div className="service-process-wrap">
                 <div>01</div>
               </div>
-              <h3 className="heading-h6 text-white">Get an Estimate to Plan</h3>
-              <p className="text-gray-3">Fill in your shipment details and receive a competitive, customized quote within 24 hours.</p>
+              <h3 className="heading-h6 text-white">{t('steps.step1.title')}</h3>
+              <p className="text-gray-3">{t('steps.step1.desc')}</p>
             </div>
             <div id="w-node-c2ccbd91-22b2-c4f0-ce0b-7f23ade435a4-3f4293aa" data-w-id="c2ccbd91-22b2-c4f0-ce0b-7f23ade435a4" style={{opacity: 0}} className="light-service-process-item">
               <div className="light-service-process-wrap">
                 <div>02</div>
               </div>
-              <h3 className="heading-h6">Ongoing Expert Support</h3>
-              <p>Our dedicated account managers guide you through every step — customs, routing, and documentation.</p>
+              <h3 className="heading-h6">{t('steps.step2.title')}</h3>
+              <p>{t('steps.step2.desc')}</p>
             </div>
             <div id="w-node-e98a3574-a63f-2f98-9657-23490e4519aa-3f4293aa" data-w-id="e98a3574-a63f-2f98-9657-23490e4519aa" style={{opacity: 0}} className="service-process-item">
               <div className="service-process-wrap">
                 <div>03</div>
               </div>
-              <h3 className="heading-h6 text-white">Relax While We Move</h3>
-              <p className="text-gray-3">Sit back while MH Cargo handles your cargo from pickup to final delivery, anywhere in the world.</p>
+              <h3 className="heading-h6 text-white">{t('steps.step3.title')}</h3>
+              <p className="text-gray-3">{t('steps.step3.desc')}</p>
             </div>
           </div>
         </div>
@@ -193,112 +198,63 @@ export default function RequestAQuote() {
         <div className="w-layout-blockcontainer container-full w-container">
           <div data-w-id="da79e972-0b14-c317-d304-cbc9a972a09a" style={{opacity: 0}} className="service-title-wrap">
             <div className="section-title-wrap">
-              <h2 className="no-margin">We offer to highest quality services</h2>
+              <h2 className="no-margin">{t('quote:services.title')}</h2>
             </div>
-            <a data-w-id="da79e972-0b14-c317-d304-cbc9a972a09e" href="/services" className="button-primary w-inline-block">
-              <div className="button-primary-text">View all services</div>
+            <Link data-w-id="da79e972-0b14-c317-d304-cbc9a972a09e" href="/services" className="button-primary w-inline-block">
+              <div className="button-primary-text">{t('quote:services.view-all')}</div>
               <div style={{width: '0%', height: '100%'}} className="button-primary-hover"></div>
-            </a>
+            </Link>
           </div>
           <div className="service-scroll-wrap">
             <div className="service-scroll-list">
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0a4-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a4" href="/services/air-freight" className="service-scroll-item w-inline-block">
+              <Link id="w-node-da79e972-0b14-c317-d304-cbc9a972a0a4-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a4" href="/services/air-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
-                  <img
-                    src="/brand/big-service-01.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a6"
-                    alt="Service Image"
-                    className="service-scroll-image"
-                  />
+                  <img src="/brand/big-service-01.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0a6" alt="Service Image" className="service-scroll-image" />
                 </div>
                 <div>
-                  <h3 className="heading-h4">Air Freight</h3>
-                  <div>Express solutions for time-critical shipments</div>
+                  <h3 className="heading-h4">{t('quote:services.air.title')}</h3>
+                  <div>{t('quote:services.air.desc')}</div>
                 </div>
                 <div className="service-arrow-link">
-                  <img
-                    src="/brand/dark-arrow.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ad"
-                    alt=""
-                    className="service-arrow-link-icon"
-                  />
+                  <img src="/brand/dark-arrow.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ad" alt="" className="service-arrow-link-icon" />
                 </div>
-              </a>
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0ae-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ae" href="/services/road-freight" className="service-scroll-item w-inline-block">
+              </Link>
+              <Link id="w-node-da79e972-0b14-c317-d304-cbc9a972a0ae-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ae" href="/services/road-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
-                  <img
-                    src="/brand/big-service-02.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b0"
-                    alt="Service Image"
-                    className="service-scroll-image"
-                  />
+                  <img src="/brand/big-service-02.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b0" alt="Service Image" className="service-scroll-image" />
                 </div>
                 <div>
-                  <h3 className="heading-h4">Road freight</h3>
-                  <div>Daily departures Morocco ↔ Europe</div>
+                  <h3 className="heading-h4">{t('quote:services.road.title')}</h3>
+                  <div>{t('quote:services.road.desc')}</div>
                 </div>
                 <div className="service-arrow-link">
-                  <img
-                    src="/brand/dark-arrow.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b7"
-                    alt=""
-                    className="service-arrow-link-icon"
-                  />
+                  <img src="/brand/dark-arrow.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b7" alt="" className="service-arrow-link-icon" />
                 </div>
-              </a>
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0b8-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b8" href="/services/sea-freight" className="service-scroll-item w-inline-block">
+              </Link>
+              <Link id="w-node-da79e972-0b14-c317-d304-cbc9a972a0b8-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0b8" href="/services/sea-freight" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
-                  <img
-                    src="/brand/big-service-03.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ba"
-                    alt="Service Image"
-                    className="service-scroll-image"
-                  />
+                  <img src="/brand/big-service-03.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0ba" alt="Service Image" className="service-scroll-image" />
                 </div>
                 <div>
-                  <h3 className="heading-h4">Ocean freight</h3>
-                  <div>FCL & LCL via Tanger Med & Casablanca</div>
+                  <h3 className="heading-h4">{t('quote:services.sea.title')}</h3>
+                  <div>{t('quote:services.sea.desc')}</div>
                 </div>
                 <div className="service-arrow-link">
-                  <img
-                    src="/brand/dark-arrow.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c1"
-                    alt=""
-                    className="service-arrow-link-icon"
-                  />
+                  <img src="/brand/dark-arrow.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c1" alt="" className="service-arrow-link-icon" />
                 </div>
-              </a>
-              <a id="w-node-da79e972-0b14-c317-d304-cbc9a972a0c2-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c2" href="/services/storage" className="service-scroll-item w-inline-block">
+              </Link>
+              <Link id="w-node-da79e972-0b14-c317-d304-cbc9a972a0c2-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c2" href="/services/storage" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
-                  <img
-                    src="/brand/big-service-04.png"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c3"
-                    alt="Service Image"
-                    className="service-scroll-image"
-                  />
+                  <img src="/brand/big-service-04.png" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c3" alt="Service Image" className="service-scroll-image" />
                 </div>
                 <div>
-                  <h3 className="heading-h4">Storage</h3>
-                  <div>Secure, flexible warehousing solutions</div>
+                  <h3 className="heading-h4">{t('quote:services.storage.title')}</h3>
+                  <div>{t('quote:services.storage.desc')}</div>
                 </div>
                 <div className="service-arrow-link">
-                  <img
-                    src="/brand/dark-arrow.svg"
-                    loading="eager"
-                    data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c4"
-                    alt=""
-                    className="service-arrow-link-icon"
-                  />
+                  <img src="/brand/dark-arrow.svg" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c4" alt="" className="service-arrow-link-icon" />
                 </div>
-              </a>
-              
+              </Link>
             </div>
           </div>
         </div>
@@ -309,15 +265,23 @@ export default function RequestAQuote() {
         <div className="w-layout-blockcontainer container w-container">
           <div data-w-id="6a5b6711-8875-297c-219e-75c37a42728a" style={{opacity: 0}} className="w-layout-grid grid-action-box">
             <div id="w-node-_6a5b6711-8875-297c-219e-75c37a42728b-3f4293aa">
-              <h2 data-w-id="6a5b6711-8875-297c-219e-75c37a42728c" style={{opacity: 0}} className="text-white">Feel free to reach out and ask us anything!</h2>
+              <h2 data-w-id="6a5b6711-8875-297c-219e-75c37a42728c" style={{opacity: 0}} className="text-white">{t('action-box.text')}</h2>
             </div>
-            <a id="w-node-_6a5b6711-8875-297c-219e-75c37a42728e-3f4293aa" data-w-id="6a5b6711-8875-297c-219e-75c37a42728e" href="/contact" className="action-box-button w-inline-block">
-              <div className="action-box-title">Let&#x27;s Talk</div>
+            <Link id="w-node-_6a5b6711-8875-297c-219e-75c37a42728e-3f4293aa" data-w-id="6a5b6711-8875-297c-219e-75c37a42728e" href="/contact" className="action-box-button w-inline-block">
+              <div className="action-box-title">{t('action-box.button')}</div>
               <div style={{transform: 'translate3d(0, 0, 0) scale3d(0, 0, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)'}} className="action-box-button-hover"></div>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
     </Layout>
   )
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'quote'])),
+    },
+  }
 }

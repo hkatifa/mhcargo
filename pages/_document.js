@@ -23,6 +23,48 @@ export default function Document() {
           }}
         />
 
+        {/* Block /undefined navigation from Webflow CDN CMS scripts — must run before CDN scripts load */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function() {
+  function isUndefinedUrl(url) {
+    if (!url) return false;
+    try {
+      var parsed = new URL(String(url), location.origin);
+      return /\\/undefined(\\/|$|\\?|#)/.test(parsed.pathname + '/');
+    } catch(e) { return false; }
+  }
+
+  // Navigation API (Chrome 102+) — catches window.location.href assignments
+  if (typeof navigation !== 'undefined') {
+    navigation.addEventListener('navigate', function(e) {
+      try {
+        var dest = new URL(e.destination.url);
+        if (/\\/undefined(\\/|$|\\?|#)/.test(dest.pathname + '/')) {
+          e.preventDefault();
+          console.warn('[NAV BLOCKED] Navigation API blocked:', e.destination.url);
+        }
+      } catch(err) {}
+    });
+  }
+
+  // history.pushState / replaceState fallback
+  var _push = history.pushState.bind(history);
+  var _replace = history.replaceState.bind(history);
+  history.pushState = function(s, t, url) {
+    if (isUndefinedUrl(url)) { console.warn('[NAV BLOCKED] pushState:', url); return; }
+    return _push(s, t, url);
+  };
+  history.replaceState = function(s, t, url) {
+    if (isUndefinedUrl(url)) { console.warn('[NAV BLOCKED] replaceState:', url); return; }
+    return _replace(s, t, url);
+  };
+})();
+            `,
+          }}
+        />
+
         <link href="/brand/favicon.svg" rel="shortcut icon" type="image/x-icon" />
       </Head>
       <body>
@@ -30,7 +72,9 @@ export default function Document() {
         <NextScript />
         {/* jQuery — served locally */}
         <script src="/lib/jquery.min.js" type="text/javascript" />
-        {/* Webflow JS chunks — served locally */}
+        {/* Webflow JS chunks — push modules to self.webpackChunk.
+            webflow-page.js (the webpack runtime) is loaded dynamically
+            in _app.js after React hydration to avoid hydration mismatches. */}
         <script src="/lib/webflow-chunk1.js" type="text/javascript" />
         <script src="/lib/webflow-chunk2.js" type="text/javascript" />
         <script src="/lib/webflow-chunk3.js" type="text/javascript" />

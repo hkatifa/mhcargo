@@ -1,24 +1,23 @@
-import Layout from '@/components/Layout';
-import { client, urlFor } from '@/lib/sanity';
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import Layout from '@/components/Layout'
+import { getAllPosts } from '@/lib/posts'
 
-const POSTS_QUERY = `*[_type == "post"] | order(publishedAt desc) {
-  title,
-  "slug": slug.current,
-  publishedAt,
-  mainImage,
-  excerpt
-}`;
-
-function formatDate(dateString) {
-  if (!dateString) return '';
-  return new Date(dateString).toLocaleDateString('en-US', {
+function formatDate(dateString, locale) {
+  if (!dateString) return ''
+  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-  });
+  })
 }
 
 export default function BlogPage({ posts }) {
+  const { t } = useTranslation(['common', 'blog'])
+  const { locale } = useRouter()
+
   return (
     <Layout
       title="Blog | MH Cargo"
@@ -29,7 +28,7 @@ export default function BlogPage({ posts }) {
     >
       <section className="hero-inner text-center">
         <div className="w-layout-blockcontainer container-medium w-container">
-          <h1 data-w-id="58ae3485-0730-2fee-e8bd-66810c3505f9" style={{ opacity: 0 }}>Blog</h1>
+          <h1 data-w-id="58ae3485-0730-2fee-e8bd-66810c3505f9" style={{ opacity: 0 }}>{t('blog:hero.title')}</h1>
         </div>
       </section>
 
@@ -37,12 +36,12 @@ export default function BlogPage({ posts }) {
         <div className="w-layout-blockcontainer container-full w-container">
           <div className="w-dyn-list">
             {posts.length === 0 ? (
-              <p style={{ textAlign: 'center', padding: '2rem 0' }}>No posts yet. Check back soon!</p>
+              <p style={{ textAlign: 'center', padding: '2rem 0' }}>{t('blog:no-posts')}</p>
             ) : (
               <div role="list" className="grid-blog-list w-dyn-items">
                 {posts.map((post) => (
                   <div key={post.slug} role="listitem" className="w-dyn-item">
-                    <a
+                    <Link
                       aria-label="link"
                       data-w-id="d956d5ee-3527-0685-6bb4-cd816142f312"
                       href={`/blog/${post.slug}`}
@@ -55,14 +54,14 @@ export default function BlogPage({ posts }) {
                       >
                         {post.mainImage ? (
                           <img
-                            alt={post.title}
+                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
                             loading="eager"
-                            src={urlFor(post.mainImage).width(550).height(370).url()}
+                            src={post.mainImage}
                             className="blog-image"
                           />
                         ) : (
                           <img
-                            alt={post.title}
+                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
                             loading="eager"
                             src="https://placehold.co/550x370"
                             className="blog-image"
@@ -76,17 +75,17 @@ export default function BlogPage({ posts }) {
                           style={{ opacity: 0 }}
                           className="blog-date"
                         >
-                          {formatDate(post.publishedAt)}
+                          {formatDate(post.publishedAt, locale)}
                         </div>
                         <h2
                           data-w-id="d956d5ee-3527-0685-6bb4-cd816142f318"
                           style={{ opacity: 0 }}
                           className="blog-title"
                         >
-                          {post.title}
+                          {locale === 'fr' && post.title_fr ? post.title_fr : post.title}
                         </h2>
                       </div>
-                    </a>
+                    </Link>
                   </div>
                 ))}
               </div>
@@ -95,13 +94,15 @@ export default function BlogPage({ posts }) {
         </div>
       </section>
     </Layout>
-  );
+  )
 }
 
-export async function getStaticProps() {
-  const posts = await client.fetch(POSTS_QUERY);
+export async function getStaticProps({ locale }) {
+  const posts = getAllPosts()
   return {
-    props: { posts },
-    revalidate: 60,
-  };
+    props: {
+      posts,
+      ...(await serverSideTranslations(locale, ['common', 'blog'])),
+    },
+  }
 }

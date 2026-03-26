@@ -1,6 +1,10 @@
-import Layout from '@/components/Layout';
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
+import Layout from '@/components/Layout'
 
 export default function ContactPage() {
+  const { t } = useTranslation(['common', 'contact'])
+
   return (
     <Layout
       title="Contact | MH Cargo"
@@ -11,8 +15,8 @@ export default function ContactPage() {
     >
       <section className="hero-inner text-center">
         <div className="w-layout-blockcontainer container-medium w-container">
-          <h1 data-w-id="735e61b1-33b8-f27b-ace3-40189e156e16" style={{opacity:0}}>Get in Touch for <span className="text-primary-1">Logistics</span> Needs</h1>
-          <p data-w-id="fcc49c5e-4037-87b8-4a69-556d5a37531a" style={{opacity:0}}>Have an inquiry about our transport solutions? Our dedicated team is ready to provide swift and tailored assistance for all your import and export needs. </p>
+          <h1 data-w-id="735e61b1-33b8-f27b-ace3-40189e156e16" style={{opacity:0}}>{t('contact:hero.title-pre')} <span className="text-primary-1">{t('contact:hero.title-highlight')}</span> {t('contact:hero.title-post')}</h1>
+          <p data-w-id="fcc49c5e-4037-87b8-4a69-556d5a37531a" style={{opacity:0}}>{t('contact:hero.desc')}</p>
         </div>
       </section>
 
@@ -22,26 +26,25 @@ export default function ContactPage() {
 
             <div id="w-node-_2bf85d6e-6997-48b0-86b5-a65e979ad9a3-dc6f3a3e" className="contact-form-title-wrap">
               <div data-w-id="b0fd36b2-73dd-ccd8-fc55-6fba04b77dca" style={{opacity:0}}>
-                <h2 className="heading-h3">Need any help?</h2>
-                <p>Contact us today and our dedicated team will provide swift, tailored assistance to meet your international transport needs.</p>
+                <h2 className="heading-h3">{t('contact:sidebar.title')}</h2>
+                <p>{t('contact:sidebar.desc')}</p>
               </div>
 
               <div className="contact-meta-wrap">
                 <div data-w-id="bb283def-ce75-a7fc-74d8-2b1597e3ba96" style={{opacity:0}} className="contact-meta-item">
-                  <h3 className="heading-h6">Opening Hours</h3>
-                  <div>Monday to Friday: 08:30 – 17:30</div>
-                  <div>Saturday: 09:00 – 12:30<br /></div>
-                  <div>Sunday: Close<br /></div>
+                  <h3 className="heading-h6">{t('contact:sidebar.hours.title')}</h3>
+                  <div>{t('contact:sidebar.hours.weekdays')}</div>
+                  <div>{t('contact:sidebar.hours.saturday')}<br /></div>
+                  <div>{t('contact:sidebar.hours.sunday')}<br /></div>
                 </div>
                 <div data-w-id="72252cd7-3604-8a08-59f0-7755eccae54c" style={{opacity:0}} className="contact-meta-item">
-                  <h3 className="heading-h6">Address</h3>
-                  <div>Place Paquet, Angle Rue Mohamed Smiha et Rue Pierre Parent Espace Paquet Bureau 302 - Casablanca</div>
+                  <h3 className="heading-h6">{t('contact:sidebar.address.title')}</h3>
+                  <div>{t('footer.address')}</div>
                 </div>
                 <div data-w-id="35990eb5-5a31-423d-fe29-86a3cd6f9fea" style={{opacity:0}} className="contact-meta-item">
-                  <h3 className="heading-h6">Phone</h3>
+                  <h3 className="heading-h6">{t('contact:sidebar.phone.title')}</h3>
                   <div className="contact-support-wrap">
                     <a href="tel:+212522314567">+212 522 31 45 67</a>
-                  
                   </div>
                 </div>
               </div>
@@ -58,67 +61,67 @@ export default function ContactPage() {
                   data-wf-element-id="1fa5fb58-f458-3f49-84e6-d5cd312993af"
                 >
                   <div className="input-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="name">{t('contact:form.name-label')}</label>
                     <input
                       className="form-input contact-input w-input"
                       maxLength="256"
                       name="name"
                       data-name="Name"
-                      placeholder="Enter name"
+                      placeholder={t('contact:form.name-placeholder')}
                       type="text"
                       id="name"
                     />
                   </div>
                   <div className="input-group-wrap">
                     <div className="input-group no-margin">
-                      <label htmlFor="Email">Email</label>
+                      <label htmlFor="Email">{t('contact:form.email-label')}</label>
                       <input
                         className="form-input contact-input w-input"
                         maxLength="256"
                         name="Email"
                         data-name="Email"
-                        placeholder="Enter email"
+                        placeholder={t('contact:form.email-placeholder')}
                         type="email"
                         id="Email"
                         required
                       />
                     </div>
                     <div className="input-group no-margin">
-                      <label htmlFor="Phone-No">Phone No</label>
+                      <label htmlFor="Phone-No">{t('contact:form.phone-label')}</label>
                       <input
                         className="form-input contact-input w-input"
                         maxLength="256"
                         name="Phone-No"
                         data-name="Phone No"
-                        placeholder="Enter phone no"
+                        placeholder={t('contact:form.phone-placeholder')}
                         type="tel"
                         id="Phone-No"
                       />
                     </div>
                   </div>
                   <div className="input-group">
-                    <label htmlFor="Message">Message</label>
+                    <label htmlFor="Message">{t('contact:form.message-label')}</label>
                     <textarea
                       id="Message"
                       name="Message"
                       maxLength="5000"
                       data-name="Message"
-                      placeholder="Please type your message here..."
+                      placeholder={t('contact:form.message-placeholder')}
                       className="form-input contact-input form-textarea w-input"
                     ></textarea>
                   </div>
                   <input
                     type="submit"
-                    data-wait="Please wait..."
+                    data-wait={t('form.please-wait')}
                     className="button-primary-lg w-button"
-                    value="Submit"
+                    value={t('contact:form.submit')}
                   />
                 </form>
                 <div className="success-message w-form-done">
-                  <div>Thank you! Your submission has been received!</div>
+                  <div>{t('form.success')}</div>
                 </div>
                 <div className="error-message w-form-fail">
-                  <div>Oops! Something went wrong while submitting the form.</div>
+                  <div>{t('form.error')}</div>
                 </div>
               </div>
             </div>
@@ -127,5 +130,13 @@ export default function ContactPage() {
         </div>
       </section>
     </Layout>
-  );
+  )
+}
+
+export async function getStaticProps({ locale }) {
+  return {
+    props: {
+      ...(await serverSideTranslations(locale, ['common', 'contact'])),
+    },
+  }
 }

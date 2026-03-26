@@ -312,6 +312,25 @@
   transform: translateX(10px) !important;
 }
 
+/* Dropdown hover gap fix — Webflow sets margin-top:15px on .dropdown-list,
+   creating a dead zone that closes the menu before you reach the links.
+   A ::before pseudo-element bridges the gap invisibly so hovering is continuous.
+   This approach is immune to Webflow JS re-initializing inline styles. */
+.w-dropdown {
+  position: relative !important;
+}
+.dropdown-list {
+  margin-top: 0 !important;
+}
+.dropdown-list::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+}
+
 /* Remove Next.js default globals interference */
 html, body {
   max-width: unset;
@@ -334,4 +353,36 @@ body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, select, button, textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* service-04.png is a PNG (not SVG) — preserve its natural proportions */
+img[src*="service-04.png"] {
+  object-fit: contain !important;
+  width: auto !important;
+  max-width: 100% !important;
+  height: auto !important;
+  max-height: 100% !important;
+}
+
+/* Service card arrows — on mobile (single-column grid with justify-items:start)
+   Webflow only has justify-self:end for items 1-3 via specific node IDs.
+   Item 4 (Storage, homepage) and all items on service detail pages have no
+   matching node ID rule, so their arrows default to the left.
+   This rule covers all cases: any div directly inside .grid-service-item
+   that wraps a .service-arrow-icon gets pushed to the right. */
+.grid-service-item > div:has(.service-arrow-icon) {
+  justify-self: end;
+}
+
+/* Hide "Get a quote" button on mobile/tablet (extends Webflow's 479px-only rule) */
+/* Service card titles: on mobile the single-column layout should be left-aligned.
+   The .text-center class centers them on all viewports; override for mobile. */
+@media screen and (max-width: 767px) {
+  .mobile-hide {
+    display: none !important;
+  }
+
+  .grid-service-item .text-center {
+    text-align: left !important;
+  }
 }
