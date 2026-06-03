@@ -3,6 +3,7 @@ import '@/styles/custom.css'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { appWithTranslation } from 'next-i18next/pages'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 function initScrollReveal() {
   const candidates = document.querySelectorAll('[data-w-id]')
@@ -122,7 +123,14 @@ function App({ Component, pageProps }) {
     }
   }, [])
 
-  return <Component {...pageProps} />
+  return (
+    <>
+      <Component {...pageProps} />
+      {process.env.NEXT_PUBLIC_GA_ID && (
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
+      )}
+    </>
+  )
 }
 
 export default appWithTranslation(App)
