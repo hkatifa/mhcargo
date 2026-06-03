@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '../../components/Layout'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
@@ -90,10 +91,13 @@ export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) 
             </div>
 
             {post.mainImage && (
-              <img
+              <Image
                 alt={displayTitle}
-                loading="eager"
                 src={post.mainImage}
+                width={1200}
+                height={500}
+                priority
+                sizes="(max-width: 767px) 100vw, 800px"
                 className="blog-detail-image"
               />
             )}
@@ -130,11 +134,14 @@ export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) 
                     <Link href={`/blog/${recent.slug}`} className="blog-item w-inline-block">
                       <div className="blog-image-wrap">
                         {recent.mainImage ? (
-                          <img
+                          <Image
                             alt={locale === 'fr' && recent.title_fr ? recent.title_fr : recent.title}
-                            loading="eager"
                             src={recent.mainImage}
+                            width={550}
+                            height={370}
+                            sizes="(max-width: 767px) 100vw, 33vw"
                             className="blog-image"
+                            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                           />
                         ) : (
                           <img

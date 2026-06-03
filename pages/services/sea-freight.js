@@ -1,7 +1,11 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
+import serviceInfo01 from '@/public/brand/service-ocean-info-01.jpg'
+import serviceInfo02 from '@/public/brand/service-ocean-info-02.jpg'
+import serviceStorage from '@/public/brand/service-04.png'
 
 export default function SeaFreight() {
   const { t } = useTranslation(['common', 'sea-freight'])
@@ -31,7 +35,7 @@ export default function SeaFreight() {
               <div>
                 <h2 data-w-id="5a582872-4b96-4b79-4811-0d2dcd269d52" style={{opacity: 0}} className="heading-h5">{t('sea-freight:hero.heading')}</h2>
                 <p data-w-id="be9e43a5-4fce-0a9f-b8c6-a4986c61be56" style={{opacity: 0}}>{t('sea-freight:hero.desc')}</p>
-                <img className="service-info-image" src="/brand/service-ocean-info-01.jpg" alt="Service Info Image" style={{opacity: 0}} data-w-id="c263b62d-2212-4c42-de5e-7ac8c5e9d39a" loading="eager" />
+                <Image className="service-info-image" src={serviceInfo01} alt="Service Info Image" style={{opacity: 0}} data-w-id="c263b62d-2212-4c42-de5e-7ac8c5e9d39a" sizes="(max-width: 991px) 100vw, 50vw" />
                 <h2 data-w-id="931a641f-a55c-b361-60fb-6edd2a6ad601" style={{opacity: 0}} className="heading-h5">{t('sea-freight:included.title')}</h2>
                 <p data-w-id="ca642dbd-33fc-4133-7abc-6e0e785619b4" style={{opacity: 0}}>{t('sea-freight:included.desc')}</p>
               </div>
@@ -51,7 +55,7 @@ export default function SeaFreight() {
               </div>
               <div className="w-layout-grid grid-why-choose-us">
                 <div id="w-node-c0cb7bd5-f3c7-51cc-4a91-1932f9ae21e2-ad09b4e5" data-w-id="c0cb7bd5-f3c7-51cc-4a91-1932f9ae21e2" style={{opacity: 0}} className="why-choose-us-image-wrap">
-                  <img src="/brand/service-ocean-info-02.jpg" loading="eager" alt="Service Info Image" className="why-choose-us-image" />
+                  <Image src={serviceInfo02} alt="Service Info Image" className="why-choose-us-image" sizes="(max-width: 991px) 100vw, 50vw" />
                 </div>
                 <div id="w-node-e68b6a9f-55c2-9351-2506-62b164b07f25-ad09b4e5">
                   <h2 data-w-id="96fecc7f-1fe9-db1c-f759-48e1fc50e623" style={{opacity: 0}} className="heading-h5">{t('sea-freight:why.title')}</h2>
@@ -114,7 +118,7 @@ export default function SeaFreight() {
             <Link data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80a" href="/services/storage" className="grid-service-item w-inline-block">
               <div><h3 className="service-number">03</h3><p>{t('services.storage.desc')}</p></div>
               <div className="text-center"><h3 className="service-title">{t('services.storage.title')}</h3></div>
-              <div className="service-image-wrap"><img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" /></div>
+              <div className="service-image-wrap"><Image src={serviceStorage} alt="Service Image" className="service-image" /></div>
               <div><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div className="service-divider"></div>
             </Link>

@@ -2,6 +2,7 @@ import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
 import { getAllPosts } from '@/lib/posts'
 
@@ -54,11 +55,14 @@ export default function BlogPage({ posts }) {
                         className="blog-image-wrap"
                       >
                         {post.mainImage ? (
-                          <img
+                          <Image
                             alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
-                            loading="eager"
                             src={post.mainImage}
+                            width={550}
+                            height={370}
+                            sizes="(max-width: 767px) 100vw, 33vw"
                             className="blog-image"
+                            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                           />
                         ) : (
                           <img

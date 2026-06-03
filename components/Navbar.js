@@ -1,6 +1,7 @@
 import { useTranslation } from 'next-i18next/pages'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Navbar({ currentPage }) {
   const { t } = useTranslation('common')
@@ -80,7 +81,7 @@ export default function Navbar({ currentPage }) {
                 </Link>
                 <Link href="/services/storage" aria-current={ariaCurrent('/services/storage')} className={`dropdown-service-item w-dropdown-link ${isCurrentPage('/services/storage')}`}>
                   <div className="dropdown-service-icon-wrap">
-                    <img src="/brand/service-04.png" alt="storage" className="dropdown-service-icon" />
+                    <Image src="/brand/service-04.png" width={40} height={40} alt="storage" className="dropdown-service-icon" />
                   </div>
                   <span>{t('nav.storage')}</span>
                 </Link>

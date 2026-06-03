@@ -1,9 +1,12 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
 import useLeadForm from '@/lib/useLeadForm'
 import { useEffect } from 'react'
+import requestImage from '@/public/brand/request-01.jpg'
+import bigService04 from '@/public/brand/big-service-04.png'
 
 export default function RequestAQuote() {
   const { t } = useTranslation(['common', 'quote'])
@@ -69,13 +72,13 @@ export default function RequestAQuote() {
         <div className="w-layout-blockcontainer container-full w-container">
           <div className="w-layout-grid grid-request-quote">
             <div id="w-node-_0269d436-5e94-4750-2694-fbbce154a170-3f4293aa" className="request-image-wrap">
-              <img
-                src="/brand/request-01.jpg"
-                loading="eager"
+              <Image
+                src={requestImage}
                 style={{opacity: 0}}
                 data-w-id="5e6e0ab9-db87-36d6-62b2-7473421ba945"
                 alt="Request Image"
                 className="request-image"
+                sizes="(max-width: 991px) 50vw, 45vw"
               />
             </div>
             <div data-w-id="e6d8b316-7a2a-6188-dbb1-05034adfcbe6" style={{opacity: 0}} className="request-quote-form">
@@ -258,7 +261,7 @@ export default function RequestAQuote() {
               </Link>
               <Link id="w-node-da79e972-0b14-c317-d304-cbc9a972a0c2-3f4293aa" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c2" href="/services/storage" className="service-scroll-item w-inline-block">
                 <div className="service-scroll-image-wrap">
-                  <img src="/brand/big-service-04.png" loading="eager" data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c3" alt="Service Image" className="service-scroll-image" />
+                  <Image src={bigService04} data-w-id="da79e972-0b14-c317-d304-cbc9a972a0c3" alt="Service Image" className="service-scroll-image" sizes="300px" />
                 </div>
                 <div>
                   <h3 className="heading-h4">{t('quote:services.storage.title')}</h3>

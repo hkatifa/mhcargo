@@ -1,8 +1,12 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
 import Script from 'next/script'
+import truckHero from '@/public/brand/truck-01.png'
+import stepImage from '@/public/brand/Step-01.jpg'
+import serviceStorage from '@/public/brand/service-04.png'
 
 export default function Services() {
   const { t } = useTranslation(['common', 'services'])
@@ -30,7 +34,7 @@ export default function Services() {
               </Link>
             </div>
             <div id="w-node-_21618275-47b8-66ce-e38b-630a2de5d185-dfc71ef1" data-w-id="21618275-47b8-66ce-e38b-630a2de5d185" className="service-hero-image-wrap">
-              <img src="/brand/truck-01.png" loading="eager" style={{WebkitTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', MozTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', msTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', transform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)'}} alt="Truck Image" className="service-hero-image" />
+              <Image src={truckHero} style={{WebkitTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', MozTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', msTransform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)', transform: 'translate3d(110%, -50px, 0) scale3d(1, 1, 1) rotateX(0) rotateY(0) rotateZ(0) skew(0, 0)'}} alt="Truck Image" className="service-hero-image" sizes="(max-width: 991px) 50vw, 40vw" />
             </div>
           </div>
         </div>
@@ -40,7 +44,7 @@ export default function Services() {
         <div className="w-layout-blockcontainer container-full w-container">
           <div className="w-layout-grid grid-step-wrap">
             <div id="w-node-_0c551e51-f1f1-70e0-8cc2-18842133d63a-dfc71ef1" data-w-id="0c551e51-f1f1-70e0-8cc2-18842133d63a" style={{opacity: 0}} className="step-image-wrap">
-              <img src="/brand/Step-01.jpg" loading="eager" alt="Step Image" className="step-image" />
+              <Image src={stepImage} alt="Step Image" className="step-image" sizes="(max-width: 991px) 100vw, 50vw" />
             </div>
             <div id="w-node-_7a0ad679-ab26-af59-ebcb-893bd41c06e0-dfc71ef1" className="step-content">
               <div className="step-white-decoration"></div>
@@ -110,7 +114,7 @@ export default function Services() {
             <Link data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80c" href="/services/storage" className="grid-service-item w-inline-block">
               <div><h3 className="service-number">04</h3><p>{t('services.storage.desc')}</p></div>
               <div className="text-center"><h3 className="service-title">{t('services.storage.title')}</h3></div>
-              <div className="service-image-wrap"><img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" /></div>
+              <div className="service-image-wrap"><Image src={serviceStorage} alt="Service Image" className="service-image" /></div>
               <div><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div className="service-divider"></div>
             </Link>

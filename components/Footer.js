@@ -1,5 +1,7 @@
 import { useTranslation } from 'next-i18next/pages'
 import Link from 'next/link'
+import Image from 'next/image'
+import mapFooter from '@/public/brand/Map footer.png'
 
 export default function Footer() {
   const { t } = useTranslation('common')
@@ -104,12 +106,13 @@ export default function Footer() {
                 {t('footer.ship-package')}
               </Link>
             </div>
-            <img
-              src="/brand/Map footer.png"
-              loading="eager"
+            <Image
+              src={mapFooter}
               data-w-id="fbd7bb69-3220-e6a2-2761-71c20a58d18a"
               alt="Map Image"
               className="map-image"
+              sizes="(max-width: 991px) 100vw, 50vw"
+              style={{ maxWidth: '100%', height: 'auto' }}
             />
           </div>
         </div>

@@ -1,7 +1,10 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
+import aboutMission from '@/public/brand/about-mission.png'
+import serviceStorage from '@/public/brand/service-04.png'
 
 export default function About() {
   const { t } = useTranslation(['common', 'about'])
@@ -101,11 +104,11 @@ export default function About() {
         <div className="w-layout-blockcontainer container-full w-container">
           <div className="mh-mission-grid" style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'80px', alignItems:'center'}}>
             <div data-reveal style={{opacity:0, borderRadius:'12px', overflow:'hidden'}}>
-              <img
-                src="/brand/about-mission.png"
-                loading="eager"
+              <Image
+                src={aboutMission}
                 alt="Our Mission"
-                style={{width:'100%', height:'100%', objectFit:'cover', display:'block'}}
+                sizes="(max-width: 991px) 50vw, 45vw"
+                style={{width:'100%', height:'auto', objectFit:'cover', display:'block'}}
               />
             </div>
             <div>
@@ -164,7 +167,7 @@ export default function About() {
             <Link data-w-id="18263d14-2db4-39ef-95d2-fbc85aa9be80b" href="/services/storage" className="grid-service-item w-inline-block">
               <div><h3 className="service-number">04</h3><p>{t('services.storage.desc')}</p></div>
               <div className="text-center"><h3 className="service-title">{t('services.storage.title')}</h3></div>
-              <div className="service-image-wrap"><img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" /></div>
+              <div className="service-image-wrap"><Image src={serviceStorage} alt="Service Image" className="service-image" /></div>
               <div><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div className="service-divider"></div>
             </Link>

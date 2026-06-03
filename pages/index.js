@@ -3,9 +3,15 @@ import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
 import useLeadForm from '@/lib/useLeadForm'
 import { getAllPosts } from '@/lib/posts'
+import heroContainerEn from '@/public/brand/container.png'
+import heroContainerFr from '@/public/brand/container-fr.png'
+import heroSpanIcon from '@/public/brand/Small icon.png'
+import whyImage from '@/public/brand/Why.jpg'
+import serviceStorage from '@/public/brand/service-04.png'
 
 function formatDate(dateString, locale) {
   if (!dateString) return ''
@@ -78,7 +84,7 @@ export default function Home({ latestPosts }) {
               <div className="hero-content">
                 <p className="hero-pretitle" style={{fontSize:'15px', fontWeight:'400', color:'#666', marginBottom:'8px', letterSpacing:'0.01em'}}>{t('home:hero.pretitle')}</p>
                 <h1 data-w-id="0b060154-62d9-422b-c874-69e1a7c20992" className="hero-title" style={{fontSize:'60px'}}>
-                  {t('home:hero.title-pre')} <img src="/brand/Small icon.png" className="hero-span-image" alt="Morocco flag" style={{height:'0.75em', verticalAlign:'middle', display:'inline-block', marginBottom:'0.08em'}} /> <span style={{fontWeight:'200'}}>{t('home:hero.title-post')}</span>
+                  {t('home:hero.title-pre')} <Image src={heroSpanIcon} className="hero-span-image" alt="Morocco flag" style={{height:'0.75em', width:'auto', verticalAlign:'middle', display:'inline-block', marginBottom:'0.08em'}} /> <span style={{fontWeight:'200'}}>{t('home:hero.title-post')}</span>
                 </h1>
                 <p data-w-id="f831e8ad-c258-e23c-9412-7462f8016117" className="hero-description">
                   {t('home:hero.description')}
@@ -116,7 +122,15 @@ export default function Home({ latestPosts }) {
             </div>
             <div id="w-node-_20c15b7f-0f41-1b39-ea82-72856d949171-c3f0a02c">
               <div className="hero-image-wrap">
-                <img src={locale === 'fr' ? '/brand/container-fr.png' : '/brand/container.png'} loading="eager" alt="Container Image" className="hero-image" />
+                <Image
+                  src={locale === 'fr' ? heroContainerFr : heroContainerEn}
+                  alt="Container Image"
+                  className="hero-image"
+                  priority
+                  placeholder="blur"
+                  sizes="(max-width: 991px) 100vw, 50vw"
+                  style={{ width: '100%', height: 'auto' }}
+                />
               </div>
             </div>
           </div>
@@ -186,7 +200,7 @@ export default function Home({ latestPosts }) {
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be81-c3f0a02c2"><h3 className="service-number">04</h3><p>{t('services.storage.desc')}</p></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be86-c3f0a02c2" className="text-center"><h3 className="service-title">{t('services.storage.title')}</h3></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be89-c3f0a02c2" className="service-image-wrap">
-                <img src="/brand/service-04.png" loading="eager" alt="Service Image" className="service-image" />
+                <Image src={serviceStorage} alt="Service Image" className="service-image" />
               </div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8b-c3f0a02c2"><img src="/brand/arrow.svg" loading="eager" alt="" className="service-arrow-icon" /></div>
               <div id="w-node-_18263d14-2db4-39ef-95d2-fbc85aa9be8d-c3f0a02c2" className="service-divider"></div>
@@ -199,7 +213,7 @@ export default function Home({ latestPosts }) {
         <div className="w-layout-blockcontainer container-full w-container">
           <div className="w-layout-grid grid-about">
             <div id="w-node-_4dd21052-da4d-9b62-e88a-ba41eac34005-c3f0a02c" data-w-id="4dd21052-da4d-9b62-e88a-ba41eac34005" className="about-image-wrap">
-              <img src="/brand/Why.jpg" loading="eager" alt="Trade Corridors" className="about-image" />
+              <Image src={whyImage} alt="Trade Corridors" className="about-image" sizes="(max-width: 991px) 100vw, 50vw" />
               <div className="image-scroll-overlay"></div>
             </div>
             <div id="w-node-_507e27fb-a5b0-fd1c-c8bd-2589e7f4736a-c3f0a02c" className="about-content">
@@ -340,11 +354,14 @@ export default function Home({ latestPosts }) {
                     >
                       <div className="blog-image-wrap">
                         {post.mainImage ? (
-                          <img
+                          <Image
                             alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
-                            loading="eager"
                             src={post.mainImage}
+                            width={550}
+                            height={370}
+                            sizes="(max-width: 767px) 100vw, 33vw"
                             className="blog-image"
+                            style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
                           />
                         ) : (
                           <img

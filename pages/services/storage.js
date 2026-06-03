@@ -1,7 +1,11 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
+import Image from 'next/image'
 import Layout from '@/components/Layout'
+import bigService04 from '@/public/brand/big-service-04.png'
+import serviceInfo01 from '@/public/brand/service-storage-info-01.jpg'
+import serviceInfo02 from '@/public/brand/service-storage-info-02.jpg'
 
 export default function Storage() {
   const { t } = useTranslation(['common', 'storage'])
@@ -19,7 +23,7 @@ export default function Storage() {
         <div className="w-layout-blockcontainer container w-container">
           <div data-w-id="f50eba78-75c9-ab47-4869-fd427a409e12" style={{opacity: 0}} className="service-detail-hero-wrap">
             <h1 data-w-id="bcad01a5-ab09-5b58-0c42-99cf5fe8db5c" style={{opacity: 0}} className="heading-h2 text-white">{t('storage:page.title')}</h1>
-            <img src="/brand/big-service-04.png" loading="eager" style={{opacity: 0}} data-w-id="407d0a5f-2cba-e22a-be98-b0e96a15cd33" alt="Service Image" className="service-detail-image" />
+            <Image src={bigService04} style={{opacity: 0}} data-w-id="407d0a5f-2cba-e22a-be98-b0e96a15cd33" alt="Service Image" className="service-detail-image" sizes="(max-width: 767px) 90vw, 600px" />
           </div>
         </div>
       </section>
@@ -31,7 +35,7 @@ export default function Storage() {
               <div>
                 <h2 data-w-id="5a582872-4b96-4b79-4811-0d2dcd269d52" style={{opacity: 0}} className="heading-h5">{t('storage:hero.heading')}</h2>
                 <p data-w-id="be9e43a5-4fce-0a9f-b8c6-a4986c61be56" style={{opacity: 0}}>{t('storage:hero.desc')}</p>
-                <img className="service-info-image" src="/brand/service-storage-info-01.jpg" alt="Service Info Image" style={{opacity: 0}} data-w-id="c263b62d-2212-4c42-de5e-7ac8c5e9d39a" loading="eager" />
+                <Image className="service-info-image" src={serviceInfo01} alt="Service Info Image" style={{opacity: 0}} data-w-id="c263b62d-2212-4c42-de5e-7ac8c5e9d39a" sizes="(max-width: 991px) 100vw, 50vw" />
                 <h2 data-w-id="931a641f-a55c-b361-60fb-6edd2a6ad601" style={{opacity: 0}} className="heading-h5">{t('storage:included.title')}</h2>
                 <p data-w-id="ca642dbd-33fc-4133-7abc-6e0e785619b4" style={{opacity: 0}}>{t('storage:included.desc')}</p>
               </div>
@@ -51,7 +55,7 @@ export default function Storage() {
               </div>
               <div className="w-layout-grid grid-why-choose-us">
                 <div id="w-node-c0cb7bd5-f3c7-51cc-4a91-1932f9ae21e2-ad09b4e5" data-w-id="c0cb7bd5-f3c7-51cc-4a91-1932f9ae21e2" style={{opacity: 0}} className="why-choose-us-image-wrap">
-                  <img src="/brand/service-storage-info-02.jpg" loading="eager" alt="Service Info Image" className="why-choose-us-image" />
+                  <Image src={serviceInfo02} alt="Service Info Image" className="why-choose-us-image" sizes="(max-width: 991px) 100vw, 50vw" />
                 </div>
                 <div id="w-node-e68b6a9f-55c2-9351-2506-62b164b07f25-ad09b4e5">
                   <h2 data-w-id="96fecc7f-1fe9-db1c-f759-48e1fc50e623" style={{opacity: 0}} className="heading-h5">{t('storage:why.title')}</h2>
