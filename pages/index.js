@@ -64,7 +64,8 @@ export default function Home({ latestPosts }) {
 
   return (
     <Layout
-      title="Home | MH Cargo - Logistics &amp; Transportation"
+      title="Home | MH Cargo - Logistics & Transportation"
+      description={t('seo.home.description')}
       currentPage="/"
       pageId="658a73e52a1131d1c3f0a02c"
       pageScript="/lib/webflow-page.js"

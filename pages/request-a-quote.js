@@ -50,6 +50,7 @@ export default function RequestAQuote() {
   return (
     <Layout
       title="Request a Quote | MH Cargo"
+      description={t('seo.quote.description')}
       currentPage="/request-a-quote"
       pageId="6593b799237f27f93f4293aa"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.3f6e7923.a1d814f359403fa3.js"

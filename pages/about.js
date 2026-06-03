@@ -8,7 +8,8 @@ export default function About() {
 
   return (
     <Layout
-      title="About | MH Cargo - Logistics &amp; Transportation"
+      title="About | MH Cargo - Logistics & Transportation"
+      description={t('seo.about.description')}
       currentPage="/about"
       pageId="658ff12c60c313eea3532edf"
       pageScript="/lib/webflow-page.js"

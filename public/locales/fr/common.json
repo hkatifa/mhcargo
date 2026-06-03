@@ -78,5 +78,18 @@
 
   "related-services": "Services associés",
 
-  "request-quote.section-title": "Demander un devis"
+  "request-quote.section-title": "Demander un devis",
+
+  "seo.default.description": "MH Cargo — commissionnaire de transport international au Maroc. Fret aérien, maritime et routier avec des solutions d'import-export fiables de bout en bout.",
+  "seo.home.description": "Spécialiste du fret international aérien, maritime et routier au Maroc. MH Cargo simplifie l'import et l'export avec des solutions logistiques fiables de bout en bout.",
+  "seo.about.description": "Découvrez MH Cargo, votre commissionnaire de transport de confiance basé au Maroc, reliant les entreprises marocaines à l'Europe, l'Asie, le Moyen-Orient et au-delà.",
+  "seo.services.description": "Découvrez les services d'expédition et de logistique de MH Cargo : fret aérien urgent, transport routier international, fret maritime mondial et entreposage sécurisé.",
+  "seo.air-freight.description": "Fret aérien urgent au départ du Maroc. Solutions aériennes express et prioritaires pour les importations urgentes et les délais d'exportation critiques dans le monde entier.",
+  "seo.road-freight.description": "Fret routier international entre le Maroc et l'Europe. Départs quotidiens, dédouanement portuaire et livraison dernier kilomètre dans toute l'UE.",
+  "seo.sea-freight.description": "Fret maritime économique via Casablanca et Tanger Med. Gestion complète des conteneurs FCL et LCL pour le commerce à grand volume au Maroc.",
+  "seo.storage.description": "Entreposage sécurisé et flexible dans des emplacements stratégiques au Maroc. Stockage court et long terme pleinement intégré aux services de fret de MH Cargo.",
+  "seo.contact.description": "Contactez MH Cargo pour le fret international au départ du Maroc. Notre équipe vous accompagne pour l'aérien, le maritime et le routier, les douanes et la logistique.",
+  "seo.quote.description": "Demandez un devis de fret gratuit et personnalisé à MH Cargo. Obtenez des tarifs compétitifs aérien, maritime et routier pour votre import-export au Maroc sous 24 heures.",
+  "seo.blog.description": "Conseils sur le fret, les douanes et la logistique pour les importateurs et exportateurs marocains — astuces d'expédition, Incoterms, Tanger Med et commerce Maroc-Europe.",
+  "seo.privacy.description": "Politique de confidentialité de MH Cargo : comment nous collectons, utilisons et protégeons les informations personnelles partagées via notre site et nos formulaires de devis."
 }

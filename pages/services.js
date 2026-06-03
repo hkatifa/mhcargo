@@ -10,6 +10,7 @@ export default function Services() {
   return (
     <Layout
       title="Services | MH Cargo"
+      description={t('seo.services.description')}
       currentPage="/services"
       pageId="6592715418147d2fdfc71ef1"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"

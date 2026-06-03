@@ -1,32 +1,37 @@
-import { Html, Head, Main, NextScript } from 'next/document'
+import NextDocument, { Html, Head, Main, NextScript } from 'next/document'
 
-export default function Document() {
-  return (
-    <Html lang="en" data-wf-domain="cargon-wbs.webflow.io" data-wf-site="658a73e52a1131d1c3f0a037">
-      <Head>
-        {/* Webflow CSS — served locally */}
-        <link href="/lib/webflow.css" rel="stylesheet" type="text/css" />
+export default class Document extends NextDocument {
+  render() {
+    // Pages Router + next-i18next: the active locale is injected into
+    // __NEXT_DATA__ on every request, so SSR emits the correct <html lang>.
+    const lang = this.props.__NEXT_DATA__?.locale || 'en'
 
-        {/* DM Sans font — Google Fonts link (no JS required) */}
-        <link href="https://fonts.googleapis.com" rel="preconnect" />
-        <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
-          rel="stylesheet"
-        />
+    return (
+      <Html lang={lang} data-wf-domain="cargon-wbs.webflow.io" data-wf-site="658a73e52a1131d1c3f0a037">
+        <Head>
+          {/* Webflow CSS — served locally */}
+          <link href="/lib/webflow.css" rel="stylesheet" type="text/css" />
 
-        {/* Webflow touch detection */}
-        <script
-          type="text/javascript"
-          dangerouslySetInnerHTML={{
-            __html: `!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);`,
-          }}
-        />
+          {/* DM Sans font — Google Fonts link (no JS required) */}
+          <link href="https://fonts.googleapis.com" rel="preconnect" />
+          <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
+            rel="stylesheet"
+          />
 
-        {/* Block /undefined navigation from Webflow CDN CMS scripts — must run before CDN scripts load */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
+          {/* Webflow touch detection */}
+          <script
+            type="text/javascript"
+            dangerouslySetInnerHTML={{
+              __html: `!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);`,
+            }}
+          />
+
+          {/* Block /undefined navigation from Webflow CDN CMS scripts — must run before CDN scripts load */}
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
 (function() {
   function isUndefinedUrl(url) {
     if (!url) return false;
@@ -62,23 +67,24 @@ export default function Document() {
   };
 })();
             `,
-          }}
-        />
+            }}
+          />
 
-        <link href="/brand/favicon.svg" rel="shortcut icon" type="image/x-icon" />
-      </Head>
-      <body>
-        <Main />
-        <NextScript />
-        {/* jQuery — served locally */}
-        <script src="/lib/jquery.min.js" type="text/javascript" />
-        {/* Webflow JS chunks — push modules to self.webpackChunk.
-            webflow-page.js (the webpack runtime) is loaded dynamically
-            in _app.js after React hydration to avoid hydration mismatches. */}
-        <script src="/lib/webflow-chunk1.js" type="text/javascript" />
-        <script src="/lib/webflow-chunk2.js" type="text/javascript" />
-        <script src="/lib/webflow-chunk3.js" type="text/javascript" />
-      </body>
-    </Html>
-  )
+          <link href="/brand/favicon.svg" rel="shortcut icon" type="image/x-icon" />
+        </Head>
+        <body>
+          <Main />
+          <NextScript />
+          {/* jQuery — served locally */}
+          <script src="/lib/jquery.min.js" type="text/javascript" />
+          {/* Webflow JS chunks — push modules to self.webpackChunk.
+              webflow-page.js (the webpack runtime) is loaded dynamically
+              in _app.js after React hydration to avoid hydration mismatches. */}
+          <script src="/lib/webflow-chunk1.js" type="text/javascript" />
+          <script src="/lib/webflow-chunk2.js" type="text/javascript" />
+          <script src="/lib/webflow-chunk3.js" type="text/javascript" />
+        </body>
+      </Html>
+    )
+  }
 }

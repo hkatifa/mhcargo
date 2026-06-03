@@ -69,6 +69,9 @@ export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) 
   return (
     <Layout
       title={`${displayTitle} | MH Cargo`}
+      description={displayExcerpt || t('seo.blog.description')}
+      ogType="article"
+      ogImage={post.mainImage || undefined}
       currentPage={`/blog/${post.slug}`}
       pageId="658e8ceffc69948c62c49e92"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"

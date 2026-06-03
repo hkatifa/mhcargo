@@ -78,5 +78,18 @@
 
   "related-services": "Related services",
 
-  "request-quote.section-title": "Request a quote"
+  "request-quote.section-title": "Request a quote",
+
+  "seo.default.description": "MH Cargo — international freight forwarding from Morocco. Air, sea and road transport with reliable end-to-end import and export solutions.",
+  "seo.home.description": "Specialist in international air, sea and road freight from Morocco. MH Cargo simplifies import and export with reliable end-to-end logistics solutions.",
+  "seo.about.description": "Learn about MH Cargo, your trusted Morocco-based freight forwarder connecting Moroccan businesses to Europe, Asia, the Middle East and beyond.",
+  "seo.services.description": "Explore MH Cargo's shipping and logistics services: time-critical air cargo, international road transport, global ocean freight and secure warehousing.",
+  "seo.air-freight.description": "Time-critical air freight from Morocco. Express, priority air cargo for urgent imports and critical export deadlines worldwide.",
+  "seo.road-freight.description": "International road freight between Morocco and Europe. Daily departures, port clearance and last-mile delivery across the EU.",
+  "seo.sea-freight.description": "Cost-effective ocean freight via Casablanca and Tanger Med. Full FCL and LCL container management for high-volume Morocco trade.",
+  "seo.storage.description": "Secure, flexible warehousing in strategic Moroccan locations. Short- and long-term storage fully integrated with MH Cargo's freight services.",
+  "seo.contact.description": "Contact MH Cargo for international freight from Morocco. Reach our team for air, sea and road shipping support, customs and logistics advice.",
+  "seo.quote.description": "Request a free, customized freight quote from MH Cargo. Get competitive air, sea and road rates for your Morocco import or export within 24 hours.",
+  "seo.blog.description": "Insights on freight, customs and logistics for Moroccan importers and exporters — shipping tips, Incoterms, Tanger Med and Morocco–Europe trade.",
+  "seo.privacy.description": "MH Cargo's privacy policy: how we collect, use and protect the personal information you share through our website and quote forms."
 }

@@ -4,6 +4,7 @@ export default function PrivacyPolicy() {
   return (
     <Layout
       title="Privacy Policy | MH Cargo"
+      description="MH Cargo's privacy policy: how we collect, use and protect the personal information you share through our website and quote forms."
       currentPage="/privacy-policy"
       pageId="658a73e52a1131d1c3f0a033"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"

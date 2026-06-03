@@ -21,6 +21,7 @@ export default function BlogPage({ posts }) {
   return (
     <Layout
       title="Blog | MH Cargo"
+      description={t('seo.blog.description')}
       currentPage="/blog"
       pageId="658ff11dff63da989b140db6"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"

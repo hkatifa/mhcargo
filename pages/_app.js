@@ -68,6 +68,11 @@ function initImageOverlays() {
 function App({ Component, pageProps }) {
   const router = useRouter()
 
+  // Keep <html lang> correct on client-side locale switches (SSR sets it in _document).
+  useEffect(() => {
+    if (router.locale) document.documentElement.lang = router.locale
+  }, [router.locale])
+
   useEffect(() => {
     // Load Webflow's webpack runtime after React hydration.
     if (!document.querySelector('script[src="/lib/webflow-page.js"]')) {

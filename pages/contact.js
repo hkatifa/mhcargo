@@ -10,6 +10,7 @@ export default function ContactPage() {
   return (
     <Layout
       title="Contact | MH Cargo"
+      description={t('seo.contact.description')}
       currentPage="/contact"
       pageId="6593b13bd4215558dc6f3a3e"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.3f6e7923.a1d814f359403fa3.js"

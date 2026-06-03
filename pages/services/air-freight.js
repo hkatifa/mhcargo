@@ -9,6 +9,7 @@ export default function AirFreight() {
   return (
     <Layout
       title="Air Freight | MH Cargo"
+      description={t('seo.air-freight.description')}
       currentPage="/services/air-freight"
       pageId="658fc80c237aa7cdad09b4e5"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"
