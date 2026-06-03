@@ -75,28 +75,8 @@ function App({ Component, pageProps }) {
   }, [router.locale])
 
   useEffect(() => {
-    // Load Webflow's webpack runtime after React hydration.
-    if (!document.querySelector('script[src="/lib/webflow-page.js"]')) {
-      const s = document.createElement('script')
-      s.src = '/lib/webflow-page.js'
-      s.type = 'text/javascript'
-      document.body.appendChild(s)
-    }
-
     let observer = initScrollReveal()
     let imageObserver = initImageOverlays()
-
-    // On first visit, the CDN page script (Webflow IX2) isn't cached yet.
-    // It loads after our initial scan and sets opacity:0 on elements we missed.
-    // Re-scan at 1s and 3s to catch those late-hidden elements.
-    const rescan = () => {
-      observer.disconnect()
-      if (imageObserver) imageObserver.disconnect()
-      observer = initScrollReveal()
-      imageObserver = initImageOverlays()
-    }
-    const t1 = setTimeout(rescan, 1000)
-    const t2 = setTimeout(rescan, 3000)
 
     const handleRouteChange = () => {
       observer.disconnect()
@@ -104,19 +84,12 @@ function App({ Component, pageProps }) {
       setTimeout(() => {
         observer = initScrollReveal()
         imageObserver = initImageOverlays()
-        // Re-initialize Webflow interactions after client-side navigation
-        if (typeof window !== 'undefined' && window.Webflow) {
-          window.Webflow.destroy()
-          window.Webflow.ready()
-        }
       }, 100)
     }
 
     router.events.on('routeChangeComplete', handleRouteChange)
 
     return () => {
-      clearTimeout(t1)
-      clearTimeout(t2)
       observer.disconnect()
       if (imageObserver) imageObserver.disconnect()
       router.events.off('routeChangeComplete', handleRouteChange)

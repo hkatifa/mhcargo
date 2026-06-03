@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useTranslation } from 'next-i18next/pages'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -7,6 +8,17 @@ export default function Navbar({ currentPage }) {
   const { t } = useTranslation('common')
   const router = useRouter()
 
+  // React-driven nav (replaces the removed Webflow runtime).
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+
+  // Close the mobile menu / dropdown on client-side navigation.
+  useEffect(() => {
+    const close = () => { setMenuOpen(false); setServicesOpen(false) }
+    router.events.on('routeChangeComplete', close)
+    return () => router.events.off('routeChangeComplete', close)
+  }, [router.events])
+
   const isCurrentPage = (page) => currentPage === page ? 'w--current' : ''
   const ariaCurrent = (page) => currentPage === page ? 'page' : undefined
 
@@ -14,13 +26,16 @@ export default function Navbar({ currentPage }) {
     router.push(router.pathname, router.asPath, { locale })
   }
 
+  const onKeyToggle = (setter) => (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault()
+      setter((v) => !v)
+    }
+  }
+
   return (
     <div
-      data-animation="default"
       data-collapse="medium"
-      data-duration="400"
-      data-easing="ease"
-      data-easing2="ease"
       role="banner"
       className="navbar w-nav"
     >
@@ -39,8 +54,8 @@ export default function Navbar({ currentPage }) {
               className="logo"
             />
           </Link>
-          <nav role="navigation" className="nav-menu w-nav-menu">
-            <div data-w-id="676be7f9-dd44-5120-e296-de49d346687" className="nav-link-wrap">
+          <nav role="navigation" className={`nav-menu w-nav-menu ${menuOpen ? 'nav-open' : ''}`}>
+            <div className="nav-link-wrap">
               <Link
                 href="/"
                 aria-current={ariaCurrent('/')}
@@ -50,17 +65,20 @@ export default function Navbar({ currentPage }) {
               </Link>
               <div className="nav-link-underline"></div>
             </div>
-            <div
-              data-hover="true"
-              data-delay="0"
-              data-w-id="676be7f9-dd44-5120-e296-de49d346687f"
-              className="nav-link w-dropdown"
-            >
-              <div className="dropdown-toggle w-dropdown-toggle">
+            <div className={`nav-link w-dropdown ${servicesOpen ? 'nav-dropdown-open' : ''}`}>
+              <div
+                className="dropdown-toggle w-dropdown-toggle"
+                role="button"
+                tabIndex={0}
+                aria-haspopup="true"
+                aria-expanded={servicesOpen}
+                onClick={() => setServicesOpen((v) => !v)}
+                onKeyDown={onKeyToggle(setServicesOpen)}
+              >
                 <div>{t('nav.services')}</div>
                 <div className="dropdown-icon w-icon-dropdown-toggle"></div>
               </div>
-              <nav className="dropdown-list w-dropdown-list dropdown-services-list">
+              <nav className={`dropdown-list w-dropdown-list dropdown-services-list ${servicesOpen ? 'w--open' : ''}`}>
                 <Link href="/services/air-freight" aria-current={ariaCurrent('/services/air-freight')} className={`dropdown-service-item w-dropdown-link ${isCurrentPage('/services/air-freight')}`}>
                   <div className="dropdown-service-icon-wrap">
                     <img src="/brand/service-01.svg" alt="Air Freight" className="dropdown-service-icon" />
@@ -87,7 +105,7 @@ export default function Navbar({ currentPage }) {
                 </Link>
               </nav>
             </div>
-            <div data-w-id="676be7f9-dd44-5120-e296-de49d3466877" className="nav-link-wrap">
+            <div className="nav-link-wrap">
               <Link
                 href="/about"
                 aria-current={ariaCurrent('/about')}
@@ -97,7 +115,7 @@ export default function Navbar({ currentPage }) {
               </Link>
               <div className="nav-link-underline"></div>
             </div>
-            <div data-w-id="676be7f9-dd44-5120-e296-de49d346687b" className="nav-link-wrap">
+            <div className="nav-link-wrap">
               <Link
                 href="/contact"
                 aria-current={ariaCurrent('/contact')}
@@ -149,14 +167,21 @@ export default function Navbar({ currentPage }) {
               </button>
             </div>
             <Link
-              data-w-id="676be7f9-dd44-5120-e296-de49d3466898"
               href="/request-a-quote"
               className="button-primary mobile-hide w-inline-block"
             >
               <div className="button-primary-text">{t('nav.get-quote')}</div>
               <div className="button-primary-hover"></div>
             </Link>
-            <div className="menu-button w-nav-button">
+            <div
+              className={`menu-button w-nav-button ${menuOpen ? 'w--open' : ''}`}
+              role="button"
+              tabIndex={0}
+              aria-label="Menu"
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+              onKeyDown={onKeyToggle(setMenuOpen)}
+            >
               <div className="w-icon-nav-menu"></div>
             </div>
           </div>

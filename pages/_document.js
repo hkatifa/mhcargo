@@ -20,53 +20,11 @@ export default class Document extends NextDocument {
             rel="stylesheet"
           />
 
-          {/* Webflow touch detection */}
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: `!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);`,
-            }}
-          />
-
-          {/* Block /undefined navigation from Webflow CDN CMS scripts — must run before CDN scripts load */}
+          {/* Mark JS as available (before paint) so the reveal fail-safe CSS can
+              keep content visible when JS is disabled or fails to run. */}
           <script
             dangerouslySetInnerHTML={{
-              __html: `
-(function() {
-  function isUndefinedUrl(url) {
-    if (!url) return false;
-    try {
-      var parsed = new URL(String(url), location.origin);
-      return /\\/undefined(\\/|$|\\?|#)/.test(parsed.pathname + '/');
-    } catch(e) { return false; }
-  }
-
-  // Navigation API (Chrome 102+) — catches window.location.href assignments
-  if (typeof navigation !== 'undefined') {
-    navigation.addEventListener('navigate', function(e) {
-      try {
-        var dest = new URL(e.destination.url);
-        if (/\\/undefined(\\/|$|\\?|#)/.test(dest.pathname + '/')) {
-          e.preventDefault();
-          console.warn('[NAV BLOCKED] Navigation API blocked:', e.destination.url);
-        }
-      } catch(err) {}
-    });
-  }
-
-  // history.pushState / replaceState fallback
-  var _push = history.pushState.bind(history);
-  var _replace = history.replaceState.bind(history);
-  history.pushState = function(s, t, url) {
-    if (isUndefinedUrl(url)) { console.warn('[NAV BLOCKED] pushState:', url); return; }
-    return _push(s, t, url);
-  };
-  history.replaceState = function(s, t, url) {
-    if (isUndefinedUrl(url)) { console.warn('[NAV BLOCKED] replaceState:', url); return; }
-    return _replace(s, t, url);
-  };
-})();
-            `,
+              __html: `document.documentElement.classList.add('js')`,
             }}
           />
 
@@ -75,14 +33,6 @@ export default class Document extends NextDocument {
         <body>
           <Main />
           <NextScript />
-          {/* jQuery — served locally */}
-          <script src="/lib/jquery.min.js" type="text/javascript" />
-          {/* Webflow JS chunks — push modules to self.webpackChunk.
-              webflow-page.js (the webpack runtime) is loaded dynamically
-              in _app.js after React hydration to avoid hydration mismatches. */}
-          <script src="/lib/webflow-chunk1.js" type="text/javascript" />
-          <script src="/lib/webflow-chunk2.js" type="text/javascript" />
-          <script src="/lib/webflow-chunk3.js" type="text/javascript" />
         </body>
       </Html>
     )

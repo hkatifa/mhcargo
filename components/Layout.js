@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Script from 'next/script'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next/pages'
 import Navbar from './Navbar'
@@ -27,8 +26,6 @@ export default function Layout({
   title,
   description,
   currentPage,
-  pageId,
-  pageScript,
   ogImage,
   ogType = 'website',
   noindex = false,
@@ -81,24 +78,9 @@ export default function Layout({
           </>
         )}
       </Head>
-      {pageId && (
-        <Script
-          id={`wf-page-${pageId}`}
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `document.documentElement.setAttribute('data-wf-page','${pageId}');`,
-          }}
-        />
-      )}
       <Navbar currentPage={currentPage} />
       {children}
       <Footer />
-      {pageScript && (
-        <Script
-          src={pageScript}
-          strategy="afterInteractive"
-        />
-      )}
     </>
   )
 }

@@ -68,6 +68,63 @@ export default function Home({ latestPosts }) {
     return () => cleanups.forEach((fn) => fn())
   }, [])
 
+  // Scroll-scrubbed decoration "cars" (replaces the removed Webflow IX2 SCROLL_PROGRESS).
+  // translateX in px, mapped to each car's scroll progress, matching the keyframes
+  // captured from the original runtime. Two anchor modes (both verified against HEAD):
+  //   - 'scroll': hero car is already in view at load, so progress is page-scroll
+  //     relative to its document position (progress = scrollY / carDocTop). This starts
+  //     it at `from` (-80) at scroll 0 and keeps it locked to its path line at every
+  //     width — a viewport-relative map drifts the car off the line at ~1436-1700px.
+  //   - 'viewport': services car enters from below the fold, so progress tracks its
+  //     traversal of the viewport (progress = (vh - top) / vh).
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const targets = [
+      { el: document.querySelector('.decoration-one'), from: -80, to: 100, mode: 'scroll' },
+      { el: document.querySelector('.service-decoration-car'), from: -150, to: 250, mode: 'viewport' },
+    ].filter((t) => t.el)
+    if (!targets.length) return
+
+    // Only run the math while a car is in/near the viewport (no scroll work otherwise).
+    const active = new Set()
+    let ticking = false
+    const update = () => {
+      ticking = false
+      const vh = window.innerHeight
+      const scrollY = window.scrollY
+      targets.forEach((t) => {
+        if (!active.has(t.el)) return
+        const top = t.el.getBoundingClientRect().top
+        let p
+        if (t.mode === 'scroll') {
+          const carDocTop = top + scrollY // invariant document position of the car
+          p = carDocTop > 0 ? scrollY / carDocTop : 0
+        } else {
+          p = (vh - top) / vh
+        }
+        p = Math.min(1, Math.max(0, p))
+        t.el.style.transform = `translateX(${(t.from + (t.to - t.from) * p).toFixed(1)}px)`
+      })
+    }
+    const request = () => { if (!ticking) { ticking = true; requestAnimationFrame(update) } }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { e.isIntersecting ? active.add(e.target) : active.delete(e.target) })
+      if (active.size) request()
+    }, { rootMargin: '20% 0px' })
+    targets.forEach((t) => io.observe(t.el))
+
+    window.addEventListener('scroll', request, { passive: true })
+    window.addEventListener('resize', request)
+    update()
+
+    return () => {
+      io.disconnect()
+      window.removeEventListener('scroll', request)
+      window.removeEventListener('resize', request)
+    }
+  }, [])
+
   return (
     <Layout
       title="Home | MH Cargo - Logistics & Transportation"

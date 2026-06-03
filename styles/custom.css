@@ -63,6 +63,15 @@ body {
   animation-timing-function: ease;
   animation-fill-mode: both;
   animation-delay: 0.15s;
+  /* next/image emits explicit width+height attrs; without height:auto the intrinsic
+     ratio (~2.23:1) is lost and the truck squishes vertically. Keep auto so it scales
+     to the column width and preserves its aspect, like the original raw <img>. */
+  height: auto;
+}
+
+/* The truck slides in from translateX(110%); the wrap must not clip it mid-animation. */
+.service-hero-image-wrap {
+  overflow: visible;
 }
 
 
@@ -272,6 +281,43 @@ input[type="submit"].w-button {
   }
 }
 
+/* Issue 1 — tablet-landscape band (992-1342px): the absolutely-positioned navy
+   decoration panel no longer aligns with the feature column here, leaving the white
+   "Powering logistics" heading sitting on a light background (half-hidden) and breaking
+   the path line. Give the feature column its OWN navy background (same approach as the
+   <=991 rule) so the navy is seamless and the heading reads at every width in the band.
+   Scoped to the band only — the >1342 desktop and <=991 mobile rules are untouched. */
+@media screen and (min-width: 992px) and (max-width: 1342px) {
+  .hero-dark-bg-decoration {
+    display: block !important;
+    height: auto !important;
+    position: relative !important;
+    inset: unset !important;
+    z-index: 0 !important;
+  }
+
+  .feature-left-side {
+    background-color: #212C42;
+    position: relative;
+    z-index: 1;
+    /* The path line ends ~90px above the feature column in this band. Pull the navy
+       box up so the descending line tucks into it (as it does on >1342 desktop), and
+       add matching top padding so the heading itself stays in place. */
+    margin-top: -100px;
+    padding: 100px 20px 40px;
+  }
+
+  .hero-feature-title,
+  .feature-list-item,
+  .feature-contact-link {
+    color: #F3F0EC !important;
+  }
+
+  .contact-icon-wrap {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+  }
+}
+
 /* ===== Mobile: Navbar dropdown — flat text links, no icon boxes ===== */
 @media screen and (max-width: 991px) {
   .dropdown-services-list {
@@ -292,7 +338,7 @@ input[type="submit"].w-button {
   .dropdown-services-list a.dropdown-service-item.w-dropdown-link {
     border-radius: 0 !important;
     padding: 10px 0 !important;
-    color: inherit !important;
+    color: #212C42 !important;
     font-size: 15px !important;
     font-weight: 400 !important;
     border-bottom: 1px solid rgba(0,0,0,0.07) !important;
@@ -495,4 +541,58 @@ input[type="submit"].w-button {
     padding-top: 16px !important;
     padding-bottom: 0 !important;
   }
+}
+
+/* ============================================================
+   Phase 4 — React-driven navbar (Webflow runtime removed).
+   Behavior is toggled in React via .nav-open (mobile panel) and
+   .w--open (dropdown + hamburger). Styling reuses existing classes.
+   ============================================================ */
+.navbar.w-nav { position: relative; }
+.nav-link.w-dropdown { position: relative; }
+
+/* Reveal fail-safe: if JS is unavailable (no .js on <html>), the scroll-reveal
+   never runs, so force its targets visible — overriding their inline opacity:0.
+   Scoped to reveal targets only, so intentionally-hidden elements (hover
+   overlays, decorations, button-hover states) are NOT affected. */
+html:not(.js) [data-w-id],
+html:not(.js) [data-reveal],
+html:not(.js) .about-image {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Services dropdown: desktop opens on hover (CSS), mobile opens on tap (.w--open via React) */
+@media screen and (min-width: 992px) {
+  .nav-link.w-dropdown:hover .w-dropdown-list,
+  .nav-link.w-dropdown:focus-within .w-dropdown-list {
+    display: block;
+  }
+}
+.w-dropdown-list.w--open { display: block; }
+
+@media screen and (max-width: 991px) {
+  /* Hamburger panel reproduces the former Webflow nav overlay */
+  .navbar .nav-menu.w-nav-menu.nav-open {
+    display: block !important;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 230px;
+    background: #F6F6F6;
+    padding: 8px 20px 16px;
+    box-shadow: 0 16px 40px rgba(33, 44, 66, 0.14);
+    z-index: 60;
+  }
+  /* Services submenu expands inline inside the open mobile panel */
+  .nav-menu.nav-open .w-dropdown-list.w--open {
+    position: static;
+    display: block;
+  }
+}
+
+/* Service-list illustrations are square PNGs/SVGs in a 100%×120px box — show the
+   whole illustration (contain) instead of stretching it (webflow.css sets no object-fit). */
+.service-image {
+  object-fit: contain;
 }
