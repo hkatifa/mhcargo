@@ -2,10 +2,12 @@ import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Link from 'next/link'
 import Layout from '@/components/Layout'
+import useLeadForm from '@/lib/useLeadForm'
 import { useEffect } from 'react'
 
 export default function RequestAQuote() {
   const { t } = useTranslation(['common', 'quote'])
+  const { isSubmitting, isSuccess, isError, handleSubmit } = useLeadForm('quote')
 
   useEffect(() => {
     const section = document.querySelector('.service-scroll-section')
@@ -85,6 +87,8 @@ export default function RequestAQuote() {
                   method="get"
                   data-wf-page-id="6593b799237f27f93f4293aa"
                   data-wf-element-id="0dc16da9-79ef-95ba-a780-f8962477785b"
+                  onSubmit={handleSubmit}
+                  style={{ display: isSuccess ? 'none' : undefined }}
                 >
                   <div className="input-group-wrap">
                     <div className="input-group">
@@ -146,14 +150,22 @@ export default function RequestAQuote() {
                       </select>
                     </div>
                     <div className="input-group no-margin" style={{marginLeft:'auto'}}>
-                      <input type="submit" data-wait={t('form.please-wait')} className="button-primary-lg w-button" value={t('form.submit-quote')} style={{height:'56px'}} />
+                      <input type="submit" data-wait={t('form.please-wait')} className="button-primary-lg w-button" value={isSubmitting ? t('form.please-wait') : t('form.submit-quote')} disabled={isSubmitting} style={{height:'56px'}} />
                     </div>
                   </div>
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                  />
                 </form>
-                <div className="success-message w-form-done">
+                <div className="success-message w-form-done" role="status" style={{ display: isSuccess ? 'block' : 'none' }}>
                   <div>{t('form.success')}</div>
                 </div>
-                <div className="error-message w-form-fail">
+                <div className="error-message w-form-fail" role="alert" style={{ display: isError ? 'block' : 'none' }}>
                   <div>{t('form.error')}</div>
                 </div>
               </div>

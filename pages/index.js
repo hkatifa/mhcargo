@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslation
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Layout from '@/components/Layout'
+import useLeadForm from '@/lib/useLeadForm'
 import { getAllPosts } from '@/lib/posts'
 
 function formatDate(dateString, locale) {
@@ -18,6 +19,7 @@ function formatDate(dateString, locale) {
 export default function Home({ latestPosts }) {
   const { t } = useTranslation(['common', 'home'])
   const { locale } = useRouter()
+  const { isSubmitting, isSuccess, isError, handleSubmit } = useLeadForm('quote')
 
   useEffect(() => {
     const items = document.querySelectorAll('.service-list .grid-service-item')
@@ -253,7 +255,7 @@ export default function Home({ latestPosts }) {
             <div id="w-node-dfed5db0-959a-8ea3-5ed1-d794ae2ba3af-c3f0a02c" data-w-id="dfed5db0-959a-8ea3-5ed1-d794ae2ba3af" className="request-form-wrap">
               <div className="section-title"><h2 className="text-white">{t('request-quote.section-title')}</h2></div>
               <div className="w-form">
-                <form id="wf-form-Request-Form" name="wf-form-Request-Form" data-name="Request Form" method="get" data-wf-page-id="658a73e52a1131d1c3f0a02c" data-wf-element-id="1b21da79-8f4c-58e7-26db-1bf7d1eaa571">
+                <form id="wf-form-Request-Form" name="wf-form-Request-Form" data-name="Request Form" method="get" data-wf-page-id="658a73e52a1131d1c3f0a02c" data-wf-element-id="1b21da79-8f4c-58e7-26db-1bf7d1eaa571" onSubmit={handleSubmit} style={{ display: isSuccess ? 'none' : undefined }}>
                   <div className="input-group-wrap">
                     <div className="input-group"><input className="form-input request-input w-input" maxLength="256" name="Full-Name" data-name="Full Name" placeholder={t('form.full-name')} type="text" id="full-name" required /></div>
                     <div className="input-group"><input className="form-input request-input w-input" maxLength="256" name="Email" data-name="Email" placeholder={t('form.email')} type="email" id="email" required /></div>
@@ -298,12 +300,20 @@ export default function Home({ latestPosts }) {
                       </select>
                     </div>
                     <div className="input-group no-margin" style={{marginLeft:'auto'}}>
-                      <input type="submit" data-wait={t('form.please-wait')} className="button-primary-lg w-button" value={t('form.submit-quote')} style={{height:'56px'}} />
+                      <input type="submit" data-wait={t('form.please-wait')} className="button-primary-lg w-button" value={isSubmitting ? t('form.please-wait') : t('form.submit-quote')} disabled={isSubmitting} style={{height:'56px'}} />
                     </div>
                   </div>
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                  />
                 </form>
-                <div className="success-message w-form-done"><div>{t('form.success')}</div></div>
-                <div className="error-message w-form-fail"><div>{t('form.error')}</div></div>
+                <div className="success-message w-form-done" role="status" style={{ display: isSuccess ? 'block' : 'none' }}><div>{t('form.success')}</div></div>
+                <div className="error-message w-form-fail" role="alert" style={{ display: isError ? 'block' : 'none' }}><div>{t('form.error')}</div></div>
               </div>
             </div>
           </div>

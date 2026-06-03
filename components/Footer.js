@@ -39,6 +39,7 @@ export default function Footer() {
                   <Link href="/services" className="footer-link">{t('footer.services-link')}</Link>
                   <Link href="/contact" className="footer-link">{t('footer.contact')}</Link>
                   <Link href="/blog" className="footer-link">{t('footer.blog')}</Link>
+                  <Link href="/privacy-policy" className="footer-link">{t('footer.privacy')}</Link>
                 </div>
               </div>
               <div

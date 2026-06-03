@@ -1,9 +1,11 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Layout from '@/components/Layout'
+import useLeadForm from '@/lib/useLeadForm'
 
 export default function ContactPage() {
   const { t } = useTranslation(['common', 'contact'])
+  const { isSubmitting, isSuccess, isError, handleSubmit } = useLeadForm('contact')
 
   return (
     <Layout
@@ -59,6 +61,8 @@ export default function ContactPage() {
                   method="get"
                   data-wf-page-id="6593b13bd4215558dc6f3a3e"
                   data-wf-element-id="1fa5fb58-f458-3f49-84e6-d5cd312993af"
+                  onSubmit={handleSubmit}
+                  style={{ display: isSuccess ? 'none' : undefined }}
                 >
                   <div className="input-group">
                     <label htmlFor="name">{t('contact:form.name-label')}</label>
@@ -108,19 +112,29 @@ export default function ContactPage() {
                       data-name="Message"
                       placeholder={t('contact:form.message-placeholder')}
                       className="form-input contact-input form-textarea w-input"
+                      required
                     ></textarea>
                   </div>
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                  />
                   <input
                     type="submit"
                     data-wait={t('form.please-wait')}
                     className="button-primary-lg w-button"
-                    value={t('contact:form.submit')}
+                    value={isSubmitting ? t('form.please-wait') : t('contact:form.submit')}
+                    disabled={isSubmitting}
                   />
                 </form>
-                <div className="success-message w-form-done">
+                <div className="success-message w-form-done" role="status" style={{ display: isSuccess ? 'block' : 'none' }}>
                   <div>{t('form.success')}</div>
                 </div>
-                <div className="error-message w-form-fail">
+                <div className="error-message w-form-fail" role="alert" style={{ display: isError ? 'block' : 'none' }}>
                   <div>{t('form.error')}</div>
                 </div>
               </div>
