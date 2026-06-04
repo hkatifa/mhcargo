@@ -7,15 +7,7 @@ import Layout from '../../components/Layout'
 import { MDXRemote } from 'next-mdx-remote'
 import { serialize } from 'next-mdx-remote/serialize'
 import { getPostBySlug, getAllSlugs, getAllPosts } from '../../lib/posts'
-
-function formatDate(dateString, locale) {
-  if (!dateString) return ''
-  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
+import formatDate from '../../lib/formatDate'
 
 function toEmbedUrl(url) {
   if (!url) return ''
@@ -83,7 +75,7 @@ export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) 
           <div className="blog-detail-item">
             <div className="blog-detail-title-wrap">
               <div className="text-primary-1">
-                {formatDate(post.publishedAt, locale)}
+                {post.dateDisplay}
               </div>
               <h1 className="heading-h3">
                 {displayTitle}
@@ -154,7 +146,7 @@ export default function BlogPost({ post, mdxSource, mdxSourceFr, recentPosts }) 
                         <div style={{ opacity: 0, width: '0%', height: '100%' }} className="blog-hover-overlay"></div>
                       </div>
                       <div>
-                        <div className="blog-date">{formatDate(recent.publishedAt, locale)}</div>
+                        <div className="blog-date">{recent.dateDisplay}</div>
                         <h2 className="blog-title">{locale === 'fr' && recent.title_fr ? recent.title_fr : recent.title}</h2>
                       </div>
                     </Link>
@@ -188,7 +180,10 @@ export async function getStaticProps({ params, locale }) {
   ])
 
   const allPosts = getAllPosts()
-  const recentPosts = allPosts.filter(p => p.slug !== params.slug).slice(0, 3)
+  const recentPosts = allPosts
+    .filter(p => p.slug !== params.slug)
+    .slice(0, 3)
+    .map(p => ({ ...p, dateDisplay: formatDate(p.publishedAt, locale) }))
 
   return {
     props: {
@@ -197,6 +192,7 @@ export async function getStaticProps({ params, locale }) {
         title_fr: post.title_fr || null,
         slug: post.slug,
         publishedAt: post.publishedAt || null,
+        dateDisplay: formatDate(post.publishedAt, locale),
         excerpt: post.excerpt || null,
         excerpt_fr: post.excerpt_fr || null,
         mainImage: post.mainImage || null,

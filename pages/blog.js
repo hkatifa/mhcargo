@@ -5,15 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/Layout'
 import { getAllPosts } from '@/lib/posts'
-
-function formatDate(dateString, locale) {
-  if (!dateString) return ''
-  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
+import formatDate from '@/lib/formatDate'
 
 export default function BlogPage({ posts }) {
   const { t } = useTranslation(['common', 'blog'])
@@ -80,7 +72,7 @@ export default function BlogPage({ posts }) {
                           style={{ opacity: 0 }}
                           className="blog-date"
                         >
-                          {formatDate(post.publishedAt, locale)}
+                          {post.dateDisplay}
                         </div>
                         <h2
                           data-w-id="d956d5ee-3527-0685-6bb4-cd816142f318"
@@ -103,7 +95,10 @@ export default function BlogPage({ posts }) {
 }
 
 export async function getStaticProps({ locale }) {
-  const posts = getAllPosts()
+  const posts = getAllPosts().map((post) => ({
+    ...post,
+    dateDisplay: formatDate(post.publishedAt, locale),
+  }))
   return {
     props: {
       posts,

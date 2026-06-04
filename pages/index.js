@@ -7,20 +7,12 @@ import Image from 'next/image'
 import Layout from '@/components/Layout'
 import useLeadForm from '@/lib/useLeadForm'
 import { getAllPosts } from '@/lib/posts'
+import formatDate from '@/lib/formatDate'
 import heroContainerEn from '@/public/brand/container.png'
 import heroContainerFr from '@/public/brand/container-fr.png'
 import heroSpanIcon from '@/public/brand/Small icon.png'
 import whyImage from '@/public/brand/Why.jpg'
 import serviceStorage from '@/public/brand/service-04.png'
-
-function formatDate(dateString, locale) {
-  if (!dateString) return ''
-  return new Date(dateString).toLocaleDateString(locale === 'fr' ? 'fr-FR' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  })
-}
 
 export default function Home({ latestPosts }) {
   const { t } = useTranslation(['common', 'home'])
@@ -431,7 +423,7 @@ export default function Home({ latestPosts }) {
                         <div style={{opacity:0,width:'0%',height:'100%'}} className="blog-hover-overlay"></div>
                       </div>
                       <div>
-                        <div className="blog-date">{formatDate(post.publishedAt, locale)}</div>
+                        <div className="blog-date">{post.dateDisplay}</div>
                         <h3 className="blog-title">{locale === 'fr' && post.title_fr ? post.title_fr : post.title}</h3>
                       </div>
                     </Link>
@@ -447,7 +439,9 @@ export default function Home({ latestPosts }) {
 }
 
 export async function getStaticProps({ locale }) {
-  const latestPosts = getAllPosts().slice(0, 3)
+  const latestPosts = getAllPosts()
+    .slice(0, 3)
+    .map((post) => ({ ...post, dateDisplay: formatDate(post.publishedAt, locale) }))
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'home'])),
