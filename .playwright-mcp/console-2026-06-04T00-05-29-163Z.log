@@ -1,0 +1,11 @@
+[    1224ms] Error: Minified React error #418; visit https://react.dev/errors/418?args[]=text&args[]= for the full message or use the non-minified dev environment for full errors and additional helpful warnings.
+    at rR (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:39899)
+    at rO (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:40932)
+    at https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:124243
+    at ik (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:129114)
+    at ib (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:120904)
+    at https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:120688
+    at iv (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:120696)
+    at io (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:116071)
+    at iX (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:139203)
+    at MessagePort.R (https://www.mhcargo.ma/_next/static/chunks/8a669fd7d86ab9f3.js?dpl=dpl_5orDFiMN3UrfrQBLHFuKZcUCVqK2:1:3083)
