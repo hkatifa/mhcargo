@@ -10,4 +10,8 @@ export default defineCliConfig({
     dataset: 'production',
   },
   studioHost: 'mh-cargo',
+  // Pinned from the first deploy so subsequent `sanity deploy` runs are non-interactive.
+  deployment: {
+    appId: 'nixzbnrfwwwz1pn4u37yfinr',
+  },
 })
