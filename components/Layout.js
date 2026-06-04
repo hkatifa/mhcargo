@@ -29,6 +29,10 @@ export default function Layout({
   ogImage,
   ogType = 'website',
   noindex = false,
+  // Optional per-locale paths, e.g. { en: '/blog/<enSlug>', fr: '/blog/<frSlug>' }.
+  // Used by blog posts where EN/FR have different slugs. A locale may be absent
+  // (untranslated). When omitted, both locales share `currentPage` (most pages).
+  localeAlternates,
 }) {
   const { locale } = useRouter()
   const { t } = useTranslation('common')
@@ -37,9 +41,13 @@ export default function Layout({
   const pageTitle = title || 'MH Cargo - Logistics & Transportation'
   const metaDescription = description || t('seo.default.description')
 
-  const canonical = localeUrl(currentPage, activeLocale)
-  const enUrl = localeUrl(currentPage, 'en')
-  const frUrl = localeUrl(currentPage, 'fr')
+  const enPath = localeAlternates ? localeAlternates.en : currentPage
+  const frPath = localeAlternates ? localeAlternates.fr : currentPage
+  const activePath = (localeAlternates && localeAlternates[activeLocale]) || currentPage
+  const canonical = localeUrl(activePath, activeLocale)
+  const enUrl = enPath ? localeUrl(enPath, 'en') : null
+  const frUrl = frPath ? localeUrl(frPath, 'fr') : null
+  const xDefaultUrl = enUrl || frUrl
   const ogImageUrl = absoluteImage(ogImage)
   const ogLocale = activeLocale === 'fr' ? 'fr_FR' : 'en_US'
   const ogLocaleAlt = activeLocale === 'fr' ? 'en_US' : 'fr_FR'
@@ -56,9 +64,9 @@ export default function Layout({
         ) : (
           <>
             <link rel="canonical" href={canonical} />
-            <link rel="alternate" hrefLang="en" href={enUrl} />
-            <link rel="alternate" hrefLang="fr" href={frUrl} />
-            <link rel="alternate" hrefLang="x-default" href={enUrl} />
+            {enUrl && <link rel="alternate" hrefLang="en" href={enUrl} />}
+            {frUrl && <link rel="alternate" hrefLang="fr" href={frUrl} />}
+            {xDefaultUrl && <link rel="alternate" hrefLang="x-default" href={xDefaultUrl} />}
 
             {/* Open Graph */}
             <meta property="og:type" content={ogType} />
@@ -78,7 +86,7 @@ export default function Layout({
           </>
         )}
       </Head>
-      <Navbar currentPage={currentPage} />
+      <Navbar currentPage={currentPage} localeAlternates={localeAlternates} />
       {children}
       <Footer />
     </>

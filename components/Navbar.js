@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Navbar({ currentPage }) {
+export default function Navbar({ currentPage, localeAlternates }) {
   const { t } = useTranslation('common')
   const router = useRouter()
 
@@ -23,6 +23,15 @@ export default function Navbar({ currentPage }) {
   const ariaCurrent = (page) => currentPage === page ? 'page' : undefined
 
   const switchLocale = (locale) => {
+    // Blog posts pass per-locale paths because EN/FR slugs differ. Route to the
+    // target locale's OWN slug; if it isn't translated, go to that locale's blog
+    // index instead of reusing this slug (which would 404).
+    if (localeAlternates) {
+      const target = localeAlternates[locale]
+      router.push(target || '/blog', undefined, { locale })
+      return
+    }
+    // Every other page shares the same path across locales — swap locale only.
     router.push(router.pathname, router.asPath, { locale })
   }
 

@@ -10,7 +10,7 @@ import { client, urlFor } from '../../lib/sanity'
 import { BY_SLUG_QUERY, RECENT_QUERY, ALL_SLUGS_QUERY } from '../../lib/queries'
 import formatDate from '../../lib/formatDate'
 
-export default function BlogPost({ post, recentPosts }) {
+export default function BlogPost({ post, recentPosts, localeAlternates }) {
   const { t } = useTranslation(['common', 'blog'])
   const { isFallback } = useRouter()
 
@@ -30,6 +30,7 @@ export default function BlogPost({ post, recentPosts }) {
       ogType="article"
       ogImage={ogImage}
       currentPage={`/blog/${post.slug}`}
+      localeAlternates={localeAlternates}
       pageId="658e8ceffc69948c62c49e92"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"
       pageScriptIntegrity="sha384-JQ8NEenuih5nSCtHH1wSH/JB9jSHPJi4KfMmJGPgwnoeGmGC3twaB2rDvt7/GD3A"
@@ -140,10 +141,21 @@ export async function getStaticProps({ params, locale }) {
     dateDisplay: formatDate(p.publishedAt, locale),
   }))
 
+  // Per-locale paths from the linked translations. EN/FR slugs differ, so the
+  // language switcher and hreflang must use each locale's OWN slug. A locale may
+  // be absent here (untranslated) — consumers omit it / fall back to the index.
+  const localeAlternates = {}
+  for (const tr of post.translations || []) {
+    if (tr?.language && tr?.slug) localeAlternates[tr.language] = `/blog/${tr.slug}`
+  }
+  // Guarantee the current document's own slug is present even with no metadata link.
+  localeAlternates[locale] = `/blog/${post.slug}`
+
   return {
     props: {
       post: { ...post, dateDisplay: formatDate(post.publishedAt, locale) },
       recentPosts,
+      localeAlternates,
       ...(await serverSideTranslations(locale, ['common', 'blog'])),
     },
     revalidate: 60,
