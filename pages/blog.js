@@ -1,15 +1,14 @@
 import { useTranslation } from 'next-i18next/pages'
 import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-import Image from 'next/image'
 import Layout from '@/components/Layout'
-import { getAllPosts } from '@/lib/posts'
+import SanityImage from '@/components/SanityImage'
+import { client } from '@/lib/sanity'
+import { LIST_QUERY } from '@/lib/queries'
 import formatDate from '@/lib/formatDate'
 
 export default function BlogPage({ posts }) {
   const { t } = useTranslation(['common', 'blog'])
-  const { locale } = useRouter()
 
   return (
     <Layout
@@ -46,10 +45,10 @@ export default function BlogPage({ posts }) {
                         style={{ opacity: 0 }}
                         className="blog-image-wrap"
                       >
-                        {post.mainImage ? (
-                          <Image
-                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
-                            src={post.mainImage}
+                        {post.mainImage?.asset ? (
+                          <SanityImage
+                            image={post.mainImage}
+                            alt={post.mainImage.alt || post.title}
                             width={550}
                             height={370}
                             sizes="(max-width: 767px) 100vw, 33vw"
@@ -58,7 +57,7 @@ export default function BlogPage({ posts }) {
                           />
                         ) : (
                           <img
-                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
+                            alt={post.title}
                             loading="eager"
                             src="https://placehold.co/550x370"
                             className="blog-image"
@@ -79,7 +78,7 @@ export default function BlogPage({ posts }) {
                           style={{ opacity: 0 }}
                           className="blog-title"
                         >
-                          {locale === 'fr' && post.title_fr ? post.title_fr : post.title}
+                          {post.title}
                         </h2>
                       </div>
                     </Link>
@@ -95,7 +94,8 @@ export default function BlogPage({ posts }) {
 }
 
 export async function getStaticProps({ locale }) {
-  const posts = getAllPosts().map((post) => ({
+  const raw = await client.fetch(LIST_QUERY, { language: locale })
+  const posts = (raw || []).map((post) => ({
     ...post,
     dateDisplay: formatDate(post.publishedAt, locale),
   }))
@@ -104,5 +104,7 @@ export async function getStaticProps({ locale }) {
       posts,
       ...(await serverSideTranslations(locale, ['common', 'blog'])),
     },
+    // ISR: re-generate at most every 60s; on-demand webhook (stage 3) revalidates instantly.
+    revalidate: 60,
   }
 }

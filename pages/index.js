@@ -6,7 +6,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Layout from '@/components/Layout'
 import useLeadForm from '@/lib/useLeadForm'
-import { getAllPosts } from '@/lib/posts'
+import SanityImage from '@/components/SanityImage'
+import { client } from '@/lib/sanity'
+import { LATEST_QUERY } from '@/lib/queries'
 import formatDate from '@/lib/formatDate'
 import heroContainerEn from '@/public/brand/container.png'
 import heroContainerFr from '@/public/brand/container-fr.png'
@@ -394,7 +396,7 @@ export default function Home({ latestPosts }) {
             {latestPosts.length > 0 ? (
               <div role="list" className="grid-blog-list w-dyn-items">
                 {latestPosts.map((post) => (
-                  <div key={post.slug} role="listitem" className="w-dyn-item">
+                  <div key={post._id} role="listitem" className="w-dyn-item">
                     <Link
                       aria-label="link"
                       data-w-id="766a3a2c-3b2c-dd63-5a82-fce6724cc60d"
@@ -402,10 +404,10 @@ export default function Home({ latestPosts }) {
                       className="blog-item w-inline-block"
                     >
                       <div className="blog-image-wrap">
-                        {post.mainImage ? (
-                          <Image
-                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
-                            src={post.mainImage}
+                        {post.mainImage?.asset ? (
+                          <SanityImage
+                            image={post.mainImage}
+                            alt={post.mainImage.alt || post.title}
                             width={550}
                             height={370}
                             sizes="(max-width: 767px) 100vw, 33vw"
@@ -414,7 +416,7 @@ export default function Home({ latestPosts }) {
                           />
                         ) : (
                           <img
-                            alt={locale === 'fr' && post.title_fr ? post.title_fr : post.title}
+                            alt={post.title}
                             loading="eager"
                             src="https://placehold.co/550x370"
                             className="blog-image"
@@ -424,7 +426,7 @@ export default function Home({ latestPosts }) {
                       </div>
                       <div>
                         <div className="blog-date">{post.dateDisplay}</div>
-                        <h3 className="blog-title">{locale === 'fr' && post.title_fr ? post.title_fr : post.title}</h3>
+                        <h3 className="blog-title">{post.title}</h3>
                       </div>
                     </Link>
                   </div>
@@ -439,13 +441,16 @@ export default function Home({ latestPosts }) {
 }
 
 export async function getStaticProps({ locale }) {
-  const latestPosts = getAllPosts()
-    .slice(0, 3)
-    .map((post) => ({ ...post, dateDisplay: formatDate(post.publishedAt, locale) }))
+  const raw = await client.fetch(LATEST_QUERY, { language: locale })
+  const latestPosts = (raw || []).map((post) => ({
+    ...post,
+    dateDisplay: formatDate(post.publishedAt, locale),
+  }))
   return {
     props: {
       ...(await serverSideTranslations(locale, ['common', 'home'])),
       latestPosts,
     },
+    revalidate: 60,
   }
 }
