@@ -1,10 +1,56 @@
+import fs from 'fs'
+import path from 'path'
+import { useTranslation } from 'next-i18next/pages'
+import { serverSideTranslations } from 'next-i18next/pages/serverSideTranslations'
 import Layout from '@/components/Layout'
 
-export default function PrivacyPolicy() {
+// Minimal renderer for the small, fully-controlled markdown subset used in
+// privacy-policy.md: paragraphs, `- ` bullet lists, **bold** and *italic*.
+// (No markdown dependency — the content source is our own md file.)
+function renderInline(text, kp) {
+  const nodes = []
+  const re = /\*\*([^*]+)\*\*|\*([^*]+)\*/g
+  let last = 0
+  let i = 0
+  let m
+  while ((m = re.exec(text)) !== null) {
+    if (m.index > last) nodes.push(text.slice(last, m.index))
+    if (m[1] !== undefined) nodes.push(<strong key={`${kp}-b${i}`}>{m[1]}</strong>)
+    else nodes.push(<em key={`${kp}-i${i}`}>{m[2]}</em>)
+    i += 1
+    last = m.index + m[0].length
+  }
+  if (last < text.length) nodes.push(text.slice(last))
+  return nodes
+}
+
+function renderMarkdown(md) {
+  return md
+    .trim()
+    .split(/\n\s*\n/)
+    .map((block, bi) => {
+      const lines = block.split('\n').map((l) => l.trim()).filter(Boolean)
+      if (lines.length && lines.every((l) => l.startsWith('- '))) {
+        return (
+          <ul role="list" key={`blk${bi}`}>
+            {lines.map((l, li) => (
+              <li key={`blk${bi}-li${li}`}>{renderInline(l.replace(/^- /, ''), `blk${bi}-li${li}`)}</li>
+            ))}
+          </ul>
+        )
+      }
+      return <p key={`blk${bi}`}>{renderInline(lines.join(' '), `blk${bi}`)}</p>
+    })
+}
+
+export default function PrivacyPolicy({ content }) {
+  const { t } = useTranslation('common')
+  const heading = t('footer.privacy')
+
   return (
     <Layout
-      title="Privacy Policy | MH Cargo"
-      description="MH Cargo's privacy policy: how we collect, use and protect the personal information you share through our website and quote forms."
+      title={`${heading} | MH Cargo`}
+      description={t('seo.privacy.description')}
       currentPage="/privacy-policy"
       pageId="658a73e52a1131d1c3f0a033"
       pageScript="https://cdn.prod.website-files.com/658a73e52a1131d1c3f0a037/js/webflow.4267b5ed.29252e1b82c7457f.js"
@@ -12,39 +58,39 @@ export default function PrivacyPolicy() {
     >
       <div className="hero-inner text-center">
         <div className="container w-container">
-          <h1>Privacy policy</h1>
+          <h1>{heading}</h1>
         </div>
       </div>
 
       <div className="privacy-section section-spacing-bottom">
         <div className="container-medium w-container">
           <div className="privacy-wrap">
-            <div className="rich-text w-richtext">
-              <h2 className="heading-h5">
-                Collecting Personal Information<br />
-              </h2>
-              <p>All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
-              <ul role="list">
-                <li>There are many variations of passages of Lorem Ipsum available.</li>
-                <li>Iusto odio dignissimos ducimus qui blanditiis.</li>
-                <li>Praesentium voluptatum deleniti atque.</li>
-                <li>Quas molestias excepturi sint occaecati.</li>
-              </ul>
-              <p>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from &quot;de Finibus Bonorum et Malorum&quot; <em>by Cicero are also reproduced in their exact original form</em>, accompanied by English versions from the 1914 translation by H. Rackham.</p>
-              <h3 className="heading-h5">Sharing Personal Information</h3>
-              <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don&#x27;t look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn&#x27;t anything embarrassing <strong>hidden in the middle of text.</strong> All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
-              <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-              <ol start="" role="list">
-                <li>sometimes on purpose.</li>
-                <li>classical Latin literature from 45 BC.</li>
-                <li>The Extremes of Good and Evil.</li>
-                <li>This book is a treatise on the theory.</li>
-              </ol>
-              <p>Combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
-            </div>
+            <div className="rich-text w-richtext">{renderMarkdown(content)}</div>
           </div>
         </div>
       </div>
     </Layout>
   )
+}
+
+// Extract a single "## <Heading>" section body from privacy-policy.md, dropping
+// the `---` horizontal-rule separators. [date] placeholders pass through verbatim.
+function extractSection(md, heading) {
+  const block = md.split(/^## /m).find((b) => b.startsWith(heading))
+  if (!block) return ''
+  return block
+    .replace(new RegExp(`^${heading}\\s*`), '')
+    .replace(/^---\s*$/gm, '')
+    .trim()
+}
+
+export async function getStaticProps({ locale }) {
+  const md = fs.readFileSync(path.join(process.cwd(), 'privacy-policy.md'), 'utf8')
+  const content = extractSection(md, locale === 'fr' ? 'Français' : 'English')
+  return {
+    props: {
+      content,
+      ...(await serverSideTranslations(locale, ['common'])),
+    },
+  }
 }

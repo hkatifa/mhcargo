@@ -126,6 +126,16 @@ export default function Navbar({ currentPage, localeAlternates }) {
             </div>
             <div className="nav-link-wrap">
               <Link
+                href="/blog"
+                aria-current={ariaCurrent('/blog')}
+                className={`nav-link w-nav-link ${isCurrentPage('/blog')}`}
+              >
+                {t('nav.blog')}
+              </Link>
+              <div className="nav-link-underline"></div>
+            </div>
+            <div className="nav-link-wrap">
+              <Link
                 href="/contact"
                 aria-current={ariaCurrent('/contact')}
                 className={`nav-link w-nav-link ${isCurrentPage('/contact')}`}
