@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 perf-shots/
+perf-purge-html/
+perf-purge-rejected.txt
+public/lib/webflow.purged.css

@@ -23,6 +23,9 @@
     "resend": "^6.12.4"
   },
   "devDependencies": {
-    "puppeteer": "^24.37.5"
+    "pixelmatch": "^7.2.0",
+    "pngjs": "^7.0.0",
+    "puppeteer": "^24.37.5",
+    "purgecss": "^8.0.0"
   }
 }
