@@ -144,6 +144,39 @@ service-storage, contact, request-a-quote, blog-en, blog-fr, post-en, post-fr, p
 - Line endings: on-disk file sizes vary by CRLF/LF after `git checkout` (autocrlf). All byte figures
   above use the **LF content size** measured by the purge script (apples-to-apples).
 
+## Full Portable Text style survival (fixture test)
+
+The 70-pair pixel-diff only covers what the **current 3 posts emit**. To confirm the purge keeps
+the **entire schema-supported** style set, a temporary fixture page (`pages/perf-fixture.js`,
+since removed) rendered every style/block inside the real `.rich-text.w-richtext` wrapper, and
+computed styles were captured under the **purged** vs **original** webflow.css (same fixture, CSS
+swapped — isolates the purge effect).
+
+**Result: IDENTICAL for every element** — h2, h3, h4, h5, blockquote, paragraph, `strong`, `em`,
+underline, link, `ul`/`ol`/`li`. (e.g. h2 55px / h3 42px / h4 36px / h5 30px, weight 600, navy;
+blockquote boxed; `em` italic; `strong` 700; lists disc/decimal — all matched bit-for-bit.) The
+`.w-richtext` deep-safelist preserved the heading/quote/list rules even though no current post uses
+them. ctaBox (both navy/left **and** orange/center with derived buttons), the inline image
+(figure+caption) and the youtube embed are styled by **inline styles in `PortableBody.js`**, so the
+webflow.css purge can't affect them — all confirmed rendering in the fixture screenshot
+(`perf-shots/fixture-purged__1100.png`).
+
+| Style / block | Exercised by current 3 posts? | Survived purge? | Needed extra safelisting? |
+|---|---|---|---|
+| paragraph, `strong`, bullet list | yes (in pixel-diff) | yes | no |
+| ctaBox navy / left | yes | yes (inline-styled) | no |
+| h2, h3, h4, h5 | no | **yes** | no |
+| blockquote | no | **yes** | no |
+| `em` (italic), underline | no | **yes** | no |
+| link (`a`) | no | **yes** | no |
+| numbered (`ol`) list | no | **yes** | no |
+| ctaBox orange / center | no | yes (inline-styled) | no |
+| inline image (figure+caption) | no | yes (inline-styled) | no |
+| youtube embed | no | yes (inline-styled) | no |
+
+**Nothing needed safelisting / re-purge** — the conservative safelist already covers the full set.
+(Temp fixture page + capture scripts were removed; the screenshot remains under `perf-shots/`.)
+
 ## Your review steps
 1. Skim `perf-shots/before` vs `perf-shots/after` (esp. 1550 & 1100 bands, 390 mobile nav).
 2. If happy: merge `perf/css-fonts` → main and deploy. (I did **not** merge/deploy.)
