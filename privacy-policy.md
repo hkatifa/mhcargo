@@ -11,7 +11,7 @@
 
 ## English
 
-*Last updated: [date]*
+*Last updated: 05/06/2026*
 
 MH Cargo SARL ("MH Cargo", "we") is a freight and logistics company based in Morocco. This policy explains what personal information we collect through this website and how we use it. Questions: contact@mhcargo.ma.
 
@@ -51,7 +51,7 @@ We may update this policy from time to time; the date above reflects the latest 
 
 ## Français
 
-*Dernière mise à jour : [date]*
+*Dernière mise à jour : 05/06/2026*
 
 MH Cargo SARL (« MH Cargo », « nous ») est une société de fret et de logistique basée au Maroc. La présente politique explique quelles données personnelles nous collectons via ce site web et comment nous les utilisons. Questions : contact@mhcargo.ma.
 
