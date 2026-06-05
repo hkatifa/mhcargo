@@ -12,13 +12,8 @@ export default class Document extends NextDocument {
           {/* Webflow CSS — served locally */}
           <link href="/lib/webflow.css" rel="stylesheet" type="text/css" />
 
-          {/* DM Sans font — Google Fonts link (no JS required) */}
-          <link href="https://fonts.googleapis.com" rel="preconnect" />
-          <link href="https://fonts.gstatic.com" rel="preconnect" crossOrigin="anonymous" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap"
-            rel="stylesheet"
-          />
+          {/* DM Sans is loaded via next/font/google in _app.js (self-hosted,
+              preloaded, non-render-blocking). No external font <link> here. */}
 
           {/* Mark JS as available (before paint) so the reveal fail-safe CSS can
               keep content visible when JS is disabled or fails to run. */}

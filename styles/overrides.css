@@ -337,11 +337,11 @@ html, body {
   overflow-x: unset;
   background: unset;
   color: unset;
-  font-family: 'DM Sans', sans-serif;
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif;
 }
 
 body, h1, h2, h3, h4, h5, h6, p, a, div, span, input, select, button, textarea {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: var(--font-dm-sans), 'DM Sans', sans-serif !important;
 }
 
 * {
