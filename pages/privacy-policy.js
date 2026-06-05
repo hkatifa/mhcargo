@@ -30,6 +30,13 @@ function renderMarkdown(md) {
     .split(/\n\s*\n/)
     .map((block, bi) => {
       const lines = block.split('\n').map((l) => l.trim()).filter(Boolean)
+      if (lines.length && lines[0].startsWith('## ')) {
+        return (
+          <h2 className="heading-h5" key={`blk${bi}`}>
+            {renderInline(lines[0].replace(/^##\s+/, ''), `blk${bi}`)}
+          </h2>
+        )
+      }
       if (lines.length && lines.every((l) => l.startsWith('- '))) {
         return (
           <ul role="list" key={`blk${bi}`}>
@@ -73,13 +80,28 @@ export default function PrivacyPolicy({ content }) {
   )
 }
 
-// Extract a single "## <Heading>" section body from privacy-policy.md, dropping
-// the `---` horizontal-rule separators. [date] placeholders pass through verbatim.
+// Extract one language section from privacy-policy.md. Split ONLY on the two
+// exact language-divider lines `## English` / `## Français` — every other `## `
+// line is a section heading and must stay inside the section body. `---` rules
+// are dropped; [date] placeholders pass through verbatim.
 function extractSection(md, heading) {
-  const block = md.split(/^## /m).find((b) => b.startsWith(heading))
-  if (!block) return ''
-  return block
-    .replace(new RegExp(`^${heading}\\s*`), '')
+  const lines = md.split('\n')
+  const isDivider = (l) => {
+    const t = l.trim()
+    return t === '## English' || t === '## Français'
+  }
+  const start = lines.findIndex((l) => l.trim() === `## ${heading}`)
+  if (start === -1) return ''
+  let end = lines.length
+  for (let i = start + 1; i < lines.length; i += 1) {
+    if (isDivider(lines[i])) {
+      end = i
+      break
+    }
+  }
+  return lines
+    .slice(start + 1, end)
+    .join('\n')
     .replace(/^---\s*$/gm, '')
     .trim()
 }
